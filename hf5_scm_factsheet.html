@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF5: Supply Chain Management</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; font-size: 10pt; }
+            .page { page-break-after: always; height: 100vh; }
+            .page:last-child { page-break-after: avoid; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.3;
+            color: #1a1a1a;
+            background: white;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 15mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        
+        /* Titel-Seite */
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.5em;
+            color: #1565c0;
+            margin-bottom: 20px;
+        }
+        
+        .title-page h2 {
+            font-size: 1.5em;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .toc h3 {
+            color: #1565c0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Content-Seiten */
+        h1 {
+            color: #1565c0;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #1565c0;
+            padding-bottom: 5px;
+        }
+        
+        h2 {
+            color: #1976d2;
+            font-size: 1.3em;
+            margin: 15px 0 10px 0;
+            border-left: 3px solid #1976d2;
+            padding-left: 10px;
+        }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.1em;
+            margin: 10px 0 5px 0;
+            font-weight: bold;
+        }
+        
+        ul {
+            margin: 5px 0 15px 15px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 4px;
+            font-size: 0.95em;
+        }
+        
+        strong {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            padding: 10px;
+            border-left: 4px solid #ff9800;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        
+        .formula-box {
+            background: #e8f5e8;
+            padding: 12px;
+            border-left: 4px solid #4caf50;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+        
+        .glossar-item {
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #1565c0;
+        }
+        
+        .glossar-def {
+            margin-top: 2px;
+            font-size: 0.9em;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1565c0;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .print-btn:hover {
+            background: #0d47a1;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <!-- Seite 1: Titel und Inhaltsverzeichnis -->
+    <div class="page title-page">
+        <h1>Handlungsfeld 5</h1>
+        <h2>Supply Chain Management</h2>
+        <p style="margin-bottom: 30px;">Technische Kaufleute - Eidgenössische Berufsprüfung</p>
+        
+        <div class="toc">
+            <h3>📋 Inhaltsverzeichnis</h3>
+            <div class="toc-item">
+                <span>LF1: Logistik Grundlagen</span>
+                <span>Seite 2</span>
+            </div>
+            <div class="toc-item">
+                <span>LF2: Beschaffungslogistik</span>
+                <span>Seite 3</span>
+            </div>
+            <div class="toc-item">
+                <span>LF3: Produktionslogistik</span>
+                <span>Seite 4</span>
+            </div>
+            <div class="toc-item">
+                <span>LF4: Lagerlogistik</span>
+                <span>Seite 5</span>
+            </div>
+            <div class="toc-item">
+                <span>LF5: Distributionslogistik</span>
+                <span>Seite 6</span>
+            </div>
+            <div class="toc-item">
+                <span>LF6: Entsorgungslogistik</span>
+                <span>Seite 7</span>
+            </div>
+            <div class="toc-item">
+                <span>LF7-9: Infrastruktur & ICT</span>
+                <span>Seite 8</span>
+            </div>
+            <div class="toc-item">
+                <span>LF10: Sourcing & Projektmanagement</span>
+                <span>Seite 9</span>
+            </div>
+            <div class="toc-item">
+                <span>LF11-12: Qualität & Umwelt</span>
+                <span>Seite 10</span>
+            </div>
+            <div class="toc-item">
+                <span>Glossar & Formeln</span>
+                <span>Seite 11-12</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: LF1 Logistik Grundlagen -->
+    <div class="page">
+        <h1>🔗 LF1: Logistik Grundlagen</h1>
+        
+        <h2>📊 Logistisches Zieldreieck</h2>
+        <h3>Definition</h3>
+        <p><strong>Logistik:</strong> Koordination und Optimierung der Informations- und Materialwirtschaft</p>
+        
+        <h3>Zieldreieck-Dimensionen</h3>
+        <ul>
+            <li><strong>Leistung:</strong> Aufträge und Durchsatz maximieren</li>
+            <li><strong>Qualität:</strong> Tests und Servicegrad optimieren</li>
+            <li><strong>Kosten:</strong> System-, Steuerungs-, Bestands- und TUL-Kosten minimieren</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>💡 Grundprinzip:</strong> Es können nie alle drei Bereiche zu 100% erfüllt werden. Das Zieldreieck dient zur Prozessverbesserung und Strategieableitung.
+        </div>
+        
+        <h2>🎯 6R-Ziele der Logistik</h2>
+        <ul>
+            <li><strong>Right Product:</strong> Richtige Ware/Dienstleistung</li>
+            <li><strong>Right Quantity:</strong> Richtige Menge</li>
+            <li><strong>Right Place:</strong> Richtiger Ort</li>
+            <li><strong>Right Time:</strong> Richtige Zeit</li>
+            <li><strong>Right Costs:</strong> Richtige Kosten</li>
+            <li><strong>Right Quality:</strong> Richtige Qualität</li>
+            <li><strong>Right Customer:</strong> Richtiger Kunde (7R-Erweiterung)</li>
+        </ul>
+        
+        <h2>🔄 SCOR-Modell</h2>
+        <p><strong>Supply Chain Operations Reference:</strong> Plan → Source → Make → Deliver → Return</p>
+        <ul>
+            <li><strong>Plan:</strong> Nachfrage und Versorgung aufeinander abstimmen</li>
+            <li><strong>Source:</strong> Beschaffungsaktivitäten koordinieren</li>
+            <li><strong>Make:</strong> Produktionsprozesse inkl. Intralogistik optimieren</li>
+            <li><strong>Deliver:</strong> Lieferung und Schnittstellenmanagement</li>
+            <li><strong>Return:</strong> Rückführung der Güter abbilden</li>
+        </ul>
+        
+        <h2>📈 Bereiche der Unternehmenslogistik</h2>
+        <ul>
+            <li><strong>Beschaffungslogistik:</strong> Optimale Beschaffung vom Käufermarkt bis zum Lagereingang</li>
+            <li><strong>Produktionslogistik:</strong> Richtige Menge zur richtigen Zeit, Intralogistik</li>
+            <li><strong>Distributionslogistik:</strong> Optimale Verteilung vom Produktionslager zum Kunden</li>
+            <li><strong>Lagerlogistik:</strong> Optimierung von Standorten, Technik, Systemen und Organisation</li>
+            <li><strong>Entsorgungslogistik:</strong> Kostengünstige, fachgerechte Entsorgung</li>
+            <li><strong>Transportlogistik:</strong> Optimaler Transport der Waren</li>
+        </ul>
+        
+        <h2>📊 Kennzahlen & Trends</h2>
+        <h3>Kennzahlen-Instrumente</h3>
+        <ul>
+            <li><strong>ROI:</strong> Return on Investment</li>
+            <li><strong>Kostenrechnung:</strong> Vollkosten- und Teilkostenrechnung</li>
+            <li><strong>Du Pont Kennzahlensystem:</strong> Gesamtkapitalrentabilität</li>
+            <li><strong>Balanced Scorecard:</strong> Finanzen, Kunden, Prozesse, Lernen & Entwicklung</li>
+        </ul>
+        
+        <h3>Aktuelle Trends</h3>
+        <ul>
+            <li><strong>Kunden-Kosten-Orientierung:</strong> Kundenzentrierung bei Kostenoptimierung</li>
+            <li><strong>Outsourcing/Kontraktlogistik:</strong> Externe Dienstleister einbinden</li>
+            <li><strong>Compliance:</strong> Einhaltung von Normen und Gesetzen</li>
+            <li><strong>Energieeffizienz:</strong> Nachhaltige Logistiklösungen</li>
+            <li><strong>Industrie 4.0/IoT:</strong> Digitalisierung der Supply Chain</li>
+            <li><strong>Drohnentechnik:</strong> Innovative Transportlösungen</li>
+        </ul>
+    </div>
+
+    <!-- Seite 3: LF2 Beschaffungslogistik -->
+    <div class="page">
+        <h1>🛒 LF2: Beschaffungslogistik</h1>
+        
+        <h2>🔍 Bedarfsermittlung</h2>
+        <h3>Bedarfsermittlungsverfahren</h3>
+        <ul>
+            <li><strong>Deterministische Bedarfsermittlung:</strong> Auftrags- und programmorientiert
+                <ul>
+                    <li>Analytische Verfahren: Fertigungsstufen, Dispositionsstufen, Gozinto-Verfahren</li>
+                    <li>Synthetische Verfahren: Verwendungsnachweis</li>
+                </ul>
+            </li>
+            <li><strong>Stochastische Bedarfsermittlung:</strong> Verbrauchsorientiert (Mittelwerte)</li>
+            <li><strong>Heuristische Bedarfsermittlung:</strong> Subjektive Schätzung erfahrener Personen</li>
+        </ul>
+        
+        <h3>Stücklistenarten</h3>
+        <ul>
+            <li><strong>Mengenstückliste:</strong> Einfache Darstellung ohne Verwendungsnachweis</li>
+            <li><strong>Strukturstückliste:</strong> Untereinander angeordnet, für mehrstufige Verwendung</li>
+            <li><strong>Baukastenstückliste:</strong> Darstellung in Baukastenform inkl. Unterbaugruppen</li>
+            <li><strong>Variantenstückliste:</strong> Unterschiedliche Farben, gleiche Teile</li>
+        </ul>
+        
+        <div class="formula-box">
+            <strong>Nettobedarf-Berechnung:</strong><br>
+            Nettobedarf = Bruttobedarf - verfügbare Lagerbestände - offene Bestellungen + reservierte Bestände
+        </div>
+        
+        <h2>📊 ABC/XYZ-Analyse</h2>
+        <h3>ABC-Analyse (Wertorientiert)</h3>
+        <ul>
+            <li><strong>A-Artikel:</strong> Hoher Wert, geringer Lageranteil → Überwachen, wo möglich reduzieren</li>
+            <li><strong>B-Artikel:</strong> Mittlerer Wert, mittlerer Lageranteil → Fallweise entscheiden</li>
+            <li><strong>C-Artikel:</strong> Geringer Wert, hoher Lageranteil → Sicherheitsbestand definieren</li>
+        </ul>
+        
+        <h3>XYZ-Analyse (Vorhersagegenauigkeit)</h3>
+        <ul>
+            <li><strong>X-Artikel:</strong> Regelmäßiger Verbrauch, hohe Prognosegenauigkeit → Überwachen</li>
+            <li><strong>Y-Artikel:</strong> Saisonal schwankend, mittlere Genauigkeit → Fallweise entscheiden</li>
+            <li><strong>Z-Artikel:</strong> Zufälliger Verbrauch, keine Prognose möglich → Sicherheitsbestand</li>
+        </ul>
+        
+        <h3>Kombinierte ABC-XYZ-Strategien</h3>
+        <ul>
+            <li><strong>AX:</strong> Fertigungssynchrone Beschaffung</li>
+            <li><strong>BX/CX:</strong> Beschaffung in optimaler Losgröße</li>
+            <li><strong>AY/AZ:</strong> Kontrakt oder Abruf</li>
+            <li><strong>BY/BZ/CY/CZ:</strong> Vorratskauf</li>
+        </ul>
+        
+        <h2>🤝 Lieferantenauswahl</h2>
+        <h3>3-Stufen-Prozess</h3>
+        <ul>
+            <li><strong>1. Lieferanten bewerten:</strong> Einheitliche Bewertungskriterien, K.O.-Kriterien definieren</li>
+            <li><strong>2. Lieferantenanfrage:</strong> Bei Komplexität: Lastenheft (Auftraggeber), Pflichtenheft (Auftragnehmer)</li>
+            <li><strong>3. Angebote prüfen:</strong> Bewertungskriterien abgleichen, Preis und Leistung verhandeln</li>
+        </ul>
+        
+        <div class="formula-box">
+            <strong>Optimale Bestellmenge (Andler-Formel):</strong><br>
+            X<sub>opt</sub> = √(200 × M × BK / (EP × LK))<br>
+            M = Bedarfsmenge, BK = Bestellkosten, EP = Einstandspreis, LK = Lagerhaltungskosten (%)
+        </div>
+        
+        <h2>📦 Wareneingang & Qualitätsprüfung</h2>
+        <h3>Wareneingangskontrolle</h3>
+        <ul>
+            <li><strong>Sachkontrolle:</strong> Lieferung mit Bestellung abgleichen, Papiere prüfen, optische Kontrolle</li>
+            <li><strong>Terminkontrolle:</strong> Rechtzeitigkeit und Vollständigkeit prüfen</li>
+        </ul>
+        
+        <h3>Strategische Beschaffung</h3>
+        <ul>
+            <li><strong>Single Sourcing:</strong> Ein Lieferant (Partnerschaft)</li>
+            <li><strong>Dual Sourcing:</strong> Zwei Lieferanten (Qualität, Kosten, Zeit)</li>
+            <li><strong>Multiple Sourcing:</strong> Mehrere Lieferanten (Kosten/Preis)</li>
+            <li><strong>Global vs. Local Sourcing:</strong> Weltweite vs. regionale Beschaffung</li>
+        </ul>
+    </div>
+
+    <!-- Seite 4: LF3 Produktionslogistik -->
+    <div class="page">
+        <h1>🏭 LF3: Produktionslogistik</h1>
+        
+        <h2>🎯 Ziele der PPS</h2>
+        <h3>Produktionsplanung und -steuerung</h3>
+        <ul>
+            <li><strong>Auftragsbezogene Ziele:</strong> Hohe Planungssicherheit, Termintreue, Informationsbereitschaft</li>
+            <li><strong>Kapazitätsbezogene Ziele:</strong> Gleichmäßig hohe Kapazitätsauslastung, flexible Kapazitäten</li>
+            <li><strong>Wirtschaftliche Ziele:</strong> Auslastung des Produktionspotenzials, minimale variable Kosten</li>
+            <li><strong>Logistische Ziele:</strong> Kurze Durchlaufzeiten, geringe Bestände, hohe Verfügbarkeit</li>
+        </ul>
+        
+        <h2>📊 Produktionsprogrammplanung</h2>
+        <h3>Planungsebenen</h3>
+        <ul>
+            <li><strong>Mengenplanung:</strong> Optimale Losgrößen mit Andler-Formel ermitteln</li>
+            <li><strong>Produktionsprogrammplanung:</strong> Vertriebsbedürfnisse mit Kapazitäten abstimmen</li>
+            <li><strong>Kapazitätsplanung:</strong> Ressourcenplanung und -zuordnung</li>
+            <li><strong>Terminplanung:</strong> Durchlaufzeiten und Terminierung</li>
+        </ul>
+        
+        <div class="formula-box">
+            <strong>Optimale Losgröße (Produktion):</strong><br>
+            X<sub>opt</sub> = √(200 × M × (H<sub>fix</sub> + L<sub>fix</sub>) / (h<sub>var</sub> × q))
+        </div>
+        
+        <h2>⏱️ Durchlaufzeit</h2>
+        <h3>Arbeitsplatzdurchlaufzeit</h3>
+        <ul>
+            <li><strong>Durchführungszeit:</strong> Rüstzeit + Bearbeitungszeit</li>
+            <li><strong>Übergangszeit:</strong> Transportzeit + Liegezeit</li>
+        </ul>
+        
+        <h3>Terminierungsarten</h3>
+        <ul>
+            <li><strong>Vorwärtsterminierung:</strong> Fixer Starttermin → Früheste Fertigung</li>
+            <li><strong>Rückwärtsterminierung:</strong> Endtermin → Spätester Starttermin</li>
+            <li><strong>Mittelpunktterminierung:</strong> Fixer Ecktermin (Meilenstein)</li>
+        </ul>
+        
+        <h2>⚙️ Fertigungsarten</h2>
+        <h3>Organisationsprinzipien</h3>
+        <ul>
+            <li><strong>Werkstattfertigung:</strong> Maschinen zusammengefasst, Werkstück zur Maschine</li>
+            <li><strong>Fließfertigung:</strong> Maschinen dem Fertigungsablauf angepasst, Werkstück auf Band</li>
+            <li><strong>Reihenfertigung:</strong> Werkstück geht nach Fertigstellung weiter</li>
+        </ul>
+        
+        <h2>🔄 Steuerungskonzepte</h2>
+        <h3>Push vs. Pull Prinzip</h3>
+        <ul>
+            <li><strong>Push-Prinzip:</strong> Produktion auf Vorrat, plangesteuerte Fertigung</li>
+            <li><strong>Pull-Prinzip:</strong> Kundenbestellung auslösend, bedarfsgesteuerte Fertigung</li>
+        </ul>
+        
+        <h3>Kanban-Konzept</h3>
+        <ul>
+            <li><strong>Funktionsweise:</strong> Kärtchen als Informationsträger</li>
+            <li><strong>Auslöser:</strong> Teil aufgebraucht oder Sicherheitsbestand erreicht</li>
+            <li><strong>Vorteil:</strong> Selbstregulierendes System</li>
+        </ul>
+        
+        <h3>LEAN Management</h3>
+        <ul>
+            <li><strong>Ziel:</strong> Effizienzerhöhung mit minimalem Einsatz (Zeit, Geld, Personal)</li>
+            <li><strong>Vorgehen:</strong> Prozesse auf Muda (Verschwendung) untersuchen</li>
+            <li><strong>Streichen:</strong> Nicht-wertschöpfende Schnittstellen und Abläufe</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Das logistische Zieldreieck (Zeit, Kosten, Qualität) gilt auch in der Produktion - nie alle drei Bereiche gleichzeitig optimierbar.
+        </div>
+    </div>
+
+    <!-- Seite 5: LF4 Lagerlogistik -->
+    <div class="page">
+        <h1>📦 LF4: Lagerlogistik</h1>
+        
+        <h2>🎯 Lagerziele & Funktionen</h2>
+        <h3>Ziele der Lagerlogistik</h3>
+        <ul>
+            <li><strong>Lieferbereitschaft:</strong> Verfügbarkeit sicherstellen</li>
+            <li><strong>Geringe Kapitalbindung:</strong> Bestände minimieren</li>
+            <li><strong>Gute Lagerauslastung:</strong> Hoher Lagerumschlag</li>
+        </ul>
+        
+        <h3>Lagerfunktionen</h3>
+        <ul>
+            <li><strong>Ausgleichsfunktion:</strong> Schwankungen ausgleichen (Produktion)</li>
+            <li><strong>Sicherungsfunktion:</strong> Aufrechterhaltung bei Engpässen</li>
+            <li><strong>Spekulationsfunktion:</strong> Preisvorteile durch Lagerung nutzen (Gold)</li>
+            <li><strong>Veredelungsfunktion:</strong> Qualitätsverbesserung (Käse, Wein)</li>
+            <li><strong>Entsorgungsfunktion:</strong> Recycling-Lager</li>
+        </ul>
+        
+        <h3>Lagerstufen</h3>
+        <ul>
+            <li><strong>Stufe 1:</strong> Eingangslager (Warenannahme)</li>
+            <li><strong>Stufe 2:</strong> Fertigungslager (Produktion)</li>
+            <li><strong>Stufe 3:</strong> Ausgangslager (Absatz/Endlager)</li>
+        </ul>
+        
+        <h2>📍 Lagerplatzzuordnung</h2>
+        <h3>Zuordnungsstrategien</h3>
+        <ul>
+            <li><strong>Festplatzzuordnung:</strong> Fester Lagerplatz, einfach aufzufinden</li>
+            <li><strong>Chaotische Lagerordnung:</strong> Jeder Artikel überall, keine ungenutzten Kapazitäten</li>
+            <li><strong>Lagerzonen:</strong> Artikel in Bereichen, innerhalb chaotisch</li>
+            <li><strong>Dynamische Lagerzone:</strong> Zonen regelmäßig anpassen</li>
+        </ul>
+        
+        <h2>📊 Lagerbestände & Berechnung</h2>
+        <div class="formula-box">
+            <strong>Sicherheitsbestand:</strong><br>
+            Durchschnittlicher Verbrauch pro Periode × Beschaffungszeit
+        </div>
+        
+        <div class="formula-box">
+            <strong>Meldebestand:</strong><br>
+            (Verbrauch pro Periode × Beschaffungszeit) + Sicherheitsbestand
+        </div>
+        
+        <h2>🎛️ Kommissionierung</h2>
+        <h3>Kommissionierarten</h3>
+        <ul>
+            <li><strong>Artikelorientiert:</strong> Ein Artikel für mehrere Aufträge</li>
+            <li><strong>Auftragsorientiert:</strong> Alle Artikel eines Auftrags</li>
+            <li><strong>Statische/Dynamische Bereitstellung:</strong> Mensch zu Ware / Ware zu Menschen</li>
+        </ul>
+        
+        <h3>Kommissionierzeit-Aufteilung</h3>
+        <ul>
+            <li><strong>Basiszeit:</strong> 9% (Auftragsübernahme, Vorbereitung)</li>
+            <li><strong>Wegzeit:</strong> 45% (Bewegung im Lager) ← Größter Optimierungshebel</li>
+            <li><strong>Greifzeit:</strong> 23% (Artikel entnehmen)</li>
+            <li><strong>Totzeit:</strong> 23% (Suchen, Kontrollieren)</li>
+        </ul>
+        
+        <h2>📋 Inventur</h2>
+        <h3>Inventurarten</h3>
+        <ul>
+            <li><strong>Stichtaginventur:</strong> Alle Bestände an einem Tag</li>
+            <li><strong>Permanente Inventur:</strong> Kontinuierliche Bestandsaufnahme</li>
+            <li><strong>Stichprobeninventur:</strong> Repräsentative Auswahl</li>
+            <li><strong>Verlegte Inventur:</strong> Zeitlich verschoben (bis 3 Monate)</li>
+        </ul>
+        
+        <h2>📤 Warenausgang</h2>
+        <h3>Entnahmestrategien</h3>
+        <ul>
+            <li><strong>FEFO:</strong> First Expired, First Out (Haltbarkeit)</li>
+            <li><strong>FIFO:</strong> First In, First Out (Reihenfolge)</li>
+            <li><strong>LIFO:</strong> Last In, First Out (Neueste zuerst)</li>
+        </ul>
+        
+        <h3>Wichtige Incoterms</h3>
+        <ul>
+            <li><strong>EXW:</strong> Lieferung ab Werk</li>
+            <li><strong>FCA:</strong> Free Carrier (auf Lastwagen)</li>
+            <li><strong>DDP:</strong> Delivered Duty Paid (geliefert, zoll bezahlt)</li>
+            <li><strong>FOB:</strong> Free on Board</li>
+        </ul>
+    </div>
+
+    <!-- Seite 6: LF5 Distributionslogistik -->
+    <div class="page">
+        <h1>🚚 LF5: Distributionslogistik</h1>
+        
+        <h2>🌐 Distributionsstruktur</h2>
+        <h3>Mehrstufige Distributionsstruktur</h3>
+        <ul>
+            <li><strong>Stufe 1:</strong> Werkslager (Produktion)</li>
+            <li><strong>Stufe 2:</strong> Zentrallager (Nationale Verteilung)</li>
+            <li><strong>Stufe 3:</strong> Regionallager (Regionale Verteilung)</li>
+            <li><strong>Stufe 4:</strong> Auslieferlager (Lokale Verteilung)</li>
+        </ul>
+        
+        <h3>Distributionslogistik-Aufgaben</h3>
+        <ul>
+            <li><strong>Auftragsbearbeitung:</strong> Kundenaufträge systematisch abwickeln</li>
+            <li><strong>Lagerhaltung:</strong> Optimale Verteilung der Lagerstandorte</li>
+            <li><strong>Kommissionierung:</strong> Auftragsspezifische Zusammenstellung</li>
+            <li><strong>Verpackung:</strong> Transport- und kundengerechte Verpackung</li>
+            <li><strong>Versand:</strong> Termingerechte Auslieferung</li>
+            <li><strong>Transport:</strong> Kostenoptimale Transportmittelwahl</li>
+        </ul>
+        
+        <h2>📦 Kommissionierung & Verlad</h2>
+        <h3>Distributionsplanung</h3>
+        <ul>
+            <li><strong>Standortplanung:</strong> Optimale Lagerstandorte bestimmen</li>
+            <li><strong>Bestandsplanung:</strong> Lagerbestände nach Nachfrage ausrichten</li>
+            <li><strong>Transportplanung:</strong> Routenoptimierung und Fahrzeugauslastung</li>
+            <li><strong>Servicegrad:</strong> Lieferbereitschaft und Lieferzeit optimieren</li>
+        </ul>
+        
+        <h3>Verlad & Versand</h3>
+        <ul>
+            <li><strong>Verladekontrolle:</strong> Vollständigkeit und Unversehrtheit prüfen</li>
+            <li><strong>Transportdokumente:</strong> Lieferschein, Frachtbrief, Gefahrgutpapiere</li>
+            <li><strong>Ladungssicherung:</strong> Vorschriften für sicheren Transport einhalten</li>
+            <li><strong>Zoll- und Exportdokumente:</strong> Bei internationalen Sendungen</li>
+        </ul>
+        
+        <h2>🌍 Internationale Distribution</h2>
+        <h3>Import/Export Bestimmungen</h3>
+        <ul>
+            <li><strong>Zollbestimmungen:</strong> Nationale und internationale Vorschriften</li>
+            <li><strong>MWST-Behandlung:</strong> Steuerliche Aspekte bei grenzüberschreitenden Lieferungen</li>
+            <li><strong>Ursprungszeugnis:</strong> Nachweis der Warenherkunft</li>
+            <li><strong>Exportkontrolle:</strong> Ausfuhrgenehmigungen für bestimmte Güter</li>
+        </ul>
+        
+        <h3>Transportarten</h3>
+        <ul>
+            <li><strong>Straßentransport:</strong> Flexibel, door-to-door, für kurze/mittlere Strecken</li>
+            <li><strong>Schienentransport:</strong> Umweltfreundlich, große Mengen, lange Strecken</li>
+            <li><strong>Seefracht:</strong> Kostengünstig für große Mengen, lange Transportzeiten</li>
+            <li><strong>Luftfracht:</strong> Schnell, teuer, für hochwertige/dringende Güter</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Bei internationaler Distribution immer Incoterms verwenden für klare Verantwortungsabgrenzung zwischen Käufer und Verkäufer.
+        </div>
+    </div>
+
+    <!-- Seite 7: LF6 Entsorgungslogistik -->
+    <div class="page">
+        <h1>♻️ LF6: Entsorgungslogistik</h1>
+        
+        <h2>🌱 Nachhaltigkeit & Kreislaufwirtschaft</h2>
+        <h3>Definition Entsorgungslogistik</h3>
+        <ul>
+            <li><strong>Stoffe, Material und Produkte:</strong> Die ihren ursprünglichen Zweck nicht mehr erfüllen</li>
+            <li><strong>Ziel:</strong> Kostengünstige, fachgerechte Entsorgung nicht mehr benötigter Werks- und Hilfsstoffe</li>
+            <li><strong>Nachhaltigkeit:</strong> Ökonomie, Ökologie und Soziales berücksichtigen</li>
+            <li><strong>Kreislaufwirtschaft:</strong> Rezyklieren, Reparieren, Wiederverwenden</li>
+        </ul>
+        
+        <h3>Entsorgungsprozesse</h3>
+        <ul>
+            <li><strong>Stoffliche Verwertung:</strong> Wiederverwendung in anderen Produkten</li>
+            <li><strong>Produktrecycling:</strong> Form und Gestalt bleiben gleich</li>
+            <li><strong>Materialrecycling:</strong> Form und Gestalt werden verändert</li>
+            <li><strong>Thermische Verwertung:</strong> Stoff wird verbrannt = Energie</li>
+        </ul>
+        
+        <h2>🔄 Entsorgungskonzept</h2>
+        <h3>Analyse-Phase</h3>
+        <ul>
+            <li><strong>Entsorgungsobjekte erfassen:</strong> Was muss entsorgt werden?</li>
+            <li><strong>Bestehende Ströme erfassen:</strong> Aktuelle Entsorgungswege</li>
+            <li><strong>Transport & Lagersysteme:</strong> Vorhandene Infrastruktur bewerten</li>
+            <li><strong>Bereiche und Stellen:</strong> Zuständigkeiten klären</li>
+        </ul>
+        
+        <h3>Konzept-Phase</h3>
+        <ul>
+            <li><strong>Ziele festlegen:</strong> Ökologische und ökonomische Ziele definieren</li>
+            <li><strong>Entsorgungsobjekte definieren:</strong> Kategorisierung nach Stoffgruppen</li>
+            <li><strong>Sammelort bestimmen:</strong> Zentrale oder dezentrale Sammlung</li>
+            <li><strong>Bereitstellung organisieren:</strong> Behälter und Logistik</li>
+            <li><strong>Behandlung planen:</strong> Vorbehandlung vor Entsorgung</li>
+            <li><strong>Transport organisieren:</strong> Zu Verwertungs-/Entsorgungsanlagen</li>
+            <li><strong>Abnehmer finden:</strong> Qualifizierte Entsorgungspartner</li>
+        </ul>
+        
+        <h3>Umsetzung & Kontrolle</h3>
+        <ul>
+            <li><strong>Schulungen:</strong> Mitarbeitende für korrekten Umgang sensibilisieren</li>
+            <li><strong>Kontrolle:</strong> Einhaltung der Entsorgungsvorgaben überwachen</li>
+            <li><strong>Dokumentation:</strong> Entsorgungsnachweise führen</li>
+            <li><strong>Optimierung:</strong> Kontinuierliche Verbesserung des Systems</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Fokus:</strong> Beachten Sie die strengen Schweizer Umweltvorschriften und die Verpflichtung zur fachgerechten Entsorgung nach VVEA (Verordnung über die Vermeidung und die Entsorgung von Abfällen).
+        </div>
+    </div>
+
+    <!-- Seite 8: LF7-9 Infrastruktur & ICT -->
+    <div class="page">
+        <h1>💻 LF7-9: Infrastruktur & ICT</h1>
+        
+        <h2>🔄 Lebenszyklus & TCO</h2>
+        <h3>Total Cost of Ownership (TCO)</h3>
+        <ul>
+            <li><strong>Beschaffungskosten:</strong> Anschaffung, Installation, Inbetriebnahme</li>
+            <li><strong>Nutzungskosten:</strong> Betrieb, Wartung, Support, Updates</li>
+            <li><strong>Entsorgungskosten:</strong> Deinstallation, Recycling, Datenlöschung</li>
+            <li><strong>Finanzierung:</strong> Eigen-/Fremdfinanzierung, Leasing, Verkauf möglich</li>
+        </ul>
+        
+        <h3>Infrastrukturmanagement-Zyklus</h3>
+        <ul>
+            <li><strong>Analyse & Planung:</strong> IST-Analyse, Planung von Änderungen & Neuerungen</li>
+            <li><strong>Ausführung/Realisation:</strong> Umsetzen und optimieren</li>
+            <li><strong>Kontrolle/Überwachung:</strong> Überwachen während der Nutzung</li>
+        </ul>
+        
+        <h2>💾 ICT Anwendungssoftware</h2>
+        <h3>Enterprise Software</h3>
+        <ul>
+            <li><strong>ERP (Enterprise Resource Planning):</strong> Integrierte Unternehmenssoftware</li>
+            <li><strong>CRM (Customer Relationship Management):</strong> Kundenbeziehungsmanagement</li>
+            <li><strong>DMS (Document Management System):</strong> Dokumentenverwaltung</li>
+            <li><strong>WfMS (Workflow Management System):</strong> Geschäftsprozessautomatisierung</li>
+        </ul>
+        
+        <h3>Hardware-Komponenten</h3>
+        <ul>
+            <li><strong>EVA-Prinzip:</strong> Eingabe → Verarbeitung → Ausgabe</li>
+            <li><strong>Zentrale Komponenten:</strong> CPU, RAM, Festplatte, Motherboard</li>
+            <li><strong>Schnittstellen:</strong> USB (1.0-3.1), DVI, VGA, HDMI</li>
+            <li><strong>Peripherie:</strong> Drucker, Beamer, Scanner</li>
+        </ul>
+        
+        <h2>🛡️ IT-Sicherheitskonzept</h2>
+        <h3>IT-Grundschutz (BSI)</h3>
+        <ul>
+            <li><strong>Gebäude und Infrastruktur:</strong> Physische Sicherheitsmaßnahmen</li>
+            <li><strong>Hard- & Software:</strong> Technische Schutzmaßnahmen</li>
+            <li><strong>Personal & Organisation:</strong> Organisatorische Maßnahmen</li>
+        </ul>
+        
+        <h3>VIVA-Ziele</h3>
+        <ul>
+            <li><strong>Verfügbarkeit:</strong> Systeme sind verfügbar wenn benötigt</li>
+            <li><strong>Integrität:</strong> Daten sind unverändert und korrekt</li>
+            <li><strong>Vertraulichkeit:</strong> Nur autorisierte Personen haben Zugriff</li>
+            <li><strong>Authentizität:</strong> Identität ist nachprüfbar</li>
+        </ul>
+        
+        <h3>Vorsorgemassnahmen</h3>
+        <ul>
+            <li><strong>Datensicherung:</strong> Regelmäßige Backups (3-2-1-Regel)</li>
+            <li><strong>USV:</strong> Schutz vor Stromausfällen</li>
+            <li><strong>RAID:</strong> Redundant Array of Independent Disks</li>
+            <li><strong>VPN:</strong> Sichere Fernverbindungen</li>
+            <li><strong>Firewall/Antivirus:</strong> Schutz vor externen Bedrohungen</li>
+        </ul>
+        
+        <h2>🔒 Datenschutz & Sicherheit</h2>
+        <h3>Schweizer Datenschutzgesetz (DSG)</h3>
+        <ul>
+            <li><strong>Personendaten:</strong> Alle Angaben über bestimmte/bestimmbare Personen</li>
+            <li><strong>Zweckbindung:</strong> Daten nur für angegebenen Zweck verwenden</li>
+            <li><strong>Verhältnismäßigkeit:</strong> Nur notwendige Daten erheben</li>
+            <li><strong>Transparenz:</strong> Betroffene über Datenbearbeitung informieren</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Besonderheit:</strong> Das neue DSG (seit 1.9.2023) bringt strengere Anforderungen mit sich!
+        </div>
+    </div>
+
+    <!-- Seite 9: LF10 Sourcing & Projektmanagement -->
+    <div class="page">
+        <h1>🔄 LF10: Sourcing & Projektmanagement</h1>
+        
+        <h2>🎯 Sourcing-Strategien</h2>
+        <h3>Make-or-Buy-Entscheidung (MoB)</h3>
+        <ul>
+            <li><strong>Kernkompetenzen:</strong> Strategische Bedeutung des Beschaffungsobjekts</li>
+            <li><strong>Ressourcen:</strong> Verfügbarkeit erforderlicher Kapazitäten</li>
+            <li><strong>Kosten:</strong> Wettbewerbsfähigkeit der Eigenfertigung</li>
+            <li><strong>Zeit/Investition:</strong> Lohnen sich Investitionen bei verfügbarer Zeit?</li>
+        </ul>
+        
+        <h3>Externer Betrieb</h3>
+        <ul>
+            <li><strong>Outsourcing:</strong> Auslagerung von Geschäftsprozessen</li>
+            <li><strong>Offshoring:</strong> Verlagerung in kostengünstigere Länder</li>
+            <li><strong>Nearshoring:</strong> Verlagerung in nahegelegene Länder</li>
+            <li><strong>Cloud Services:</strong> IT-Services aus der Cloud beziehen</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>💡 Grundregel:</strong> "Je mehr desto eigen!" - Strategisch wichtige Komponenten sollten selbst gefertigt werden.
+        </div>
+        
+        <h2>📊 Projektmanagement Sourcing</h2>
+        <h3>Projektphasen</h3>
+        <ul>
+            <li><strong>Initialisierung:</strong> Projektidee entwickeln und Machbarkeit prüfen</li>
+            <li><strong>Definition:</strong> Projektauftrag erstellen und Ziele konkretisieren</li>
+            <li><strong>Planung:</strong> Detailplanung Zeit, Kosten, Qualität, Ressourcen</li>
+            <li><strong>Realisierung:</strong> Projektdurchführung, Steuerung, Controlling</li>
+            <li><strong>Abschluss:</strong> Ergebnisse übergeben, Lessons Learned dokumentieren</li>
+        </ul>
+        
+        <h3>Evaluationsschritte</h3>
+        <ul>
+            <li><strong>Vorfilter:</strong> Grundlegende Anbieterauswahl</li>
+            <li><strong>Grobevaluation:</strong> K.O.-Vollständigkeit, Kostenrahmen</li>
+            <li><strong>Detailevaluation:</strong> Einzelbewertung nach Kriterien</li>
+            <li><strong>Risikoanalyse:</strong> Potenzielle Risiken bewerten</li>
+        </ul>
+        
+        <h3>Bewertungskriterien</h3>
+        <ul>
+            <li><strong>MUSS-Kriterien:</strong> Unverzichtbare Anforderungen</li>
+            <li><strong>KANN-Kriterien:</strong> Wünschenswerte Features</li>
+            <li><strong>K.O.-Kriterien:</strong> Ausschlusskriterien definieren</li>
+            <li><strong>Gewichtung:</strong> Relative Wichtigkeit festlegen</li>
+        </ul>
+        
+        <h2>📈 Qualitätsmessung & SLA</h2>
+        <h3>Service Level Management</h3>
+        <ul>
+            <li><strong>SLA definieren:</strong> Messbare Serviceziele vereinbaren</li>
+            <li><strong>Monitoring:</strong> Kontinuierliche Leistungsmessung</li>
+            <li><strong>Reporting:</strong> Regelmäßige Berichte über Zielerreichung</li>
+            <li><strong>Improvement:</strong> Kontinuierliche Verbesserung</li>
+        </ul>
+        
+        <h3>Key Performance Indicators (KPIs)</h3>
+        <ul>
+            <li><strong>Verfügbarkeit:</strong> System-Uptime in Prozent</li>
+            <li><strong>Performance:</strong> Antwortzeiten, Durchsatz</li>
+            <li><strong>Qualität:</strong> Fehlerrate, Kundenzufriedenheit</li>
+            <li><strong>Kosten:</strong> Total Cost of Ownership</li>
+        </ul>
+        
+        <h3>Claim Management</h3>
+        <ul>
+            <li><strong>Definition:</strong> Nachforderungen aus vertraglichen Abweichungen</li>
+            <li><strong>Dokumentation:</strong> Lückenlose Erfassung aller Abweichungen</li>
+            <li><strong>Bewertung:</strong> Finanzielle Auswirkungen quantifizieren</li>
+            <li><strong>Verhandlung:</strong> Professionelle Durchsetzung berechtigter Ansprüche</li>
+        </ul>
+    </div>
+
+    <!-- Seite 10: LF11-12 Qualität & Umwelt -->
+    <div class="page">
+        <h1>🏆 LF11-12: Qualität & Umwelt</h1>
+        
+        <h2>👥 Kundenerwartungen</h2>
+        <h3>Kano-Modell</h3>
+        <ul>
+            <li><strong>Basisfaktoren:</strong> Selbstverständliche Erwartungen (müssen erfüllt sein)</li>
+            <li><strong>Leistungsfaktoren:</strong> Werden bewusst verlangt (je mehr, desto besser)</li>
+            <li><strong>Begeisterungsfaktoren:</strong> Nicht erwartet, werden positiv wahrgenommen</li>
+        </ul>
+        
+        <h3>Konfirmations-Diskonfirmations-Modell</h3>
+        <ul>
+            <li><strong>Wahrgenommene > Erwartete Leistung:</strong> Zufriedenheit</li>
+            <li><strong>Wahrgenommene = Erwartete Leistung:</strong> Neutralität</li>
+            <li><strong>Wahrgenommene < Erwartete Leistung:</strong> Unzufriedenheit</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>💡 Balance:</strong> Werden Erwartungen übertroffen, sind meist die Kosten zu hoch. Werden sie nicht erfüllt, wandern Kunden ab.
+        </div>
+        
+        <h2>⚙️ Qualitätsmanagement</h2>
+        <h3>Qualität erzeugen</h3>
+        <ul>
+            <li><strong>Qualitätsplanung:</strong> Standards und Ziele definieren</li>
+            <li><strong>Qualitätslenkung:</strong> Prozesse steuern und überwachen</li>
+            <li><strong>Qualitätssicherung:</strong> Systematische Maßnahmen implementieren</li>
+            <li><strong>Qualitätsverbesserung:</strong> Kontinuierliche Optimierung</li>
+        </ul>
+        
+        <h3>TQM-Konzept (Total Quality Management)</h3>
+        <ul>
+            <li><strong>Kundenorientierung:</strong> Alle Aktivitäten auf Kundenbedürfnisse ausrichten</li>
+            <li><strong>Mitarbeiterorientierung:</strong> Qualifikation und Motivation fördern</li>
+            <li><strong>Prozessorientierung:</strong> Abläufe systematisch optimieren</li>
+            <li><strong>Kontinuierliche Verbesserung:</strong> Kaizen-Prinzip anwenden</li>
+        </ul>
+        
+        <h3>PDCA-Zyklus (Plan-Do-Check-Act)</h3>
+        <ul>
+            <li><strong>Plan:</strong> Verbesserungen planen und Ziele setzen</li>
+            <li><strong>Do:</strong> Geplante Maßnahmen umsetzen</li>
+            <li><strong>Check:</strong> Ergebnisse messen und bewerten</li>
+            <li><strong>Act:</strong> Standardisieren oder erneut planen</li>
+        </ul>
+        
+        <h2>📜 Qualitätsstandards & Zertifizierungen</h2>
+        <h3>ISO 9000-Familie</h3>
+        <ul>
+            <li><strong>ISO 9000:</strong> Grundlagen und Begriffe des Qualitätsmanagements</li>
+            <li><strong>ISO 9001:</strong> Anforderungen an Qualitätsmanagementsysteme</li>
+            <li><strong>ISO 9004:</strong> Leitfaden zur Leistungsverbesserung</li>
+        </ul>
+        
+        <h3>Weitere wichtige Standards</h3>
+        <ul>
+            <li><strong>ISO 14001:</strong> Umweltmanagementsysteme</li>
+            <li><strong>ISO 45001:</strong> Arbeits- und Gesundheitsschutz</li>
+            <li><strong>ISO 27001:</strong> Informationssicherheit</li>
+            <li><strong>EFQM:</strong> European Foundation for Quality Management</li>
+        </ul>
+        
+        <h3>Schweizer Qualitätsstandards</h3>
+        <ul>
+            <li><strong>SQS:</strong> Swiss Association for Quality and Management Systems</li>
+            <li><strong>SwissQuality:</strong> Schweizer Qualitätslabel</li>
+            <li><strong>METAS:</strong> Bundesamt für Metrologie (Eichung/Kalibrierung)</li>
+        </ul>
+        
+        <h2>🌍 Umweltmanagement</h2>
+        <h3>Umweltmanagementsystem (ISO 14001)</h3>
+        <ul>
+            <li><strong>Umweltpolitik:</strong> Grundsätze und Ziele definieren</li>
+            <li><strong>Planung:</strong> Umweltaspekte identifizieren und bewerten</li>
+            <li><strong>Umsetzung:</strong> Verantwortlichkeiten und Verfahren festlegen</li>
+            <li><strong>Kontrolle:</strong> Überwachung und Korrekturmaßnahmen</li>
+        </ul>
+        
+        <h3>Schweizer Umweltgesetze</h3>
+        <ul>
+            <li><strong>USG:</strong> Umweltschutzgesetz - Grundgesetz für Umweltschutz</li>
+            <li><strong>VVEA:</strong> Verordnung über Vermeidung und Entsorgung von Abfällen</li>
+            <li><strong>ChemG:</strong> Chemikaliengesetz - Umgang mit Chemikalien</li>
+            <li><strong>CO₂-Gesetz:</strong> Klimaschutz und CO₂-Reduktion</li>
+        </ul>
+        
+        <h3>Nachhaltigkeitsaspekte</h3>
+        <ul>
+            <li><strong>Ökologischer Fußabdruck:</strong> Umweltauswirkungen messen</li>
+            <li><strong>Carbon Footprint:</strong> CO₂-Bilanz der Supply Chain</li>
+            <li><strong>Cradle-to-Cradle:</strong> Kreislaufwirtschaft implementieren</li>
+            <li><strong>ESG-Kriterien:</strong> Environmental, Social, Governance</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Vorteil:</strong> Hohe Umweltstandards als Qualitätsmerkmal und Wettbewerbsvorteil nutzen - "Swiss Quality" umfasst auch Nachhaltigkeit!
+        </div>
+    </div>
+
+    <!-- Seite 11: Glossar Teil 1 -->
+    <div class="page">
+        <h1>📚 Glossar & Formeln - Teil 1</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ABC-Analyse</div>
+            <div class="glossar-def">Wertorientierte Klassifizierung: A-Artikel (hoher Wert), B-Artikel (mittlerer Wert), C-Artikel (geringer Wert)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Andler-Formel</div>
+            <div class="glossar-def">Optimale Bestellmenge: X<sub>opt</sub> = √(200 × M × BK / (EP × LK))</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">BoA (Belastungsorientierte Auftragsfreigabe)</div>
+            <div class="glossar-def">Steuerungskonzept: Aufträge nur bei verfügbaren Kapazitäten freigeben</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">CRM (Customer Relationship Management)</div>
+            <div class="glossar-def">Kundenbeziehungsmanagement zur systematischen Kundenbetreuung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">DDP (Delivered Duty Paid)</div>
+            <div class="glossar-def">Incoterm: Verkäufer trägt alle Kosten bis zum Bestimmungsort inkl. Zoll</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">DMS (Document Management System)</div>
+            <div class="glossar-def">Dokumentenverwaltungssystem für digitale Archivierung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">DSG (Datenschutzgesetz)</div>
+            <div class="glossar-def">Schweizer Gesetz zum Schutz von Personendaten (seit 1.9.2023 verschärft)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Dual Sourcing</div>
+            <div class="glossar-def">Beschaffungsstrategie mit zwei Lieferanten für Qualität, Kosten und Zeit</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">EFQM</div>
+            <div class="glossar-def">European Foundation for Quality Management - Europäisches Qualitätsmanagement-Modell</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ERP (Enterprise Resource Planning)</div>
+            <div class="glossar-def">Integrierte Unternehmenssoftware zur Ressourcenplanung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">EVA-Prinzip</div>
+            <div class="glossar-def">Grundprinzip der Datenverarbeitung: Eingabe → Verarbeitung → Ausgabe</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">EXW (Ex Works)</div>
+            <div class="glossar-def">Incoterm: Lieferung ab Werk, minimale Verpflichtungen für Verkäufer</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">FCA (Free Carrier)</div>
+            <div class="glossar-def">Incoterm: Übergabe an vereinbartem Ort (z.B. auf Lastwagen)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">FEFO (First Expired, First Out)</div>
+            <div class="glossar-def">Entnahmestrategie: Artikel mit kürzester Haltbarkeit zuerst</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">FIFO (First In, First Out)</div>
+            <div class="glossar-def">Entnahmestrategie: Älteste Artikel zuerst auslagern</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">FOB (Free on Board)</div>
+            <div class="glossar-def">Incoterm: Übergabe an Bord des Schiffes im Verschiffungshafen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Gozinto-Verfahren</div>
+            <div class="glossar-def">Analytisches Verfahren der Bedarfsermittlung basierend auf Stücklisten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Incoterms</div>
+            <div class="glossar-def">International Commercial Terms: Standardisierte Handelsklauseln für Lieferungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ISO 9001</div>
+            <div class="glossar-def">Internationale Norm für Qualitätsmanagementsysteme</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ISO 14001</div>
+            <div class="glossar-def">Internationale Norm für Umweltmanagementsysteme</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Just-in-Time (JIT)</div>
+            <div class="glossar-def">Beschaffungsform: Material genau zum benötigten Zeitpunkt liefern</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kanban</div>
+            <div class="glossar-def">Steuerungskonzept mit Karten als Informationsträger für Materialfluss</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kano-Modell</div>
+            <div class="glossar-def">Kundenzufriedenheitsmodell: Basis-, Leistungs- und Begeisterungsfaktoren</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">KPI (Key Performance Indicator)</div>
+            <div class="glossar-def">Leistungskennzahl zur Messung des Erfolgs von Aktivitäten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">LEAN Management</div>
+            <div class="glossar-def">Effizienzsteigerung durch Elimination von Verschwendung (Muda)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">LIFO (Last In, First Out)</div>
+            <div class="glossar-def">Entnahmestrategie: Neueste Artikel zuerst auslagern</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Make-or-Buy (MoB)</div>
+            <div class="glossar-def">Strategische Entscheidung zwischen Eigenfertigung und Fremdbezug</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Meldebestand</div>
+            <div class="glossar-def">Bestandshöhe, bei der eine Bestellung ausgelöst wird</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">METAS</div>
+            <div class="glossar-def">Eidgenössisches Institut für Metrologie (Eichung und Kalibrierung)</div>
+        </div>
+    </div>
+
+    <!-- Seite 12: Glossar Teil 2 & Formeln -->
+    <div class="page">
+        <h1>📚 Glossar & Formeln - Teil 2</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Multiple Sourcing</div>
+            <div class="glossar-def">Beschaffungsstrategie mit mehreren Lieferanten (Kostenfokus)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Outsourcing</div>
+            <div class="glossar-def">Auslagerung von Geschäftsprozessen an externe Dienstleister</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">PDCA-Zyklus</div>
+            <div class="glossar-def">Verbesserungszyklus: Plan - Do - Check - Act</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">PPS (Produktionsplanung und -steuerung)</div>
+            <div class="glossar-def">System zur Planung, Steuerung und Kontrolle der Produktion</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Pull-Prinzip</div>
+            <div class="glossar-def">Bedarfsgesteuerte Fertigung - Produktion wird durch Nachfrage "gezogen"</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Push-Prinzip</div>
+            <div class="glossar-def">Plangesteuerte Fertigung - Produktion wird "geschoben"</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">RAID (Redundant Array of Independent Disks)</div>
+            <div class="glossar-def">Festplattensystem für Datensicherheit und Performance</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ROI (Return on Investment)</div>
+            <div class="glossar-def">Kennzahl zur Messung der Rentabilität einer Investition</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SCOR-Modell</div>
+            <div class="glossar-def">Supply Chain Operations Reference: Plan - Source - Make - Deliver - Return</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Sicherheitsbestand</div>
+            <div class="glossar-def">Pufferbestand zum Schutz vor Bedarfsschwankungen und Lieferverzögerungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Single Sourcing</div>
+            <div class="glossar-def">Beschaffungsstrategie mit nur einem Lieferanten (Partnerschaft)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SLA (Service Level Agreement)</div>
+            <div class="glossar-def">Dienstgütevereinbarung zwischen Dienstleister und Kunde</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SQS</div>
+            <div class="glossar-def">Swiss Association for Quality and Management Systems - Schweizer Zertifizierungsstelle</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">TCO (Total Cost of Ownership)</div>
+            <div class="glossar-def">Gesamtkosten: Beschaffung + Nutzung + Entsorgung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">TQM (Total Quality Management)</div>
+            <div class="glossar-def">Umfassendes Qualitätsmanagement mit Fokus auf kontinuierliche Verbesserung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">USG (Umweltschutzgesetz)</div>
+            <div class="glossar-def">Schweizer Grundgesetz für den Umweltschutz</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">USV (Unterbrechungsfreie Stromversorgung)</div>
+            <div class="glossar-def">Notstromversorgung zum Schutz vor Stromausfällen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">VIVA-Ziele</div>
+            <div class="glossar-def">IT-Sicherheitsziele: Verfügbarkeit, Integrität, Vertraulichkeit, Authentizität</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">VPN (Virtual Private Network)</div>
+            <div class="glossar-def">Sichere Netzwerkverbindung über öffentliche Netze</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">VVEA</div>
+            <div class="glossar-def">Schweizer Verordnung über die Vermeidung und die Entsorgung von Abfällen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">WfMS (Workflow Management System)</div>
+            <div class="glossar-def">System zur Automatisierung und Steuerung von Geschäftsprozessen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">XYZ-Analyse</div>
+            <div class="glossar-def">Vorhersagegenauigkeit: X-Artikel (regelmäßig), Y-Artikel (schwankend), Z-Artikel (zufällig)</div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f0f8ff; border-radius: 10px; border-left: 4px solid #1565c0;">
+            <h3 style="color: #1565c0; margin-bottom: 15px;">🧮 Wichtige Formeln</h3>
+            
+            <div class="formula-box">
+                <strong>Optimale Bestellmenge (Andler):</strong><br>
+                X<sub>opt</sub> = √(200 × M × BK / (EP × LK))<br>
+                <small>M=Bedarfsmenge, BK=Bestellkosten, EP=Einstandspreis, LK=Lagerhaltungskosten(%)</small>
+            </div>
+            
+            <div class="formula-box">
+                <strong>Optimale Losgröße (Produktion):</strong><br>
+                X<sub>opt</sub> = √(200 × M × (H<sub>fix</sub> + L<sub>fix</sub>) / (h<sub>var</sub> × q))<br>
+                <small>M=Jahresbedarf, H<sub>fix</sub>=Herstellungsfixkosten, L<sub>fix</sub>=Lagerfixkosten</small>
+            </div>
+            
+            <div class="formula-box">
+                <strong>Nettobedarf:</strong><br>
+                Bruttobedarf - verfügbare Lagerbestände - offene Bestellungen + reservierte Bestände
+            </div>
+            
+            <div class="formula-box">
+                <strong>Meldebestand:</strong><br>
+                (Verbrauch pro Periode × Beschaffungszeit) + Sicherheitsbestand
+            </div>
+            
+            <div class="formula-box">
+                <strong>Sicherheitsbestand:</strong><br>
+                Durchschnittlicher Verbrauch pro Periode × Beschaffungszeit
+            </div>
+            
+            <div class="formula-box">
+                <strong>6R-Ziele:</strong><br>
+                Right Product, Right Quantity, Right Place, Right Time, Right Costs, Right Quality (+Right Customer)
+            </div>
+            
+            <div class="formula-box">
+                <strong>SCOR-Modell:</strong><br>
+                Plan → Source → Make → Deliver → Return
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center; font-style: italic; color: #666;">
+            <p><strong>HF5: Supply Chain Management</strong><br>
+            Technische Kaufleute - Eidgenössische Berufsprüfung<br>
+            Basierend auf Lernzielkatalog und aktuellen Schweizer Standards</p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF4: Finanzielle Führung - Factsheet</title>
+    <style>
+        /* Druckerfreundliches Design */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: white;
+            font-size: 12pt;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 0 auto 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+        
+        .page:last-child {
+            page-break-after: avoid;
+        }
+        
+        /* Hauptfarbe für HF4: Finanzgrün */
+        .main-color { color: #2E7D32; }
+        .lf1-color { color: #388E3C; }
+        .lf2-color { color: #43A047; }
+        .lf3-color { color: #66BB6A; }
+        .lf4-color { color: #81C784; }
+        
+        h1 {
+            font-size: 28pt;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #2E7D32;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 18pt;
+            margin: 20px 0 15px 0;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 14pt;
+            margin: 15px 0 10px 0;
+            color: #1a1a1a;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+        
+        .toc-item {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .toc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .section-lf1 {
+            background: white;
+            border-left: 3px solid #388E3C;
+            padding-left: 15px;
+        }
+        
+        .section-lf1 h2 { color: #388E3C; }
+        
+        .section-lf2 {
+            background: white;
+            border-left: 3px solid #43A047;
+            padding-left: 15px;
+        }
+        
+        .section-lf2 h2 { color: #43A047; }
+        
+        .section-lf3 {
+            background: white;
+            border-left: 3px solid #66BB6A;
+            padding-left: 15px;
+        }
+        
+        .section-lf3 h2 { color: #66BB6A; }
+        
+        .section-lf4 {
+            background: white;
+            border-left: 3px solid #81C784;
+            padding-left: 15px;
+        }
+        
+        .section-lf4 h2 { color: #81C784; }
+        
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin: 6px 0;
+        }
+        
+        strong {
+            font-weight: 600;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border: 1px solid #ffd700;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .highlight-box h4 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 11pt;
+        }
+        
+        .emoji {
+            font-size: 14pt;
+            margin-right: 8px;
+        }
+        
+        .glossar-item {
+            margin: 12px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #2E7D32;
+        }
+        
+        @media print {
+            body { font-size: 10pt; }
+            .page { 
+                box-shadow: none; 
+                margin: 0;
+                padding: 15mm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Seite 1: Titel + Inhaltsverzeichnis -->
+<div class="page">
+    <h1 class="main-color">Handlungsfeld 4: Finanzielle Führung</h1>
+    
+    <div style="text-align: center; margin: 40px 0;">
+        <p style="font-size: 16pt; margin-bottom: 10px;">Technische Kaufleute</p>
+        <p style="font-size: 14pt; color: #666;">Eidgenössische Berufsprüfung</p>
+</div>
+
+</body>
+</html>
+    
+    <div class="toc">
+        <h2>📋 Inhaltsverzeichnis</h2>
+        
+        <div class="toc-item">
+            <div class="toc-dot" style="background: #388E3C;"></div>
+            <span><strong>Seite 2:</strong> LF1 - Finanzierung</span>
+        </div>
+        
+        <div class="toc-item">
+            <div class="toc-dot" style="background: #43A047;"></div>
+            <span><strong>Seite 3:</strong> LF2 - Finanzplanung und Budgetierung</span>
+        </div>
+        
+        <div class="toc-item">
+            <div class="toc-dot" style="background: #66BB6A;"></div>
+            <span><strong>Seite 4:</strong> LF3 - Controlling</span>
+        </div>
+        
+        <div class="toc-item">
+            <div class="toc-dot" style="background: #81C784;"></div>
+            <span><strong>Seite 5:</strong> LF4 - Geldflussrechnung</span>
+        </div>
+        
+        <div class="toc-item">
+            <div class="toc-dot" style="background: #2E7D32;"></div>
+            <span><strong>Seite 6:</strong> Glossar</span>
+        </div>
+    </div>
+    
+    <div style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+        <h3>🎯 Übergeordnete Lernziele</h3>
+        <ul>
+            <li><strong>Budgetierung:</strong> Realistische Teilbudgets erstellen und kontrollieren</li>
+            <li><strong>Controlling:</strong> Finanzielle Ziele definieren und Abweichungen analysieren</li>
+            <li><strong>Investitionsplanung:</strong> Investitionsrechnungen durchführen und bewerten</li>
+            <li><strong>Finanzplanung:</strong> Mittelfristige Finanzplanung und Kapitalbedarfsplanung</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Seite 2: LF1 - Finanzierung -->
+<div class="page">
+    <div class="section-lf1">
+        <h2><span class="emoji">💰</span>LF1: Finanzierung</h2>
+        
+        <h3>Finanzierungsarten</h3>
+        <ul>
+            <li><strong>Eigenfinanzierung:</strong> Beteiligungsfinanzierung und Selbstfinanzierung</li>
+            <li><strong>Fremdfinanzierung:</strong> Kurzfristig (bis 1 Jahr) und langfristig (über 1 Jahr)</li>
+            <li><strong>Leasing:</strong> Indirektes Leasing als Alternative zum Kauf</li>
+            <li><strong>Mischformen:</strong> Kombinationen je nach Bedarf und Situation</li>
+        </ul>
+        
+        <h3>Eigenfinanzierung: Beteiligungsfinanzierung</h3>
+        <ul>
+            <li><strong>Vorteile:</strong> Keine Rückzahlungspflicht, keine Zinsen, höhere Kreditwürdigkeit</li>
+            <li><strong>Nachteile:</strong> Gewinnbeteiligung erforderlich, Kapitalbesteuerung</li>
+            <li><strong>Anwendung:</strong> Bei Kapitalerhöhungen und neuen Gesellschaftern</li>
+            <li><strong>Risiko:</strong> Anteile bei Nichtbörsenkotierung schwer veräußerbar</li>
+        </ul>
+        
+        <h3>Eigenfinanzierung: Selbstfinanzierung</h3>
+        <ul>
+            <li><strong>Vorteile:</strong> Unabhängigkeit von Dritten, kein Liquiditätsabfluss</li>
+            <li><strong>Nachteile:</strong> Weniger Dividenden für Aktionäre</li>
+            <li><strong>Methode:</strong> Gewinnthesaurierung in Reserven</li>
+            <li><strong>Strategie:</strong> Langfristige Stärkung der Eigenkapitalbasis</li>
+        </ul>
+        
+        <h3>Kurzfristige Fremdfinanzierung</h3>
+        <ul>
+            <li><strong>Vorteile:</strong> Geringe Formalitäten, hohe Flexibilität, schnelle Verfügbarkeit</li>
+            <li><strong>Nachteile:</strong> Hohe Zinsen, verpasste Skonti führen zu hohen Kosten</li>
+            <li><strong>Formen:</strong> Kontokorrentkredit, Lieferantenkredit, kurzfristige Darlehen</li>
+            <li><strong>Einsatz:</strong> Überbrückung von Liquiditätsengpässen</li>
+        </ul>
+        
+        <h3>Langfristige Fremdfinanzierung</h3>
+        <ul>
+            <li><strong>Vorteile:</strong> Kein kurzfristiger Liquiditätsabfluss, steuerliche Vorteile</li>
+            <li><strong>Nachteile:</strong> Hoher Formalitätsaufwand, Sicherheiten erforderlich</li>
+            <li><strong>Auswirkungen:</strong> Verschlechterung des Fremdfinanzierungsgrads</li>
+            <li><strong>Abhängigkeit:</strong> Steigende Abhängigkeit von Fremdkapitalgebern</li>
+        </ul>
+        
+        <h3>Leasing</h3>
+        <ul>
+            <li><strong>Vorteile:</strong> Kein Liquiditätsabfluss, steuerliche Vorteile, kein Zinsrisiko</li>
+            <li><strong>Nachteile:</strong> Insgesamt teurer, nicht kündbar, Vollkaskoversicherung</li>
+            <li><strong>Abwicklung:</strong> Indirektes Leasing über Leasinggesellschaft</li>
+            <li><strong>Kalkulation:</strong> Sichere Planungsgrundlage durch fixe Raten</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <h4>💡 Praxis-Tipp: Finanzierungsentscheidung</h4>
+            <p>Bei Finanzierungsentscheidungen immer die Gesamtkosten vergleichen und betriebswirtschaftliche Abhängigkeiten (Marketing, Personal, Produktion) berücksichtigen. Verschiedene Szenarien durchrechnen und kritisch reflektieren.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Seite 3: LF2 - Finanzplanung und Budgetierung -->
+<div class="page">
+    <div class="section-lf2">
+        <h2><span class="emoji">📊</span>LF2: Finanzplanung und Budgetierung</h2>
+        
+        <h3>Planungsprozess</h3>
+        <ul>
+            <li><strong>Management-Kreislauf:</strong> Planen → Entscheiden → Anordnen → Kontrollieren → Korrigieren</li>
+            <li><strong>Strategische Planung:</strong> Langfristige Ausrichtung und Zielsetzung</li>
+            <li><strong>Operative Planung:</strong> Kurzfristige Umsetzung und Detailplanung</li>
+            <li><strong>Zeitliche Einteilung:</strong> Kurz-, mittel- und langfristige Planungshorizonte</li>
+        </ul>
+        
+        <h3>Kapitalbedarfsplanung</h3>
+        <ul>
+            <li><strong>Umlaufvermögen:</strong> Vorräte, Forderungen, flüssige Mittel</li>
+            <li><strong>Anlagevermögen:</strong> Sachanlagen, immaterielle Anlagen, Finanzanlagen</li>
+            <li><strong>Einflussfaktoren:</strong> Produktionsvolumen, Lagerbestände, Zahlungsfristen</li>
+            <li><strong>Planungshorizont:</strong> Abstimmung mit Geschäftsstrategie</li>
+        </ul>
+        
+        <h3>Teilpläne der Finanzplanung</h3>
+        <ul>
+            <li><strong>Absatzplan:</strong> Verkaufszahlen und Umsatzprognosen</li>
+            <li><strong>Produktionsplan:</strong> Materialkosten und Produktionsaufwände</li>
+            <li><strong>Investitionsplan:</strong> An- und Verkäufe von Anlagevermögen</li>
+            <li><strong>Finanzierungsplan:</strong> Eigen- und Fremdkapitalveränderungen</li>
+        </ul>
+        
+        <h3>Liquiditätsplanung</h3>
+        <ul>
+            <li><strong>Anfangsbestand:</strong> Verfügbare flüssige Mittel</li>
+            <li><strong>Eingänge:</strong> Kundenzahlungen und Desinvestitionen</li>
+            <li><strong>Ausgänge:</strong> Material, Löhne, Miete, Investitionen</li>
+            <li><strong>Endbestand:</strong> Liquiditätslage am Periodenende</li>
+        </ul>
+        
+        <h3>Budgetierungsarten</h3>
+        <ul>
+            <li><strong>Top-Down:</strong> Vorgaben der Geschäftsleitung nach unten</li>
+            <li><strong>Bottom-Up:</strong> Planung von unten nach oben aggregiert</li>
+            <li><strong>Gegenstromverfahren:</strong> Kombination beider Ansätze</li>
+            <li><strong>Zero-Based:</strong> Jährliche Neuerstellung ohne Vorjahresbasis</li>
+        </ul>
+        
+        <h3>Kostenstellenbudgets</h3>
+        <ul>
+            <li><strong>Plan-Kosten:</strong> Budgetierte Werte für die Periode</li>
+            <li><strong>Ist-Kosten:</strong> Tatsächlich angefallene Kosten</li>
+            <li><strong>Abweichungsanalyse:</strong> Positive und negative Abweichungen</li>
+            <li><strong>Maßnahmenableitung:</strong> Korrekturen bei signifikanten Abweichungen</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <h4>💡 Praxis-Tipp: Realistische Budgetierung</h4>
+            <p>Budgets sollten herausfordernd aber erreichbar sein. Zu optimistische Budgets demotivieren, zu defensive führen zu Ineffizienzen. Verschiedene Szenarien (Best Case, Worst Case, Most Likely) entwickeln.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Seite 4: LF3 - Controlling -->
+<div class="page">
+    <div class="section-lf3">
+        <h2><span class="emoji">🎯</span>LF3: Controlling</h2>
+        
+        <h3>Hauptaufgaben der Unternehmensleitung</h3>
+        <ul>
+            <li><strong>Planung:</strong> Ziele setzen und Maßnahmen definieren</li>
+            <li><strong>Organisation:</strong> Strukturen und Prozesse gestalten</li>
+            <li><strong>Führung:</strong> Menschen motivieren und koordinieren</li>
+            <li><strong>Kontrolle:</strong> Zielerreichung überwachen und korrigieren</li>
+        </ul>
+        
+        <h3>Gegenstände der Kontrolle</h3>
+        <ul>
+            <li><strong>Ergebniskontrolle:</strong> Zielerreichung und Leistungsmessung</li>
+            <li><strong>Verfahrenskontrolle:</strong> Prozesse und Arbeitsabläufe</li>
+            <li><strong>Prämissenkontrolle:</strong> Grundannahmen und Planungsgrundlagen</li>
+            <li><strong>Strategische Kontrolle:</strong> Langfristige Ausrichtung und Strategieumsetzung</li>
+        </ul>
+        
+        <h3>Abweichungsanalyse</h3>
+        <ul>
+            <li><strong>Planabweichungen:</strong> Soll-Ist-Vergleiche durchführen</li>
+            <li><strong>Ursachenforschung:</strong> Interne und externe Faktoren identifizieren</li>
+            <li><strong>Bewertung:</strong> Signifikanz und Auswirkungen einschätzen</li>
+            <li><strong>Maßnahmenableitung:</strong> Korrektur- und Verbesserungsmaßnahmen</li>
+        </ul>
+        
+        <h3>Aufgaben des Controllings</h3>
+        <ul>
+            <li><strong>Informationsversorgung:</strong> Entscheidungsrelevante Daten bereitstellen</li>
+            <li><strong>Planungsunterstützung:</strong> Planungsprozesse koordinieren</li>
+            <li><strong>Kontrolle:</strong> Überwachung der Zielerreichung</li>
+            <li><strong>Steuerung:</strong> Maßnahmen zur Zielerreichung empfehlen</li>
+        </ul>
+        
+        <h3>Controlling-Instrumente</h3>
+        <ul>
+            <li><strong>Kennzahlen:</strong> ROI, Liquiditätsgrade, Eigenkapitalquote</li>
+            <li><strong>Berichte:</strong> Regelmäßige Management-Reports</li>
+            <li><strong>Budgetierung:</strong> Planungs- und Kontrollinstrument</li>
+            <li><strong>Benchmarking:</strong> Vergleich mit internen/externen Standards</li>
+        </ul>
+        
+        <h3>Operatives vs. Strategisches Controlling</h3>
+        <ul>
+            <li><strong>Operatives Controlling:</strong> Kurzfristige Erfolgs- und Liquiditätskontrolle</li>
+            <li><strong>Strategisches Controlling:</strong> Langfristige Erfolgspotentiale</li>
+            <li><strong>Zeithorizont:</strong> 1 Jahr vs. mehrere Jahre</li>
+            <li><strong>Fokus:</strong> Effizienz vs. Effektivität</li>
+        </ul>
+        
+        <h3>Verfahrensansätze</h3>
+        <ul>
+            <li><strong>Top-Down:</strong> Vorgaben von der Unternehmensleitung</li>
+            <li><strong>Bottom-Up:</strong> Information von den operativen Einheiten</li>
+            <li><strong>Integration:</strong> Verbindung beider Ansätze für optimale Steuerung</li>
+            <li><strong>Kommunikation:</strong> Transparenz und Dialog fördern</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <h4>💡 Praxis-Tipp: Effektives Controlling</h4>
+            <p>Controlling sollte nicht nur kontrollieren, sondern auch beraten. Frühwarnsysteme implementieren und proaktiv auf Abweichungen reagieren. KPIs sollten steuerungsrelevant und beeinflussbar sein.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Seite 5: LF4 - Geldflussrechnung -->
+<div class="page">
+    <div class="section-lf4">
+        <h2><span class="emoji">💸</span>LF4: Geldflussrechnung - Mittelflussrechnung</h2>
+        
+        <h3>Grundlagen der Geldflussrechnung</h3>
+        <ul>
+            <li><strong>Abgrenzung:</strong> Einnahmen/Ausgaben ≠ Erträge/Aufwendungen</li>
+            <li><strong>Liquiditätsfokus:</strong> Zahlungsströme statt Erfolgsgrößen</li>
+            <li><strong>Transparenz:</strong> Vollständige Darstellung aller Geldflüsse</li>
+            <li><strong>Drei Bereiche:</strong> Betriebs-, Investitions- und Finanzierungstätigkeit</li>
+        </ul>
+        
+        <h3>Flüssige Mittel</h3>
+        <ul>
+            <li><strong>Fonds flüssige Mittel:</strong> Kasse + Bankguthaben</li>
+            <li><strong>Netto-flüssige Mittel:</strong> Minus kurzfristige Bankverbindlichkeiten</li>
+            <li><strong>Liquidität:</strong> Zahlungsfähigkeit des Unternehmens</li>
+            <li><strong>Veränderungen:</strong> Zu- und Abnahme der Liquidität</li>
+        </ul>
+        
+        <h3>Geldfluss aus Geschäftstätigkeit (Cashflow)</h3>
+        <ul>
+            <li><strong>Operative Einnahmen:</strong> Kundenrechnungen und Verkaufserlöse</li>
+            <li><strong>Operative Ausgaben:</strong> Material, Löhne, Mieten, Betriebskosten</li>
+            <li><strong>Cashflow:</strong> Saldo aus operativen Ein- und Ausgaben</li>
+            <li><strong>Indirekte Berechnung:</strong> Reingewinn + Abschreibungen ± Working Capital</li>
+        </ul>
+        
+        <h3>Geldfluss aus Investitionstätigkeit</h3>
+        <ul>
+            <li><strong>Desinvestitionen:</strong> Verkauf von Anlagevermögen</li>
+            <li><strong>Investitionen:</strong> Kauf von Anlagevermögen</li>
+            <li><strong>Nettoinvestitionen:</strong> Saldo aus An- und Verkäufen</li>
+            <li><strong>Free Cashflow:</strong> Cashflow minus Nettoinvestitionen</li>
+        </ul>
+        
+        <h3>Geldfluss aus Finanzierungstätigkeit</h3>
+        <ul>
+            <li><strong>Finanzierungen:</strong> Aufnahme von Eigen- und Fremdkapital</li>
+            <li><strong>Definanzierungen:</strong> Rückzahlung von Kapital und Dividenden</li>
+            <li><strong>Nettofinanzierung:</strong> Saldo aus Kapitalveränderungen</li>
+            <li><strong>Gesamtsaldo:</strong> Veränderung der flüssigen Mittel</li>
+        </ul>
+        
+        <h3>Liquiditätswirksame vs. liquiditätsunwirksame Geschäftsfälle</h3>
+        <ul>
+            <li><strong>Liquiditätswirksam:</strong> Barverkäufe, Lohnzahlungen, Mietausgaben</li>
+            <li><strong>Liquiditätsunwirksam:</strong> Abschreibungen, Rückstellungen, Rechnungsabgrenzungen</li>
+            <li><strong>Working Capital:</strong> Veränderungen bei Vorräten und Forderungen</li>
+            <li><strong>Korrekturen:</strong> Anpassungen für indirekte Cashflow-Berechnung</li>
+        </ul>
+        
+        <h3>Cashflow-Analyse</h3>
+        <ul>
+            <li><strong>Positiver Cashflow:</strong> Zeichen für gesunde operative Tätigkeit</li>
+            <li><strong>Negativer Cashflow:</strong> Warnsignal für Liquiditätsprobleme</li>
+            <li><strong>Trends:</strong> Entwicklung über mehrere Perioden betrachten</li>
+            <li><strong>Branchenvergleich:</strong> Einordnung der eigenen Performance</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <h4>💡 Praxis-Tipp: Liquiditätsmanagement</h4>
+            <p>Die Geldflussrechnung ist das wichtigste Instrument zur Beurteilung der Liquidität. Ein Unternehmen kann trotz Gewinn illiquide werden. Regelmäßige Liquiditätsplanung und -kontrolle sind essentiell.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Seite 6: Glossar -->
+<div class="page">
+    <h2 class="main-color">📚 Glossar</h2>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Bottom-Up-Budgetierung</div>
+        <div>Planungsansatz, bei dem die Budgets von den operativen Einheiten nach oben aggregiert werden.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Cashflow</div>
+        <div>Saldo aus allen operativen Einnahmen und Ausgaben einer Periode; Maß für die Innenfinanzierungskraft.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Controlling</div>
+        <div>Führungsunterstützung durch Planung, Kontrolle und Informationsversorgung zur Zielerreichung.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Free Cashflow</div>
+        <div>Cashflow aus Geschäftstätigkeit minus Nettoinvestitionen; verfügbarer Zahlungsüberschuss.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Fremdfinanzierungsgrad</div>
+        <div>Kennzahl: Fremdkapital / Gesamtkapital; zeigt die Abhängigkeit von Fremdkapitalgebern.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Gegenstromverfahren</div>
+        <div>Budgetierungsansatz, der Top-Down-Vorgaben mit Bottom-Up-Detailplanung kombiniert.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Indirektes Leasing</div>
+        <div>Leasingform mit drei Parteien: Leasingnehmer, Leasinggeber und Lieferant des Leasingobjekts.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Kapitalbedarfsplanung</div>
+        <div>Ermittlung des zukünftigen Finanzierungsbedarfs basierend auf Umlauf- und Anlagevermögen.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Kontokorrentkredit</div>
+        <div>Kurzfristige Kreditlinie auf dem Geschäftskonto zur flexiblen Liquiditätsüberbrückung.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Liquiditätsplanung</div>
+        <div>Vorausschauende Planung der Ein- und Auszahlungen zur Sicherung der Zahlungsfähigkeit.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Management-Kreislauf</div>
+        <div>Führungsprozess: Planen → Entscheiden → Anordnen → Kontrollieren → Korrigieren.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Mittelflussrechnung</div>
+        <div>Synonym für Geldflussrechnung; zeigt die Veränderung der flüssigen Mittel einer Periode.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Nettoinvestitionen</div>
+        <div>Saldo aus Investitionen (Käufe) und Desinvestitionen (Verkäufe) von Anlagevermögen.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Operatives Controlling</div>
+        <div>Kurzfristige Erfolgskontrolle mit Fokus auf Effizienz und Budgeteinhaltung (Zeithorizont: 1 Jahr).</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Selbstfinanzierung</div>
+        <div>Eigenfinanzierung durch einbehaltene Gewinne ohne externe Kapitalgeber.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Skonto</div>
+        <div>Rabatt bei vorzeitiger Zahlung von Lieferantenrechnungen; hohe Verzinsung bei Ausnutzung.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Soll-Ist-Vergleich</div>
+        <div>Gegenüberstellung von geplanten (Soll) und tatsächlichen (Ist) Werten zur Abweichungsanalyse.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Strategisches Controlling</div>
+        <div>Langfristige Erfolgskontrolle mit Fokus auf Effektivität und Erfolgspotentiale (mehrjährig).</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Top-Down-Budgetierung</div>
+        <div>Planungsansatz mit Vorgaben der Geschäftsleitung, die nach unten weitergegeben werden.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Working Capital</div>
+        <div>Nettoumlaufvermögen; Differenz zwischen kurzfristigem Umlaufvermögen und kurzfristigen Verbindlichkeiten.</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Zero-Based Budgeting</div>
+        <div>Budgetierungsansatz ohne Übernahme von Vorjahreswerten; jährliche Neubegründung aller Positionen.</div>
+    </div>
+    
+    <div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #2E7D32;">
+        <h3 style="color: #2E7D32; margin-bottom: 15px;">📋 Prüfungsvorbereitung</h3>
+        <p><strong>Fokus auf:</strong></p>
+        <ul style="margin-top: 10px;">
+            <li>Vor- und Nachteile der verschiedenen Finanzierungsarten</li>
+            <li>Erstellung und Kontrolle von Teilbudgets</li>
+            <li>Soll-Ist-Vergleiche und Abweichungsanalysen</li>
+            <li>Direkte und indirekte Cashflow-Berechnung</li>
+            <li>Liquiditätsplanung und -kontrolle</li>
+        </ul>
+    </div>
+        

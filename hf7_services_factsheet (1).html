@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <title>HF7: Services (Kundendienst) - Factsheet</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; font-size: 11pt; }
+            .page { page-break-after: always; height: 100vh; }
+            .page:last-child { page-break-after: avoid; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: white;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        
+        /* Titel-Seite */
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.5em;
+            color: #e65100;
+            margin-bottom: 20px;
+        }
+        
+        .title-page h2 {
+            font-size: 1.5em;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .toc h3 {
+            color: #e65100;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .dot1 { background: #ff5722; }
+        .dot2 { background: #ff7043; }
+        .dot3 { background: #ff8a65; }
+        .dot4 { background: #ffab91; }
+        
+        .toc-left {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        /* Content-Seiten */
+        h1 {
+            color: #e65100;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e65100;
+            padding-bottom: 5px;
+        }
+        
+        h2 {
+            color: #1a1a1a;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.1em;
+            margin: 15px 0 8px 0;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        /* Sektionen */
+        .section-kundenservice {
+            background: white;
+            border-left: 3px solid #ff5722;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-kundenservice h2 { color: #ff5722; background: white; }
+        
+        .section-reklamation {
+            background: white;
+            border-left: 3px solid #ff7043;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-reklamation h2 { color: #ff7043; background: white; }
+        
+        .section-crm {
+            background: white;
+            border-left: 3px solid #ff8a65;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-crm h2 { color: #ff8a65; background: white; }
+        
+        .section-optimierung {
+            background: white;
+            border-left: 3px solid #ffab91;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-optimierung h2 { color: #ffab91; background: white; }
+        
+        ul {
+            margin: 8px 0 15px 20px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+        
+        strong {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            padding: 12px;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .process-box {
+            background: #f3e5f5;
+            padding: 15px;
+            border-left: 4px solid #9c27b0;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .glossar-item {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #e65100;
+            font-size: 1.05em;
+        }
+        
+        .glossar-def {
+            margin-top: 3px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #e65100;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .print-btn:hover {
+            background: #bf360c;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <!-- Seite 1: Titel und Inhaltsverzeichnis -->
+    <div class="page title-page">
+        <h1>Handlungsfeld 7</h1>
+        <h2>Services (Kundendienst)</h2>
+        <p style="margin-bottom: 30px;">Technische Kaufleute - Eidgenössische Berufsprüfung</p>
+        
+        <div class="toc">
+            <h3>📋 Inhaltsverzeichnis</h3>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot1"></div>
+                    <span>Kundenservice & Kommunikation</span>
+                </div>
+                <span>Seite 2</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot2"></div>
+                    <span>Reklamationsmanagement</span>
+                </div>
+                <span>Seite 3</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot3"></div>
+                    <span>CRM & Kundenbindung</span>
+                </div>
+                <span>Seite 4</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot4"></div>
+                    <span>Prozessoptimierung</span>
+                </div>
+                <span>Seite 5</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot"></div>
+                    <span>Glossar</span>
+                </div>
+                <span>Seite 6</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: Kundenservice & Kommunikation -->
+    <div class="page">
+        <h1>📞 Kundenservice & Kommunikation</h1>
+        
+        <div class="section-kundenservice">
+            <h2><span class="emoji">🎯</span>6 Phasen des Verkaufsgesprächs</h2>
+            
+            <h3>Gesprächsablauf</h3>
+            <ul>
+                <li><strong>Vorbereitungsphase:</strong> Kundeninformationen sammeln, Ziele definieren</li>
+                <li><strong>Eröffnungsphase:</strong> Begrüssung, Vertrauensaufbau, Gesprächsziel klären</li>
+                <li><strong>Angebots- und Argumentationsphase:</strong> Bedürfnisse ermitteln, Lösungen präsentieren</li>
+                <li><strong>Abschlussphase:</strong> Entscheidung herbeiführen, Vereinbarungen treffen</li>
+                <li><strong>Verabschiedung:</strong> Professioneller Abschluss, nächste Schritte besprechen</li>
+                <li><strong>Nachbearbeitung:</strong> Follow-up, Dokumentation, Kundenzufriedenheit prüfen</li>
+            </ul>
+        </div>
+        
+        <div class="section-kundenservice">
+            <h2><span class="emoji">❓</span>Professionelle Fragetechniken</h2>
+            
+            <h3>Ziele der Fragestellung</h3>
+            <ul>
+                <li><strong>Bedürfnisse erfahren:</strong> Echte Kundenwünsche identifizieren</li>
+                <li><strong>Vertrauen aufbauen:</strong> Interesse am Kunden zeigen</li>
+                <li><strong>Gesprächssteuerung:</strong> Verlauf positiv beeinflussen</li>
+                <li><strong>Übereinstimmung erlangen:</strong> Gemeinsame Basis schaffen</li>
+            </ul>
+            
+            <h3>Wichtige Frageformen</h3>
+            <ul>
+                <li><strong>Offene Fragen:</strong> W-Fragen für ausführliche Antworten</li>
+                <li><strong>Geschlossene Fragen:</strong> Ja/Nein-Antworten für Bestätigung</li>
+                <li><strong>Kontrollfragen:</strong> Verständnis überprüfen und sicherstellen</li>
+                <li><strong>Alternativfragen:</strong> Entscheidung zwischen zwei Optionen</li>
+                <li><strong>Motivationsfragen:</strong> Beweggründe und Ziele verstehen</li>
+            </ul>
+            
+            <div class="process-box">
+                <strong>Ja-Strasse-Technik:</strong><br>
+                Schritt für Schritt durch kleine "Ja"-Antworten zum Hauptziel führen
+            </div>
+        </div>
+        
+        <div class="section-kundenservice">
+            <h2><span class="emoji">👂</span>Aktives Zuhören</h2>
+            
+            <h3>6 Elemente des aktiven Zuhörens</h3>
+            <ul>
+                <li><strong>Schweigen:</strong> Dem Kunden Raum geben, sich zu äussern</li>
+                <li><strong>Blickkontakt:</strong> Aufmerksamkeit und Interesse zeigen</li>
+                <li><strong>Bestätigen:</strong> Einsilbige Rückmeldungen ("Aha", "Verstehe")</li>
+                <li><strong>Türöffner:</strong> Offene Fragen für weitere Informationen</li>
+                <li><strong>Spiegeln:</strong> Gehörtes in eigenen Worten wiedergeben</li>
+                <li><strong>Zusammenfassen:</strong> Kernpunkte strukturiert wiederholen</li>
+            </ul>
+            
+            <h3>Zuhörtechniken in der Praxis</h3>
+            <ul>
+                <li><strong>Körpersprache:</strong> Zugewandte Haltung, offene Gestik</li>
+                <li><strong>Paraphrasieren:</strong> "Wenn ich Sie richtig verstehe..."</li>
+                <li><strong>Emotionen erkennen:</strong> Gefühle des Kunden wahrnehmen</li>
+                <li><strong>Nachfragen:</strong> Bei Unklarheiten gezielt nachbohren</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> 70% der Zeit sollten Sie zuhören, nur 30% sprechen. Der Kunde soll sich verstanden und ernst genommen fühlen.
+        </div>
+    </div>
+
+    <!-- Seite 3: Reklamationsmanagement -->
+    <div class="page">
+        <h1>🔧 Reklamationsmanagement</h1>
+        
+        <div class="section-reklamation">
+            <h2><span class="emoji">⚖️</span>Beschwerde vs. Reklamation</h2>
+            
+            <h3>Unterscheidung</h3>
+            <ul>
+                <li><strong>Beschwerde:</strong> Subjektive Wahrnehmung, Unzufriedenheitsgefühl</li>
+                <li><strong>Reklamation:</strong> Sachlich-objektive Mängel, berechtigte Ansprüche</li>
+                <li><strong>Beispiel Beschwerde:</strong> "Ihr Verhalten war unfreundlich"</li>
+                <li><strong>Beispiel Reklamation:</strong> "Das Gerät funktioniert nicht wie versprochen"</li>
+            </ul>
+        </div>
+        
+        <div class="section-reklamation">
+            <h2><span class="emoji">🛠️</span>10-Stufen-Prozess der Beschwerdebehandlung</h2>
+            
+            <h3>Systematische Bearbeitung</h3>
+            <ul>
+                <li><strong>1. Zeit nehmen:</strong> Dem Kunden volle Aufmerksamkeit schenken</li>
+                <li><strong>2. Aufmerksam zuhören:</strong> Problem vollständig verstehen</li>
+                <li><strong>3. Verständnis zeigen:</strong> Empathie und Wertschätzung ausdrücken</li>
+                <li><strong>4. Schuld nicht beim Kunden suchen:</strong> Sachlich bleiben</li>
+                <li><strong>5. Erwartungen erfragen:</strong> "Was erwarten Sie von uns?"</li>
+            </ul>
+            
+            <h3>Fortsetzung des Prozesses</h3>
+            <ul>
+                <li><strong>6. Konkrete Vereinbarung treffen:</strong> Klare Zusagen machen</li>
+                <li><strong>7. Schnell handeln:</strong> Zeitnahe Umsetzung sicherstellen</li>
+                <li><strong>8. Lösung überprüfen:</strong> Kundenzufriedenheit bestätigen</li>
+                <li><strong>9. Besserung versprechen:</strong> Präventive Massnahmen kommunizieren</li>
+                <li><strong>10. Aufmerksamkeit schenken:</strong> Kleine Geste der Wiedergutmachung</li>
+            </ul>
+        </div>
+        
+        <div class="section-reklamation">
+            <h2><span class="emoji">💬</span>Einwandbehandlung</h2>
+            
+            <h3>Echte vs. Unechte Einwände</h3>
+            <ul>
+                <li><strong>Echte Einwände:</strong> Sachliche Unklarheiten, Entscheidungsangst</li>
+                <li><strong>Unechte Einwände (Vorwände):</strong> Ausreden, fehlende Kaufbereitschaft</li>
+                <li><strong>Beispiel "zu teuer":</strong> Verständnis zeigen → Nachfragen → Argumentieren</li>
+                <li><strong>Methode:</strong> Bestätigen → Relativieren → "Ja" abholen → Sachebene</li>
+            </ul>
+            
+            <h3>4 Bausteine des Antwortschreibens</h3>
+            <ul>
+                <li><strong>Dankbarkeit:</strong> Für die Rückmeldung bedanken</li>
+                <li><strong>Entschuldigung:</strong> Aufrichtiges Bedauern ausdrücken</li>
+                <li><strong>Erklärung:</strong> Sachverhalt neutral erläutern</li>
+                <li><strong>Aktion:</strong> Konkrete Lösungsschritte aufzeigen</li>
+            </ul>
+        </div>
+        
+        <div class="section-reklamation">
+            <h2><span class="emoji">🤝</span>Harvard-Konzept</h2>
+            
+            <h3>4 Problemlösungskriterien</h3>
+            <ul>
+                <li><strong>Menschen und Probleme trennen:</strong> Sachlich bleiben</li>
+                <li><strong>Interessen, nicht Positionen:</strong> Wahre Bedürfnisse ermitteln</li>
+                <li><strong>Optionen entwickeln:</strong> Win-Win-Lösungen suchen</li>
+                <li><strong>Objektive Kriterien:</strong> Faire Massstäbe anwenden</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Statistik:</strong> 68% der Kunden verlassen ein Unternehmen wegen mangelndem Interesse seitens des Service-Teams - nicht wegen des Produkts!
+        </div>
+    </div>
+
+    <!-- Seite 4: CRM & Kundenbindung -->
+    <div class="page">
+        <h1>📊 CRM & Kundenbindung</h1>
+        
+        <div class="section-crm">
+            <h2><span class="emoji">🎯</span>Customer Relationship Management</h2>
+            
+            <h3>Anforderungen an CRM-Software</h3>
+            <ul>
+                <li><strong>Kontaktmanagement:</strong> Vollständige Kundendatenbank</li>
+                <li><strong>Aktivitätenverfolgung:</strong> Alle Kundeninteraktionen dokumentieren</li>
+                <li><strong>Verkaufspipeline:</strong> Verkaufsprozess visualisieren und steuern</li>
+                <li><strong>Reporting:</strong> Auswertungen und Kennzahlen generieren</li>
+                <li><strong>Integration:</strong> Anbindung an bestehende Systeme</li>
+            </ul>
+            
+            <h3>CRM-Ziele</h3>
+            <ul>
+                <li><strong>Kundenzufriedenheit steigern:</strong> Besserer Service durch vollständige Info</li>
+                <li><strong>Umsatz erhöhen:</strong> Cross- und Up-Selling-Potentiale nutzen</li>
+                <li><strong>Kosten senken:</strong> Effizientere Kundenbetreuung</li>
+                <li><strong>Kundenbindung stärken:</strong> Langfristige Beziehungen aufbauen</li>
+            </ul>
+        </div>
+        
+        <div class="section-crm">
+            <h2><span class="emoji">👥</span>Kundentypologien</h2>
+            
+            <h3>Einteilungsarten</h3>
+            <ul>
+                <li><strong>Nach Kaufpotenzial:</strong> Gross-, Mittel-, Kleinkunden</li>
+                <li><strong>Nach Profitabilität:</strong> A-, B-, C-Kunden</li>
+                <li><strong>Nach Verhalten:</strong> Innovative, Konservative, Preissensible</li>
+                <li><strong>Nach Loyalität:</strong> Stammkunden, Wechselkunden, Neukunden</li>
+            </ul>
+            
+            <h3>7 Kundentypen im Verhalten</h3>
+            <ul>
+                <li><strong>Entscheider:</strong> Trifft finale Kaufentscheidung</li>
+                <li><strong>Beeinflusser:</strong> Wirkt auf Entscheidung ein</li>
+                <li><strong>Einkäufer:</strong> Wickelt Beschaffung ab</li>
+                <li><strong>Anwender:</strong> Nutzt das Produkt täglich</li>
+                <li><strong>Torwächter:</strong> Kontrolliert Informationsfluss</li>
+            </ul>
+        </div>
+        
+        <div class="section-crm">
+            <h2><span class="emoji">📈</span>Cross- und Up-Selling</h2>
+            
+            <h3>Verkaufsstrategien</h3>
+            <ul>
+                <li><strong>Cross-Selling:</strong> Zusätzliche Produkte mit gleichem/Folgenutzen</li>
+                <li><strong>Up-Selling:</strong> Höherwertiges Produkt der gleichen Kategorie</li>
+                <li><strong>Down-Selling:</strong> Günstigeres Produkt bei Preissensibilität</li>
+                <li><strong>Timing:</strong> Optimaler Zeitpunkt für Zusatzverkäufe</li>
+            </ul>
+            
+            <h3>Erfolgsfaktoren</h3>
+            <ul>
+                <li><strong>Kundenbedürfnisse verstehen:</strong> Echten Mehrwert bieten</li>
+                <li><strong>Vertrauen aufbauen:</strong> Erst beraten, dann verkaufen</li>
+                <li><strong>Produktkombinationen:</strong> Sinnvolle Pakete schnüren</li>
+                <li><strong>Nachfassen:</strong> Regelmässige Kontaktpflege</li>
+            </ul>
+        </div>
+        
+        <div class="section-crm">
+            <h2><span class="emoji">💖</span>Kundenbindung & Zufriedenheit</h2>
+            
+            <h3>Faktoren der Kundenbindung</h3>
+            <ul>
+                <li><strong>Zufriedenheit:</strong> Erwartungen erfüllen oder übertreffen</li>
+                <li><strong>Vertrauen:</strong> Verlässlichkeit und Kompetenz zeigen</li>
+                <li><strong>Wechselkosten:</strong> Aufwand für Anbieterwechsel erhöhen</li>
+                <li><strong>Emotionale Bindung:</strong> Positive Erlebnisse schaffen</li>
+            </ul>
+            
+            <h3>Kundenlebenszyklus</h3>
+            <ul>
+                <li><strong>Interesse wecken:</strong> Aufmerksamkeit generieren</li>
+                <li><strong>Erstkauf:</strong> Vertrauen aufbauen</li>
+                <li><strong>Kundenbindung:</strong> Wiederkäufe fördern</li>
+                <li><strong>Advocacy:</strong> Kunde wird zum Botschafter</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Einen neuen Kunden zu gewinnen kostet 5-7x mehr als einen bestehenden Kunden zu halten. Investieren Sie daher primär in die Kundenbindung.
+        </div>
+    </div>
+
+    <!-- Seite 5: Prozessoptimierung -->
+    <div class="page">
+        <h1>⚙️ Prozessoptimierung</h1>
+        
+        <div class="section-optimierung">
+            <h2><span class="emoji">🔄</span>Rückgewinnungsmanagement</h2>
+            
+            <h3>6-Stufen-Prozess</h3>
+            <ul>
+                <li><strong>1. Identifikation:</strong> Abwanderungsrisiko frühzeitig erkennen</li>
+                <li><strong>2. Analyse:</strong> Abwanderungsgründe systematisch ermitteln</li>
+                <li><strong>3. Segmentierung:</strong> Kunden nach Rückgewinnungspotential gruppieren</li>
+                <li><strong>4. Kontaktaufnahme:</strong> Professionelle Rückgewinnungsansprache</li>
+                <li><strong>5. Massnahmen:</strong> Individuelle Lösungsangebote entwickeln</li>
+                <li><strong>6. Kontrolle:</strong> Erfolg der Rückgewinnungsaktionen messen</li>
+            </ul>
+            
+            <h3>Frühwarnindikatoren</h3>
+            <ul>
+                <li><strong>Umsatzrückgang:</strong> Sinkende Bestellmengen oder -häufigkeit</li>
+                <li><strong>Zahlungsverhalten:</strong> Verzögerte Rechnungsbegleichung</li>
+                <li><strong>Kommunikation:</strong> Reduzierte Kontaktfrequenz</li>
+                <li><strong>Beschwerden:</strong> Häufung von Reklamationen</li>
+            </ul>
+        </div>
+        
+        <div class="section-optimierung">
+            <h2><span class="emoji">📞</span>Kundenanfragen systematisch bearbeiten</h2>
+            
+            <h3>Strukturierter Bearbeitungsprozess</h3>
+            <ul>
+                <li><strong>Erstaufnahme:</strong> Vollständige Erfassung aller relevanten Daten</li>
+                <li><strong>Kategorisierung:</strong> Anfrage nach Dringlichkeit und Typ einteilen</li>
+                <li><strong>Weiterleitung:</strong> An zuständige Fachabteilung delegieren</li>
+                <li><strong>Bearbeitung:</strong> Fachgerechte Lösung entwickeln</li>
+                <li><strong>Rückmeldung:</strong> Zeitnahe Information an den Kunden</li>
+                <li><strong>Nachfassen:</strong> Zufriedenheit des Kunden überprüfen</li>
+            </ul>
+            
+            <h3>Service Level Standards</h3>
+            <ul>
+                <li><strong>Reaktionszeit:</strong> Erste Antwort binnen 24 Stunden</li>
+                <li><strong>Bearbeitungszeit:</strong> Lösung binnen 48-72 Stunden</li>
+                <li><strong>Erreichbarkeit:</strong> Klare Kontaktzeiten und -kanäle</li>
+                <li><strong>Eskalation:</strong> Definierte Prozesse bei komplexen Fällen</li>
+            </ul>
+        </div>
+        
+        <div class="section-optimierung">
+            <h2><span class="emoji">📋</span>Kundenfeedback systematisch erfassen</h2>
+            
+            <h3>Feedback-Kanäle</h3>
+            <ul>
+                <li><strong>Kundenbefragungen:</strong> Regelmässige Zufriedenheitsumfragen</li>
+                <li><strong>Beschwerdemanagement:</strong> Strukturierte Erfassung von Problemen</li>
+                <li><strong>Social Media Monitoring:</strong> Online-Bewertungen verfolgen</li>
+                <li><strong>Persönliche Gespräche:</strong> Direktes Feedback in Kundenterminen</li>
+            </ul>
+            
+            <h3>Auswertung und Massnahmen</h3>
+            <ul>
+                <li><strong>Trends erkennen:</strong> Wiederkehrende Themen identifizieren</li>
+                <li><strong>Prioritäten setzen:</strong> Kritische Punkte zuerst angehen</li>
+                <li><strong>Massnahmen ableiten:</strong> Konkrete Verbesserungen implementieren</li>
+                <li><strong>Erfolg messen:</strong> Wirksamkeit der Änderungen überprüfen</li>
+            </ul>
+        </div>
+        
+        <div class="section-optimierung">
+            <h2><span class="emoji">🎯</span>Kennzahlen für Services</h2>
+            
+            <h3>Service-KPIs</h3>
+            <ul>
+                <li><strong>First Call Resolution:</strong> Anteil beim ersten Kontakt gelöster Fälle</li>
+                <li><strong>Customer Satisfaction Score (CSAT):</strong> Durchschnittliche Kundenzufriedenheit</li>
+                <li><strong>Net Promoter Score (NPS):</strong> Weiterempfehlungsbereitschaft</li>
+                <li><strong>Average Response Time:</strong> Durchschnittliche Antwortzeit</li>
+                <li><strong>Customer Retention Rate:</strong> Kundenbindungsrate</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Fokus:</strong> Kundenservice ist in der Schweiz besonders wichtig - hohe Qualitätserwartungen und starke Kundenbindung prägen den Markt.
+        </div>
+    </div>
+
+    <!-- Seite 6: Glossar -->
+    <div class="page">
+        <h1>📚 Glossar</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">10-Stufen-Prozess</div>
+            <div class="glossar-def">Systematisches Vorgehen zur professionellen Beschwerdebehandlung von Aufnahme bis Nachbetreuung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Aktives Zuhören</div>
+            <div class="glossar-def">Kommunikationstechnik mit 6 Elementen: Schweigen, Blickkontakt, Bestätigen, Türöffner, Spiegeln, Zusammenfassen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Beschwerde</div>
+            <div class="glossar-def">Subjektive Wahrnehmung von Unzufriedenheit ohne objektiv nachweisbare Mängel</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Cross-Selling</div>
+            <div class="glossar-def">Verkauf von Zusatzprodukten oder ergänzenden Dienstleistungen an bestehende Kunden</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">CRM (Customer Relationship Management)</div>
+            <div class="glossar-def">Systematisches Management aller Kundenbeziehungen zur Optimierung von Verkauf und Service</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">CSAT (Customer Satisfaction Score)</div>
+            <div class="glossar-def">Kennzahl zur Messung der Kundenzufriedenheit, meist auf einer Skala von 1-5 oder 1-10</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Down-Selling</div>
+            <div class="glossar-def">Empfehlung eines günstigeren Produkts, wenn es den Kundenbedürfnissen besser entspricht</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Einwandbehandlung</div>
+            <div class="glossar-def">Systematische Methode: Bestätigen → Relativieren → "Ja" abholen → Sachebene</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">FCR (First Call Resolution)</div>
+            <div class="glossar-def">Anteil der Kundenanliegen, die beim ersten Kontakt vollständig gelöst werden können</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Harvard-Konzept</div>
+            <div class="glossar-def">Verhandlungsmethode: Menschen/Probleme trennen, Interessen statt Positionen, Optionen entwickeln, objektive Kriterien</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Ja-Strasse-Technik</div>
+            <div class="glossar-def">Verkaufsmethode durch aufeinanderfolgende kleine Zustimmungen zum Hauptziel</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kundenbindung</div>
+            <div class="glossar-def">Massnahmen zur langfristigen emotionalen und rationalen Bindung von Kunden an das Unternehmen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kundenlebenszyklus</div>
+            <div class="glossar-def">4 Phasen: Interesse wecken → Erstkauf → Kundenbindung → Advocacy</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kundentypologien</div>
+            <div class="glossar-def">Einteilung nach Kaufpotenzial, Profitabilität, Verhalten oder Loyalität zur zielgerichteten Betreuung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">NPS (Net Promoter Score)</div>
+            <div class="glossar-def">Kennzahl zur Messung der Weiterempfehlungsbereitschaft von Kunden (-100 bis +100)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Paraphrasieren</div>
+            <div class="glossar-def">Wiedergabe des Gehörten in eigenen Worten ("Wenn ich Sie richtig verstehe...")</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Reklamation</div>
+            <div class="glossar-def">Sachlich begründete Beanstandung einer Leistung oder eines Produkts mit objektivem Mangel</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Rückgewinnungsmanagement</div>
+            <div class="glossar-def">6-Stufen-Prozess zur systematischen Rückgewinnung abgewanderter Kunden</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Service Level Agreement (SLA)</div>
+            <div class="glossar-def">Vertragliche Vereinbarung über Qualität, Umfang und Reaktionszeiten von Dienstleistungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Up-Selling</div>
+            <div class="glossar-def">Verkauf eines höherwertigen Produkts der gleichen Kategorie anstelle des ursprünglich angefragten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">6 Phasen des Verkaufsgesprächs</div>
+            <div class="glossar-def">Vorbereitung → Eröffnung → Angebot/Argumentation → Abschluss → Verabschiedung → Nachbearbeitung</div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #fff3e0; border-radius: 10px; border-left: 4px solid #e65100;">
+            <h3 style="color: #e65100; margin-bottom: 15px;">📋 Prüfungsrelevante Schwerpunkte</h3>
+            <p><strong>Fokus auf:</strong></p>
+            <ul style="margin-top: 10px;">
+                <li>10-Stufen-Prozess der Beschwerdebehandlung</li>
+                <li>Harvard-Konzept und 4 Bausteine des Antwortschreibens</li>
+                <li>CRM-Ziele und Kundentypologien</li>
+                <li>Cross-/Up-Selling-Strategien</li>
+                <li>Service-KPIs (FCR, CSAT, NPS)</li>
+                <li>6 Phasen des Verkaufsgesprächs</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

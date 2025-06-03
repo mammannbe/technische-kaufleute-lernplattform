@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF3: Mitarbeiterführung und Kommunikation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: white;
+        }
+
+        /* Seiten-Container */
+        .page-container {
+            width: 210mm;
+            margin: 0 auto;
+            background: white;
+        }
+
+        .page {
+            width: 100%;
+            height: 297mm;
+            padding: 20mm;
+            background: white;
+            box-sizing: border-box;
+            break-after: page;
+            position: relative;
+        }
+
+        .page:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, #ccc, transparent);
+        }
+
+        /* Titel-Seite */
+        .title-section {
+            text-align: center;
+            padding-top: 80mm;
+        }
+
+        .title-section h1 {
+            color: #2E7D32;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .title-section .subtitle {
+            color: #1a1a1a;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+
+        .toc {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .toc h2 {
+            color: #1a1a1a;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .toc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .dot-personal { background-color: #4CAF50; }
+        .dot-fuehrung { background-color: #FF9800; }
+        .dot-sitzung { background-color: #2196F3; }
+        .dot-kommunikation { background-color: #9C27B0; }
+        .dot-arbeitsrecht { background-color: #F44336; }
+
+        /* Content-Seiten */
+        .content-section h1 {
+            color: #2E7D32;
+            font-size: 2em;
+            margin-bottom: 20px;
+            background: white;
+        }
+
+        .section-personal {
+            background: white;
+            border-left: 3px solid #4CAF50;
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        .section-personal h2 {
+            color: #4CAF50;
+            background: white;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .section-fuehrung {
+            background: white;
+            border-left: 3px solid #FF9800;
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        .section-fuehrung h2 {
+            color: #FF9800;
+            background: white;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .section-sitzung {
+            background: white;
+            border-left: 3px solid #2196F3;
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        .section-sitzung h2 {
+            color: #2196F3;
+            background: white;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .section-kommunikation {
+            background: white;
+            border-left: 3px solid #9C27B0;
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        .section-kommunikation h2 {
+            color: #9C27B0;
+            background: white;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .section-arbeitsrecht {
+            background: white;
+            border-left: 3px solid #F44336;
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        .section-arbeitsrecht h2 {
+            color: #F44336;
+            background: white;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .subsection {
+            margin-bottom: 20px;
+        }
+
+        .subsection h3 {
+            color: #1a1a1a;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 6px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        li:before {
+            content: "•";
+            color: #666;
+            position: absolute;
+            left: 0;
+        }
+
+        .highlight-box {
+            background: #FFF9C4;
+            border-left: 4px solid #FFC107;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: #F57F17;
+        }
+
+        strong {
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+
+        /* Glossar */
+        .glossar-item {
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .glossar-term {
+            font-weight: bold;
+            color: #2E7D32;
+            margin-bottom: 4px;
+        }
+
+        .glossar-definition {
+            color: #1a1a1a;
+            line-height: 1.4;
+        }
+
+        @media print {
+            .page-container {
+                margin: 0;
+            }
+            .page {
+                break-after: page;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+
+        <!-- SEITE 1: Titel und Inhaltsverzeichnis -->
+        <div class="page">
+            <div class="title-section">
+                <h1>Handlungsfeld 3</h1>
+                <div class="subtitle">Mitarbeiterführung und Kommunikation</div>
+                
+                <div class="toc">
+                    <h2>📋 Inhaltsverzeichnis</h2>
+                    
+                    <div class="toc-item">
+                        <div class="toc-dot dot-personal"></div>
+                        <span>Seite 2: Personalbeschaffung & Mitarbeitereinführung</span>
+                    </div>
+                    
+                    <div class="toc-item">
+                        <div class="toc-dot dot-fuehrung"></div>
+                        <span>Seite 3: Beurteilung, Entwicklung & Teamführung</span>
+                    </div>
+                    
+                    <div class="toc-item">
+                        <div class="toc-dot dot-sitzung"></div>
+                        <span>Seite 4: Sitzungen & Schulungen</span>
+                    </div>
+                    
+                    <div class="toc-item">
+                        <div class="toc-dot dot-kommunikation"></div>
+                        <span>Seite 5: Kommunikation & Selbstmanagement</span>
+                    </div>
+                    
+                    <div class="toc-item">
+                        <div class="toc-dot dot-arbeitsrecht"></div>
+                        <span>Seite 6: Personalfreisetzung & Arbeitsrecht</span>
+                    </div>
+                    
+                    <div class="toc-item">
+                        <div class="toc-dot"></div>
+                        <span>Seite 7: Glossar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEITE 2: Personal -->
+        <div class="page">
+            <div class="content-section">
+                <h1>👥 Personalbeschaffung & Einführung</h1>
+                
+                <div class="section-personal">
+                    <h2><span class="emoji">🔍</span>LF1: Personalbeschaffung</h2>
+                    
+                    <div class="subsection">
+                        <h3>Personalbedarfsplanung</h3>
+                        <ul>
+                            <li><strong>Quantitative Planung</strong>: Soll-Ist-Bestände ermitteln, Fluktuation berücksichtigen</li>
+                            <li><strong>Qualitative Planung</strong>: Personal-Kompetenzportfolio erstellen</li>
+                            <li><strong>Zeitplanung</strong>: Kurz- (bis 1 Jahr), mittel- (1-3 Jahre), langfristig (3-10 Jahre)</li>
+                            <li><strong>Personalkosten</strong>: Fertigungslohn, Gemeinkosten, Sozialkosten, sonstige Kosten</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subsection">
+                        <h3>Stellenbeschrieb und Anforderungsprofil</h3>
+                        <ul>
+                            <li><strong>Stellenbeschrieb</strong>: Funktion, Ziele, Aufgaben, Kompetenzen, Verantwortung</li>
+                            <li><strong>Anforderungsprofil</strong>: Muss-, Soll-, Wunsch-Kriterien definieren</li>
+                            <li><strong>Stelleninserat</strong>: AIDA-Prinzip (Attention, Interest, Desire, Action)</li>
+                            <li><strong>Rekrutierungskanäle</strong>: Intern, Online-Portale, Personalberatung</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subsection">
+                        <h3>Bewerbungsgespräche</h3>
+                        <ul>
+                            <li><strong>Gesprächsablauf</strong>: Begrüssung → Kennenlernen → Interview → Vertiefung → Fragen → Abschluss</li>
+                            <li><strong>Fragetechniken</strong>: Offene W-Fragen, situationsbezogene Fragen, Anschlussfragen</li>
+                            <li><strong>ABC-Methode</strong>: Kandidaten in A-, B-, C-Kategorien einteilen</li>
+                            <li><strong>Referenzauskünfte</strong>: Nur mit Einverständnis des Kandidaten</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Praxis-Tipp:</strong> Nutzen Sie die AIDA-Formel für Stelleninserate: Attention (Aufmerksamkeit), Interest (Interesse wecken), Desire (Wunsch auslösen), Action (Bewerbung auslösen).
+                    </div>
+                </div>
+                
+                <div class="section-personal">
+                    <h2><span class="emoji">🎯</span>LF2: Mitarbeitereinführung</h2>
+                    
+                    <div class="subsection">
+                        <h3>Einführungsprogramm</h3>
+                        <ul>
+                            <li><strong>Vor dem Arbeitsbeginn</strong>: Arbeitsplatz vorbereiten, IT-Zugänge, Vertragszusage</li>
+                            <li><strong>Erster Arbeitstag</strong>: Begrüssung, Rundgang, Team-Vorstellung, Götti/Pate zuteilen</li>
+                            <li><strong>Erste Wochen</strong>: Strukturierter Einführungsplan, regelmässige Gespräche</li>
+                            <li><strong>Probezeit</strong>: Arbeitsleistung und Verhalten systematisch beurteilen</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Praxis-Tipp:</strong> Das Götti/Pate-System reduziert die Einarbeitungszeit um bis zu 30%. Der Pate übernimmt praktische Einführung, der Vorgesetzte fachliche und strategische Aspekte.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEITE 3: Beurteilung und Entwicklung -->
+        <div class="page">
+            <div class="content-section">
+                <h1>📈 Beurteilung & Entwicklung</h1>
+                
+                <div class="section-fuehrung">
+                    <h2><span class="emoji">⭐</span>LF3: Mitarbeiterbeurteilung</h2>
+                    
+                    <div class="subsection">
+                        <h3>Beurteilungssystem</h3>
+                        <ul>
+                            <li><strong>Leistungsbeurteilung</strong>: Arbeitsleistung und Arbeitsergebnisse bewerten</li>
+                            <li><strong>Potentialbeurteilung</strong>: Entwicklungsmöglichkeiten und Laufbahnplanung</li>
+                            <li><strong>Beurteilungsformen</strong>: Freie Schilderung, Eigenschaftsskalen, Zielvereinbarung</li>
+                            <li><strong>Beurteilungsrhythmus</strong>: Jährlich (Leistung) und 1-2x jährlich (Potential)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section-fuehrung">
+                    <h2><span class="emoji">🚀</span>LF4: Mitarbeiterentwicklung</h2>
+                    
+                    <div class="subsection">
+                        <h3>Lohnsystem und Honorierung</h3>
+                        <ul>
+                            <li><strong>Lohnzusammensetzung</strong>: Grundlohn + Erfahrungsanteil + Leistungsanteil</li>
+                            <li><strong>Lohnformen</strong>: Zeitlohn, Akkordlohn, Prämienlohn, Provision</li>
+                            <li><strong>LAMOUR-Konzept</strong>: Leistung, Anforderung, Markt, Organisation, Unternehmen, Recht</li>
+                            <li><strong>Lohngerechtigkeit</strong>: Anforderungs-, Leistungs-, Sozial-, Markt-, Erfolgsgerechtigkeit</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section-fuehrung">
+                    <h2><span class="emoji">👥</span>LF5: Teamführung</h2>
+                    
+                    <div class="subsection">
+                        <h3>Motivation und Führungsstile</h3>
+                        <ul>
+                            <li><strong>Maslow-Pyramide</strong>: Physiologisch → Sicherheit → Sozial → Wertschätzung → Selbstverwirklichung</li>
+                            <li><strong>Herzberg-Theorie</strong>: Motivatoren (steigern Zufriedenheit) vs. Hygienefaktoren (verhindern Unzufriedenheit)</li>
+                            <li><strong>Situative Führung</strong>: Reifegrad der Mitarbeitenden berücksichtigen</li>
+                            <li><strong>Transaktionale vs. Transformale Führung</strong>: Austausch vs. Werteveränderung</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEITE 4: Sitzungen und Schulungen -->
+        <div class="page">
+            <div class="content-section">
+                <h1>🎤 Sitzungen & Schulungen</h1>
+                
+                <div class="section-sitzung">
+                    <h2><span class="emoji">📅</span>LF6: Sitzungen</h2>
+                    
+                    <div class="subsection">
+                        <h3>Sitzungsvorbereitung</h3>
+                        <ul>
+                            <li><strong>Sitzungsziel</strong> klar definieren</li>
+                            <li><strong>Agenda strukturieren</strong>: Prioritäten setzen</li>
+                            <li><strong>Teilnehmerkreis</strong> bewusst auswählen</li>
+                            <li><strong>Unterlagen versenden</strong>: Mindestens 48h vorher</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section-sitzung">
+                    <h2><span class="emoji">🎓</span>LF7: Schulungen</h2>
+                    
+                    <div class="subsection">
+                        <h3>Schulungsbedarfsanalyse</h3>
+                        <ul>
+                            <li><strong>Wissensbedarf analysieren</strong>: Soll-Ist-Vergleich der Kompetenzen</li>
+                            <li><strong>Zielgruppe bestimmen</strong>: Vorwissen, Lerntypen, Motivation</li>
+                            <li><strong>Lernziele nach Bloom</strong>: Wissen → Verstehen → Anwenden → Analysieren → Beurteilen → Erschaffen</li>
+                            <li><strong>Kosten-Nutzen-Analyse</strong>: ROI der Schulungsinvestition</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Praxis-Tipp:</strong> Planen Sie 70% Praxis und 30% Theorie. Der Lerntransfer gelingt besser, wenn Teilnehmende sofort anwenden können, was sie gelernt haben.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEITE 5: Kommunikation -->
+        <div class="page">
+            <div class="content-section">
+                <h1>💬 Kommunikation & Selbstmanagement</h1>
+                
+                <div class="section-kommunikation">
+                    <h2><span class="emoji">📢</span>LF8: Kommunikation</h2>
+                    
+                    <div class="subsection">
+                        <h3>Interne Kommunikation</h3>
+                        <ul>
+                            <li><strong>Kommunikationsstrategie</strong>: Ziele und Zielgruppen</li>
+                            <li><strong>Kanalwahl</strong>: E-Mail, Intranet, Meetings, Newsletter</li>
+                            <li><strong>Informationsfluss</strong>: Top-down, Bottom-up, horizontal</li>
+                            <li><strong>Feedback-Kultur</strong> etablieren</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section-kommunikation">
+                    <h2><span class="emoji">🚨</span>LF9: Schwierige Kommunikation</h2>
+                    
+                    <div class="subsection">
+                        <h3>VUKA-Welt und Führungsanforderungen</h3>
+                        <ul>
+                            <li><strong>Volatilität</strong>: Schnelle Veränderungen bewältigen</li>
+                            <li><strong>Unsicherheit</strong>: Mit unklaren Situationen umgehen</li>
+                            <li><strong>Komplexität</strong>: Vernetzte Zusammenhänge verstehen</li>
+                            <li><strong>Ambiguität</strong>: Mehrdeutige Situationen interpretieren</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section-kommunikation">
+                    <h2><span class="emoji">⚖️</span>LF10: Selbstmanagement</h2>
+                    
+                    <div class="subsection">
+                        <h3>Persönliche Arbeitsplanung</h3>
+                        <ul>
+                            <li><strong>Eisenhower-Matrix</strong>: Wichtig/Dringlich kategorisieren und priorisieren</li>
+                            <li><strong>ABC-Analyse</strong>: A-Aufgaben (wichtig), B-Aufgaben (nützlich), C-Aufgaben (nice-to-have)</li>
+                            <li><strong>Pareto-Prinzip</strong>: 80% Ergebnis mit 20% Aufwand erreichen</li>
+                            <li><strong>Zeitfallen vermeiden</strong>: Smartphone, E-Mails, ungeplante Unterbrechungen</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEITE 6: Arbeitsrecht -->
+        <div class="page">
+            <div class="content-section">
+                <h1>⚖️ Personalfreisetzung & Arbeitsrecht</h1>
+                
+                <div class="section-arbeitsrecht">
+                    <h2><span class="emoji">👋</span>LF11: Personalfreisetzung</h2>
+                    
+                    <div class="subsection">
+                        <h3>Personalfreisetzungsmassnahmen</h3>
+                        <ul>
+                            <li><strong>Änderung des Arbeitsverhältnisses</strong>: Versetzung, Pensumsreduktion, Kurzarbeit</li>
+                            <li><strong>Ordentliche Kündigung</strong>: Mit Einhaltung der Kündigungsfristen</li>
+                            <li><strong>Fristlose Entlassung</strong>: Bei wichtigen Gründen (Art. 337 OR)</li>
+                            <li><strong>Massenentlassung</strong>: Ab 10 Kündigungen (je nach Betriebsgrösse)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section-arbeitsrecht">
+                    <h2><span class="emoji">📋</span>LF12: Arbeitsrecht & Sozialversicherungen</h2>
+                    
+                    <div class="subsection">
+                        <h3>Schweizer Arbeitsvertragsrecht</h3>
+                        <ul>
+                            <li><strong>OR Art. 319-330a</strong>: Vertragsabschluss, Form, Inhalt</li>
+                            <li><strong>Arbeitgeberpflichten</strong>: Lohnzahlung, Fürsorgepflicht, Zeugnis (Art. 321a-330 OR)</li>
+                            <li><strong>Arbeitnehmerpflichten</strong>: Sorgfalt, Treue, Rechenschaft (Art. 321a-321e OR)</li>
+                            <li><strong>Kündigungsschutz</strong>: Sperrfristen, missbräuchliche/unzeitige Kündigung</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Praxis-Tipp:</strong> Bei komplexen arbeitsrechtlichen Fragen immer Rechtsexperten beiziehen. Ein Fehler kann das Unternehmen teuer zu stehen kommen.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEITE 7: Glossar -->
+        <div class="page">
+            <div class="content-section">
+                <h1>📚 Glossar</h1>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">AIDA-Prinzip</div>
+                    <div class="glossar-definition">Formel für Stelleninserate: Attention (Aufmerksamkeit) → Interest (Interesse) → Desire (Wunsch) → Action (Bewerbung).</div>
+                </div>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">ABC-Methode</div>
+                    <div class="glossar-definition">Kandidatenbewertung: A-Kandidaten (sehr geeignet), B-Kandidaten (geeignet), C-Kandidaten (weniger geeignet).</div>
+                </div>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">AKV-Prinzip</div>
+                    <div class="glossar-definition">Delegation: Aufgabe, Kompetenz und Verantwortung gemeinsam übertragen.</div>
+                </div>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">Eisenhower-Matrix</div>
+                    <div class="glossar-definition">Priorisierungstool: Unterscheidung zwischen wichtig/unwichtig und dringend/nicht dringend.</div>
+                </div>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">Herzberg-Theorie</div>
+                    <div class="glossar-definition">Zwei-Faktoren-Theorie: Motivatoren (erhöhen Zufriedenheit) vs. Hygienefaktoren (verhindern Unzufriedenheit).</div>
+                </div>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">Kirkpatrick-Modell</div>
+                    <div class="glossar-definition">4-Stufen-Modell zur Schulungsevaluation: Reaktion → Lernen → Verhalten → Ergebnisse.</div>
+                </div>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">LAMOUR-Konzept</div>
+                    <div class="glossar-definition">Lohnfindung: Leistung, Anforderung, Marktkonformität, Organisationsabsicht, Unternehmensmöglichkeit, Recht und Ethik.</div>
+                </div>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">Maslow-Pyramide</div>
+                    <div class="glossar-definition">Bedürfnishierarchie: Physiologisch → Sicherheit → Sozial → Wertschätzung → Selbstverwirklichung.</div>
+                </div>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">OR (Obligationenrecht)</div>
+                    <div class="glossar-definition">Schweizer Bundesgesetz über Arbeitsverträge und Arbeitsverhältnisse (Art. 319-362 OR).</div>
+                </div>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">SMART-Ziele</div>
+                    <div class="glossar-definition">Spezifisch, Messbar, Akzeptiert, Realistisch, Terminiert - Framework für Zielsetzung.</div>
+                </div>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">Tuckman-Modell</div>
+                    <div class="glossar-definition">Teamentwicklung: Forming → Storming → Norming → Performing.</div>
+                </div>
+                
+                <div class="glossar-item">
+                    <div class="glossar-term">VUKA-Welt</div>
+                    <div class="glossar-definition">Volatilität, Unsicherheit, Komplexität, Ambiguität - Beschreibung der modernen Arbeitswelt.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

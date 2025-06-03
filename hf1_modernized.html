@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF1: Recht und Volkswirtschaft - Factsheet</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; font-size: 11pt; }
+            .page { page-break-after: always; height: 100vh; }
+            .page:last-child { page-break-after: avoid; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: white;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        
+        /* Titel-Seite */
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.5em;
+            color: #1565C0;
+            margin-bottom: 20px;
+        }
+        
+        .title-page h2 {
+            font-size: 1.5em;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .toc h3 {
+            color: #1565C0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .dot1 { background: #1976D2; }
+        .dot2 { background: #1E88E5; }
+        .dot3 { background: #42A5F5; }
+        .dot4 { background: #64B5F6; }
+        
+        .toc-left {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        /* Content-Seiten */
+        h1 {
+            color: #1565C0;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1565C0;
+            padding-bottom: 5px;
+        }
+        
+        h2 {
+            color: #1a1a1a;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.1em;
+            margin: 15px 0 8px 0;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        /* Sektionen */
+        .section-mikro {
+            background: white;
+            border-left: 3px solid #1976D2;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-mikro h2 { color: #1976D2; background: white; }
+        
+        .section-makro {
+            background: white;
+            border-left: 3px solid #1E88E5;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-makro h2 { color: #1E88E5; background: white; }
+        
+        .section-oeffentlich {
+            background: white;
+            border-left: 3px solid #42A5F5;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-oeffentlich h2 { color: #42A5F5; background: white; }
+        
+        .section-privat {
+            background: white;
+            border-left: 3px solid #64B5F6;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-privat h2 { color: #64B5F6; background: white; }
+        
+        ul {
+            margin: 8px 0 15px 20px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+        
+        strong {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            padding: 12px;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .formula-box {
+            background: #e8f5e8;
+            padding: 12px;
+            border-left: 4px solid #4caf50;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .glossar-item {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #1565C0;
+            font-size: 1.05em;
+        }
+        
+        .glossar-def {
+            margin-top: 3px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1565C0;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .print-btn:hover {
+            background: #0d47a1;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <!-- Seite 1: Titel und Inhaltsverzeichnis -->
+    <div class="page title-page">
+        <h1>Handlungsfeld 1</h1>
+        <h2>Recht und Volkswirtschaft</h2>
+        <p style="margin-bottom: 30px;">Technische Kaufleute - Eidgenössische Berufsprüfung</p>
+        
+        <div class="toc">
+            <h3>📋 Inhaltsverzeichnis</h3>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot1"></div>
+                    <span>Mikroökonomie</span>
+                </div>
+                <span>Seite 2</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot2"></div>
+                    <span>Makroökonomie</span>
+                </div>
+                <span>Seite 3</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot3"></div>
+                    <span>Öffentliches Recht</span>
+                </div>
+                <span>Seite 4</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot4"></div>
+                    <span>Privatrecht</span>
+                </div>
+                <span>Seite 5</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot"></div>
+                    <span>Glossar</span>
+                </div>
+                <span>Seite 6</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: Mikroökonomie -->
+    <div class="page">
+        <h1>📊 Mikroökonomie</h1>
+        
+        <div class="section-mikro">
+            <h2><span class="emoji">💡</span>Marktmechanismen verstehen</h2>
+            
+            <h3>Grundprinzipien</h3>
+            <ul>
+                <li><strong>Angebot und Nachfrage:</strong> Bestimmen gemeinsam den Marktpreis</li>
+                <li><strong>Knappheit:</strong> Begrenzte Ressourcen erfordern optimale Verteilung</li>
+                <li><strong>Grenznutzen:</strong> Zusätzlicher Nutzen durch eine weitere Einheit</li>
+                <li><strong>Opportunitätskosten:</strong> Wert der besten nicht gewählten Alternative</li>
+            </ul>
+            
+            <h3>Marktformen</h3>
+            <ul>
+                <li><strong>Vollständige Konkurrenz:</strong> Viele Anbieter, homogene Produkte, keine Marktmacht</li>
+                <li><strong>Monopol:</strong> Ein Anbieter bestimmt Preis und Menge allein</li>
+                <li><strong>Oligopol:</strong> Wenige Anbieter mit strategischer Interaktion</li>
+                <li><strong>Monopolistische Konkurrenz:</strong> Viele Anbieter mit differenzierten Produkten</li>
+            </ul>
+        </div>
+        
+        <div class="section-mikro">
+            <h2><span class="emoji">💰</span>Preisbildung und Preiselastizität</h2>
+            
+            <h3>Preisbildung</h3>
+            <ul>
+                <li><strong>Marktgleichgewicht:</strong> Schnittpunkt von Angebots- und Nachfragekurve</li>
+                <li><strong>Nachfragekurve:</strong> Fallend (höherer Preis = geringere Nachfrage)</li>
+                <li><strong>Angebotskurve:</strong> Steigend (höherer Preis = höheres Angebot)</li>
+                <li><strong>Preismechanismus:</strong> Koordiniert Angebot und Nachfrage automatisch</li>
+            </ul>
+            
+            <h3>Preiselastizität</h3>
+            <ul>
+                <li><strong>Elastische Nachfrage:</strong> Starke Reaktion auf Preisänderungen (E > 1)</li>
+                <li><strong>Unelastische Nachfrage:</strong> Schwache Reaktion auf Preisänderungen (E < 1)</li>
+                <li><strong>Luxusgüter:</strong> Meist elastisch (Schmuck, Reisen)</li>
+                <li><strong>Notwendige Güter:</strong> Meist unelastisch (Medikamente, Grundnahrungsmittel)</li>
+            </ul>
+        </div>
+        
+        <div class="section-mikro">
+            <h2><span class="emoji">⚠️</span>Marktversagen und staatliche Eingriffe</h2>
+            
+            <h3>Ursachen für Marktversagen</h3>
+            <ul>
+                <li><strong>Externe Effekte:</strong> Kosten oder Nutzen für unbeteiligte Dritte</li>
+                <li><strong>Öffentliche Güter:</strong> Nicht ausschliessbar und nicht rivalisierend</li>
+                <li><strong>Monopolmacht:</strong> Wohlfahrtsverluste durch zu hohe Preise</li>
+                <li><strong>Informationsasymmetrien:</strong> Ungleiche Verteilung von Marktinformationen</li>
+            </ul>
+            
+            <h3>Staatliche Markteingriffe</h3>
+            <ul>
+                <li><strong>Preiskontrollen:</strong> Mindest- oder Höchstpreise festlegen</li>
+                <li><strong>Subventionen:</strong> Finanzielle Unterstützung bestimmter Märkte</li>
+                <li><strong>Regulierung:</strong> Begrenzung von Monopolmacht durch Gesetze</li>
+                <li><strong>Bereitstellung:</strong> Staat produziert öffentliche Güter selbst</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Bei mikroökonomischen Analysen immer die Marktform bestimmen - sie entscheidet über Preissetzungsmacht und Wettbewerbsintensität.
+        </div>
+    </div>
+
+    <!-- Seite 3: Makroökonomie -->
+    <div class="page">
+        <h1>🌍 Makroökonomie</h1>
+        
+        <div class="section-makro">
+            <h2><span class="emoji">📊</span>Konjunkturindikatoren interpretieren</h2>
+            
+            <h3>Wichtige Wirtschaftsindikatoren</h3>
+            <ul>
+                <li><strong>BIP (Bruttoinlandsprodukt):</strong> Gesamtwert aller produzierten Güter und Dienstleistungen</li>
+                <li><strong>Inflationsrate:</strong> Allgemeine Preissteigerung, gemessen am Landesindex der Konsumentenpreise</li>
+                <li><strong>Arbeitslosenquote:</strong> Anteil arbeitsloser Erwerbspersonen an der Erwerbsbevölkerung</li>
+                <li><strong>Zinssätze:</strong> Preis für Kapital, beeinflusst Investitions- und Konsumentscheidungen</li>
+            </ul>
+            
+            <h3>Schweizer Konjunkturindikatoren</h3>
+            <ul>
+                <li><strong>SECO:</strong> Staatssekretariat für Wirtschaft, quartalsweise Konjunkturprognosen</li>
+                <li><strong>KOF-Barometer:</strong> Konjunkturforschungsstelle ETH Zürich, Frühindikator</li>
+                <li><strong>PMI:</strong> Purchasing Managers Index, monatlicher Frühindikator</li>
+                <li><strong>Geschäftslage-Index:</strong> Einschätzung der aktuellen Unternehmenssituation</li>
+            </ul>
+        </div>
+        
+        <div class="section-makro">
+            <h2><span class="emoji">🏛️</span>Geld- und Fiskalpolitik</h2>
+            
+            <h3>Geldpolitik der SNB</h3>
+            <ul>
+                <li><strong>Preisstabilität:</strong> Hauptziel der Schweizerischen Nationalbank</li>
+                <li><strong>Leitzins:</strong> Wichtigstes Instrument zur Konjunktursteuerung</li>
+                <li><strong>Wechselkurspolitik:</strong> Intervention zur Beeinflussung der Frankenstärke</li>
+                <li><strong>Liquiditätsversorgung:</strong> Sicherstellung der Funktionsfähigkeit des Bankensystems</li>
+            </ul>
+            
+            <h3>Fiskalpolitik des Bundes</h3>
+            <ul>
+                <li><strong>Antizyklische Politik:</strong> Ausgaben in Rezession erhöhen, in Boom senken</li>
+                <li><strong>Schuldenbremse:</strong> Ausgaben an Einnahmen über Konjunkturzyklus koppeln</li>
+                <li><strong>Automatische Stabilisatoren:</strong> Arbeitslosenversicherung, progressive Besteuerung</li>
+                <li><strong>Diskretionäre Massnahmen:</strong> Gezielte Konjunkturprogramme bei Krisen</li>
+            </ul>
+        </div>
+        
+        <div class="section-makro">
+            <h2><span class="emoji">🏭</span>Standortfaktoren bewerten</h2>
+            
+            <h3>Schweizer Standortvorteile</h3>
+            <ul>
+                <li><strong>Rechtssicherheit:</strong> Stabile Gesetze und verlässliche Institutionen</li>
+                <li><strong>Infrastruktur:</strong> Hochwertige Verkehrs-, Telekom- und Energieinfrastruktur</li>
+                <li><strong>Bildungssystem:</strong> Duale Berufsbildung und renommierte Hochschulen</li>
+                <li><strong>Steuerwettbewerb:</strong> Attraktive Unternehmenssteuersätze im Kantonsvergleich</li>
+            </ul>
+            
+            <h3>Wirtschaftsakteure-Interaktionen</h3>
+            <ul>
+                <li><strong>Haushalte:</strong> Konsum und Arbeitsangebot beeinflussen Konjunktur</li>
+                <li><strong>Unternehmen:</strong> Investitionen und Beschäftigung als Konjunkturmotoren</li>
+                <li><strong>Staat:</strong> Stabilisierung durch Fiskal- und Regulierungspolitik</li>
+                <li><strong>Ausland:</strong> Export/Import und Kapitalströme prägen Schweizer Wirtschaft</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Besonderheit:</strong> Als kleine, offene Volkswirtschaft ist die Schweiz stark von internationalen Entwicklungen abhängig - der Frankenkurs ist daher ein zentraler Faktor.
+        </div>
+    </div>
+
+    <!-- Seite 4: Öffentliches Recht -->
+    <div class="page">
+        <h1>⚖️ Öffentliches Recht</h1>
+        
+        <div class="section-oeffentlich">
+            <h2><span class="emoji">🏛️</span>Schweizerische Rechtsordnung</h2>
+            
+            <h3>Hierarchie der Rechtsnormen</h3>
+            <ul>
+                <li><strong>Bundesverfassung:</strong> Oberste Rechtsnorm der Schweiz (BV)</li>
+                <li><strong>Bundesgesetze:</strong> Vom Parlament erlassen, konkretisieren die Verfassung</li>
+                <li><strong>Verordnungen:</strong> Konkretisierung der Gesetze durch die Verwaltung</li>
+                <li><strong>Völkerrecht:</strong> Internationale Verträge sind grundsätzlich vorrangig</li>
+            </ul>
+            
+            <h3>Föderaler Staatsaufbau</h3>
+            <ul>
+                <li><strong>Bund:</strong> Auswärtige Angelegenheiten, Armee, Zölle, Währung</li>
+                <li><strong>Kantone:</strong> Bildung, Gesundheit, Polizei, direkte Steuern</li>
+                <li><strong>Gemeinden:</strong> Lokale Aufgaben, je nach kantonalem Recht</li>
+                <li><strong>Subsidiaritätsprinzip:</strong> Aufgaben auf tiefstmöglicher Ebene erfüllen</li>
+            </ul>
+        </div>
+        
+        <div class="section-oeffentlich">
+            <h2><span class="emoji">🗳️</span>Staatsrecht und Grundrechte</h2>
+            
+            <h3>Staatsprinzipien</h3>
+            <ul>
+                <li><strong>Volkssouveränität:</strong> Initiative und Referendum als Mitbestimmungsrechte</li>
+                <li><strong>Gewaltenteilung:</strong> Legislative, Exekutive und Judikative getrennt</li>
+                <li><strong>Rechtsstaatsprinzip:</strong> Gesetzmässigkeit allen staatlichen Handelns</li>
+                <li><strong>Demokratieprinzip:</strong> Politische Willensbildung durch das Volk</li>
+            </ul>
+            
+            <h3>Wichtige Grundrechte</h3>
+            <ul>
+                <li><strong>Meinungsfreiheit:</strong> Freie Meinungsäusserung in Wort, Schrift und Bild</li>
+                <li><strong>Eigentumsgarantie:</strong> Schutz vor willkürlichen Enteignungen</li>
+                <li><strong>Wirtschaftsfreiheit:</strong> Freie Berufs- und Erwerbswahl</li>
+                <li><strong>Versammlungsfreiheit:</strong> Recht auf friedliche Versammlungen</li>
+            </ul>
+        </div>
+        
+        <div class="section-oeffentlich">
+            <h2><span class="emoji">📋</span>Verwaltungsrecht</h2>
+            
+            <h3>Wichtige Rechtsgebiete</h3>
+            <ul>
+                <li><strong>Steuerrecht:</strong> Direkte Steuern (Kantone) und indirekte Steuern (Bund)</li>
+                <li><strong>Baurecht:</strong> Raumplanung, Baubewilligungen, Umweltverträglichkeit</li>
+                <li><strong>Umweltrecht:</strong> Schutz von Luft, Wasser, Boden und Lebensräumen</li>
+                <li><strong>Wirtschaftsrecht:</strong> Marktregulierung, Wettbewerbsrecht, Kartellgesetz</li>
+            </ul>
+            
+            <h3>Behördliche Kommunikation</h3>
+            <ul>
+                <li><strong>Verfügung:</strong> Behördlicher Einzelentscheid mit Rechtsmittelbelehrung</li>
+                <li><strong>Mitteilungen:</strong> Informative Schreiben ohne Entscheidcharakter</li>
+                <li><strong>Rechtliches Gehör:</strong> Recht auf Anhörung vor belastenden Entscheiden</li>
+                <li><strong>Akteneinsicht:</strong> Einsicht in eigene Verwaltungsakten</li>
+            </ul>
+        </div>
+        
+        <div class="section-oeffentlich">
+            <h2><span class="emoji">⚖️</span>Strafrecht</h2>
+            
+            <h3>Strafgesetzbuch (StGB)</h3>
+            <ul>
+                <li><strong>Verbrechen:</strong> Taten mit Freiheitsstrafe über 3 Jahre bedroht</li>
+                <li><strong>Vergehen:</strong> Taten mit Freiheitsstrafe bis 3 Jahre bedroht</li>
+                <li><strong>Übertretungen:</strong> Taten mit Busse bis CHF 10'000 bedroht</li>
+                <li><strong>Wirtschaftsstrafrecht:</strong> Betrug, Untreue, ungetreue Geschäftsbesorgung</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Bei behördlichen Schreiben immer prüfen: Ist es eine Verfügung (mit Rechtsmitteln) oder nur eine Mitteilung? Das bestimmt die Handlungsoptionen.
+        </div>
+    </div>
+
+    <!-- Seite 5: Privatrecht -->
+    <div class="page">
+        <h1>📄 Privatrecht</h1>
+        
+        <div class="section-privat">
+            <h2><span class="emoji">📚</span>System des Schweizer Privatrechts</h2>
+            
+            <h3>Hauptgesetze</h3>
+            <ul>
+                <li><strong>ZGB (Zivilgesetzbuch):</strong> Personenrecht, Familienrecht, Erbrecht, Sachenrecht</li>
+                <li><strong>OR (Obligationenrecht):</strong> Vertragsrecht, Gesellschaftsrecht, Wertpapierrecht</li>
+                <li><strong>Privatautonomie:</strong> Grundsatz der Selbstbestimmung in Rechtsgeschäften</li>
+                <li><strong>Dispositive Normen:</strong> Können durch Parteivereinbarung geändert werden</li>
+            </ul>
+            
+            <h3>Rechtsfähigkeit und Geschäftsfähigkeit</h3>
+            <ul>
+                <li><strong>Natürliche Personen:</strong> Rechtsfähigkeit ab Geburt bis zum Tod</li>
+                <li><strong>Juristische Personen:</strong> Vereine, Stiftungen, Aktiengesellschaften</li>
+                <li><strong>Geschäftsfähigkeit:</strong> Fähigkeit, Rechtsgeschäfte gültig abzuschliessen</li>
+                <li><strong>Urteilsfähigkeit:</strong> Grundvoraussetzung für Geschäftsfähigkeit</li>
+            </ul>
+        </div>
+        
+        <div class="section-privat">
+            <h2><span class="emoji">🤝</span>Vertragsrecht</h2>
+            
+            <h3>Vertragsabschluss</h3>
+            <ul>
+                <li><strong>Antrag und Annahme:</strong> Übereinstimmende Willenserklärungen</li>
+                <li><strong>Vertragsfreiheit:</strong> Was, mit wem und wie vertraglich regeln</li>
+                <li><strong>Formvorschriften:</strong> Schriftlichkeit bei bestimmten Verträgen</li>
+                <li><strong>AGB-Kontrolle:</strong> Ungewöhnliche Klauseln sind unwirksam</li>
+            </ul>
+            
+            <h3>Wichtige Vertragstypen</h3>
+            <ul>
+                <li><strong>Kaufvertrag:</strong> Übertragung von Eigentum gegen Kaufpreis</li>
+                <li><strong>Werkvertrag:</strong> Herstellung eines Werks gegen Entgelt</li>
+                <li><strong>Arbeitsvertrag:</strong> Unselbständige Erwerbstätigkeit</li>
+                <li><strong>Mietvertrag:</strong> Gebrauchsüberlassung gegen Mietzins</li>
+            </ul>
+        </div>
+        
+        <div class="section-privat">
+            <h2><span class="emoji">🏢</span>Gesellschaftsrecht</h2>
+            
+            <h3>Rechtsformen im Überblick</h3>
+            <ul>
+                <li><strong>Einzelfirma:</strong> Einfachste Form, unbeschränkte Haftung</li>
+                <li><strong>Kollektivgesellschaft:</strong> Mehrere Personen, alle haften solidarisch</li>
+                <li><strong>AG (Aktiengesellschaft):</strong> Mindestkapital CHF 100'000, beschränkte Haftung</li>
+                <li><strong>GmbH:</strong> Mindestkapital CHF 20'000, beschränkte Haftung</li>
+            </ul>
+            
+            <h3>Unternehmensgründung</h3>
+            <ul>
+                <li><strong>Handelsregistereintrag:</strong> Erforderlich bei kaufmännischer Tätigkeit</li>
+                <li><strong>Notarielle Beurkundung:</strong> Bei AG und GmbH zwingend</li>
+                <li><strong>Kapitalaufbringung:</strong> Mindesteinzahlungen bei Gründung</li>
+                <li><strong>Organe:</strong> Generalversammlung, Verwaltungsrat, Geschäftsführung</li>
+            </ul>
+        </div>
+        
+        <div class="section-privat">
+            <h2><span class="emoji">👷</span>Arbeitsrecht</h2>
+            
+            <h3>Einzelarbeitsvertrag (OR Art. 319 ff.)</h3>
+            <ul>
+                <li><strong>Abschluss:</strong> Formfrei, kann mündlich oder schriftlich erfolgen</li>
+                <li><strong>Pflichten Arbeitgeber:</strong> Lohnzahlung, Fürsorgepflicht, Zeugnis</li>
+                <li><strong>Pflichten Arbeitnehmer:</strong> Sorgfaltspflicht, Treuepflicht, Rechenschaftspflicht</li>
+                <li><strong>Kündigung:</strong> Verschiedene Fristen je nach Dienstdauer</li>
+            </ul>
+            
+            <h3>Arbeitsschutz</h3>
+            <ul>
+                <li><strong>Arbeitsgesetz (ArG):</strong> Schutzbestimmungen für Arbeitszeit und Ruhezeiten</li>
+                <li><strong>Sperrfristen:</strong> Kündigungsschutz bei Krankheit, Schwangerschaft, Militär</li>
+                <li><strong>Missbräuchliche Kündigung:</strong> Diskriminierung, Rache, Gewerkschaftstätigkeit</li>
+                <li><strong>Gesamtarbeitsverträge (GAV):</strong> Branchenspezifische Mindeststandards</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Besonderheit:</strong> Die Vertragsfreiheit ist sehr ausgeprägt - viele internationale Standards sind hier nicht zwingend anwendbar. Schweizer Recht bevorzugt Flexibilität.
+        </div>
+    </div>
+
+    <!-- Seite 6: Glossar -->
+    <div class="page">
+        <h1>📚 Glossar</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">AG (Aktiengesellschaft)</div>
+            <div class="glossar-def">Kapitalgesellschaft mit Mindestkapital CHF 100'000 und beschränkter Haftung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ArG (Arbeitsgesetz)</div>
+            <div class="glossar-def">Bundesgesetz über Arbeitszeiten, Ruhezeiten und Arbeitnehmerschutz</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">BIP (Bruttoinlandsprodukt)</div>
+            <div class="glossar-def">Gesamtwert aller in einem Jahr produzierten Güter und Dienstleistungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">BV (Bundesverfassung)</div>
+            <div class="glossar-def">Oberste Rechtsnorm der Schweiz, regelt Staatsorganisation und Grundrechte</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Dispositive Normen</div>
+            <div class="glossar-def">Gesetzesbestimmungen, die durch Parteivereinbarung geändert werden können</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Externe Effekte</div>
+            <div class="glossar-def">Auswirkungen wirtschaftlicher Aktivitäten auf unbeteiligte Dritte</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Föderalismus</div>
+            <div class="glossar-def">Staatsform mit Aufgabenteilung zwischen Bund, Kantonen und Gemeinden</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">GAV (Gesamtarbeitsvertrag)</div>
+            <div class="glossar-def">Branchenspezifische Vereinbarung zwischen Arbeitgeber- und Arbeitnehmerverbänden</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Geschäftsfähigkeit</div>
+            <div class="glossar-def">Fähigkeit, durch eigenes Handeln Rechte und Pflichten zu begründen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">GmbH</div>
+            <div class="glossar-def">Gesellschaft mit beschränkter Haftung, Mindestkapital CHF 20'000</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Handelsregister</div>
+            <div class="glossar-def">Öffentliches Verzeichnis für Unternehmen und deren rechtliche Verhältnisse</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Juristische Person</div>
+            <div class="glossar-def">Rechtsfähige Organisation (AG, GmbH, Verein, Stiftung)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">KOF-Barometer</div>
+            <div class="glossar-def">Konjunkturindikator der ETH Zürich, wichtiger Frühindikator für die Schweiz</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kollektivgesellschaft</div>
+            <div class="glossar-def">Personengesellschaft mit solidarischer Haftung aller Gesellschafter</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Leitzins</div>
+            <div class="glossar-def">Von der SNB festgelegter Zinssatz zur Steuerung der Geldpolitik</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Marktgleichgewicht</div>
+            <div class="glossar-def">Zustand, bei dem sich Angebot und Nachfrage ausgleichen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Monopol</div>
+            <div class="glossar-def">Marktform mit nur einem Anbieter, der Preis und Menge bestimmt</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Oligopol</div>
+            <div class="glossar-def">Marktform mit wenigen Anbietern und strategischer Interaktion</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Opportunitätskosten</div>
+            <div class="glossar-def">Wert der besten nicht gewählten Alternative bei einer Entscheidung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">OR (Obligationenrecht)</div>
+            <div class="glossar-def">Schweizer Vertrags-, Gesellschafts- und Wertpapierrecht</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">PMI (Purchasing Managers Index)</div>
+            <div class="glossar-def">Monatlicher Frühindikator basierend auf Einkaufsmanager-Umfragen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Preiselastizität</div>
+            <div class="glossar-def">Maß für die Reaktionsstärke der Nachfrage auf Preisänderungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Privatautonomie</div>
+            <div class="glossar-def">Grundsatz der Selbstbestimmung in privaten Rechtsgeschäften</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Rechtsfähigkeit</div>
+            <div class="glossar-def">Fähigkeit, Träger von Rechten und Pflichten zu sein</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Schuldenbremse</div>
+            <div class="glossar-def">Schweizer Fiskalregel zur Begrenzung der Staatsverschuldung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SECO</div>
+            <div class="glossar-def">Staatssekretariat für Wirtschaft, wichtige Wirtschaftsbehörde des Bundes</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SNB (Schweizerische Nationalbank)</div>
+            <div class="glossar-def">Zentralbank der Schweiz, zuständig für Geld- und Währungspolitik</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Sperrfristen</div>
+            <div class="glossar-def">Zeiträume mit besonderem Kündigungsschutz (Krankheit, Schwangerschaft, Militär)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">StGB (Strafgesetzbuch)</div>
+            <div class="glossar-def">Bundesgesetz über Verbrechen, Vergehen und Übertretungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Subsidiaritätsprinzip</div>
+            <div class="glossar-def">Staatliche Aufgaben sollen auf tiefstmöglicher Ebene erfüllt werden</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">UWG</div>
+            <div class="glossar-def">Bundesgesetz gegen den unlauteren Wettbewerb</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Verfügung</div>
+            <div class="glossar-def">Behördlicher Einzelentscheid mit Rechtsmittelbelehrung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Vertragsfreiheit</div>
+            <div class="glossar-def">Grundsatz der freien Gestaltung von Verträgen (was, mit wem, wie)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Vollständige Konkurrenz</div>
+            <div class="glossar-def">Marktform mit vielen Anbietern, homogenen Produkten und freiem Marktzutritt</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ZGB (Zivilgesetzbuch)</div>
+            <div class="glossar-def">Schweizer Gesetzbuch für Personen-, Familien-, Erb- und Sachenrecht</div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f0f8ff; border-radius: 10px; border-left: 4px solid #1565C0;">
+            <h3 style="color: #1565C0; margin-bottom: 15px;">📋 Prüfungsrelevante Schwerpunkte</h3>
+            <p><strong>Fokus auf:</strong></p>
+            <ul style="margin-top: 10px;">
+                <li>Marktformen und ihre Eigenschaften (Vollkonkurrenz, Monopol, Oligopol)</li>
+                <li>Schweizer Konjunkturindikatoren (SECO, KOF, PMI)</li>
+                <li>Geld- vs. Fiskalpolitik und deren Instrumente</li>
+                <li>Föderale Staatsorganisation und Rechtsquellenhierarchie</li>
+                <li>Vertragsrecht und wichtige Vertragstypen</li>
+                <li>Gesellschaftsformen und deren Mindestkapitalien</li>
+                <li>Arbeitsrecht und Kündigungsschutz</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center; font-style: italic; color: #666;">
+            <p><strong>HF1: Recht und Volkswirtschaft</strong><br>
+            Technische Kaufleute - Eidgenössische Berufsprüfung<br>
+            Basierend auf aktuellen Schweizer Rechtsquellen und SECO-Daten 2025</p>
+        </div>
+    </div>
+
+</body>
+</html>

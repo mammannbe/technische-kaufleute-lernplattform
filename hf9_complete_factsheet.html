@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF9: Finanzbuchhaltung und Rechnungswesen</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; font-size: 10pt; }
+            .page { page-break-after: always; height: 100vh; }
+            .page:last-child { page-break-after: avoid; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.3;
+            color: #1a1a1a;
+            background: white;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 15px;
+            padding: 15mm;
+            background: white;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        
+        /* Titel-Seite */
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.2em;
+            color: #1565C0;
+            margin-bottom: 15px;
+        }
+        
+        .title-page h2 {
+            font-size: 1.3em;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .toc h3 {
+            color: #1565C0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .toc-section {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .toc-section h4 {
+            color: #1565C0;
+            margin: 0 0 8px 0;
+            font-size: 1.1em;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+            border-bottom: 1px dotted #ccc;
+            font-size: 0.9em;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toc-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .fibu-dot { background: #1976D2; }
+        .bebu-dot { background: #388E3C; }
+        .special-dot { background: #F57C00; }
+        
+        .toc-left {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        /* Content-Seiten */
+        h1 {
+            color: #1565C0;
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #1565C0;
+            padding-bottom: 5px;
+        }
+        
+        h2 {
+            color: #1a1a1a;
+            font-size: 1.2em;
+            margin: 15px 0 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.0em;
+            margin: 12px 0 6px 0;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            margin-right: 6px;
+            font-size: 1.1em;
+        }
+        
+        /* FIBU Sektionen */
+        .section-fibu-grundlagen {
+            background: white;
+            border-left: 3px solid #1976D2;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-fibu-grundlagen h2 { color: #1976D2; background: white; }
+        
+        .section-kreditoren {
+            background: white;
+            border-left: 3px solid #1E88E5;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-kreditoren h2 { color: #1E88E5; background: white; }
+        
+        .section-debitoren {
+            background: white;
+            border-left: 3px solid #42A5F5;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-debitoren h2 { color: #42A5F5; background: white; }
+        
+        .section-geschaeftsverkehr {
+            background: white;
+            border-left: 3px solid #64B5F6;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-geschaeftsverkehr h2 { color: #64B5F6; background: white; }
+        
+        .section-jahresabschluss {
+            background: white;
+            border-left: 3px solid #90CAF9;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-jahresabschluss h2 { color: #1976D2; background: white; }
+        
+        .section-mittelfluss {
+            background: white;
+            border-left: 3px solid #BBDEFB;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-mittelfluss h2 { color: #1976D2; background: white; }
+        
+        /* BEBU Sektionen */
+        .section-bebu-grundlagen {
+            background: white;
+            border-left: 3px solid #388E3C;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-bebu-grundlagen h2 { color: #388E3C; background: white; }
+        
+        .section-kostenarten {
+            background: white;
+            border-left: 3px solid #43A047;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-kostenarten h2 { color: #43A047; background: white; }
+        
+        .section-kostenstellen {
+            background: white;
+            border-left: 3px solid #66BB6A;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-kostenstellen h2 { color: #66BB6A; background: white; }
+        
+        .section-kalkulation {
+            background: white;
+            border-left: 3px solid #81C784;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-kalkulation h2 { color: #81C784; background: white; }
+        
+        .section-deckungsbeitrag {
+            background: white;
+            border-left: 3px solid #A5D6A7;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-deckungsbeitrag h2 { color: #388E3C; background: white; }
+        
+        .section-breakeven {
+            background: white;
+            border-left: 3px solid #C8E6C9;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-breakeven h2 { color: #388E3C; background: white; }
+        
+        .section-investition {
+            background: white;
+            border-left: 3px solid #F57C00;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .section-investition h2 { color: #F57C00; background: white; }
+        
+        ul {
+            margin: 6px 0 12px 15px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 4px;
+            font-size: 0.9em;
+        }
+        
+        strong {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            padding: 10px;
+            border-left: 4px solid #ff9800;
+            margin: 12px 0;
+            font-size: 0.85em;
+        }
+        
+        .formula-box {
+            background: #e8f5e8;
+            padding: 12px;
+            border-left: 4px solid #4caf50;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .table-box {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .table-box table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .table-box th {
+            background: #1976D2;
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .table-box td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .table-box tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .glossar-item {
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #1565C0;
+            font-size: 1.0em;
+        }
+        
+        .glossar-def {
+            margin-top: 2px;
+            font-size: 0.85em;
+            line-height: 1.3;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #1565C0;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .print-btn:hover {
+            background: #0d47a1;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <!-- Seite 1: Titel und Inhaltsverzeichnis -->
+    <div class="page title-page">
+        <h1>Handlungsfeld 9</h1>
+        <h2>Finanzbuchhaltung und Rechnungswesen</h2>
+        <p style="margin-bottom: 25px;">Technische Kaufleute - Eidgenössische Berufsprüfung</p>
+        
+        <div class="toc">
+            <h3>📋 Inhaltsverzeichnis</h3>
+            
+            <div class="toc-section">
+                <h4>💼 Finanzbuchhaltung (FIBU)</h4>
+                <div class="toc-item">
+                    <div class="toc-left">
+                        <div class="toc-dot fibu-dot"></div>
+                        <span>Grundlagen & Bewertung</span>
+                    </div>
+                    <span>Seite 2</span>
+                </div>
+                <div class="toc-item">
+                    <div class="toc-left">
+                        <div class="toc-dot fibu-dot"></div>
+                        <span>Kreditorenbuchhaltung</span>
+                    </div>
+                    <span>Seite 3</span>
+                </div>
+                <div class="toc-item">
+                    <div class="toc-left">
+                        <div class="toc-dot fibu-dot"></div>
+                        <span>Debitorenbuchhaltung</span>
+                    </div>
+                    <span>Seite 4</span>
+                </div>
+                <div class="toc-item">
+                    <div class="toc-left">
+                        <div class="toc-dot fibu-dot"></div>
+                        <span>Laufender Geschäftsverkehr</span>
+                    </div>
+                    <span>Seite 5</span>
+                </div>
+                <div class="toc-item">
+                    <div class="toc-left">
+                        <div class="toc-dot fibu-dot"></div>
+                        <span>Jahresabschluss & Kennzahlen</span>
+                    </div>
+                    <span>Seite 6</span>
+                </div>
+                <div class="toc-item">
+                    <div class="toc-left">
+                        <div class="toc-dot fibu-dot"></div>
+                        <span>Mittelflussrechnung</span>
+                    </div>
+                    <span>Seite 7</span>
+                </div>
+            </div>
+            
+            <div class="toc-section">
+                <h4>🏭 Betriebsbuchhaltung (BEBU)</h4>
+                <div class="toc-item">
+                    <div class="toc-left">
+                        <div class="toc-dot bebu-dot"></div>
+                        <span>Grundlagen & Kostenarten</span>
+                    </div>
+                    <span>Seite 8</span>
+                </div>
+                <div class="toc-item">
+                    <div class="toc-left">
+                        <div class="toc-dot bebu-dot"></div>
+                        <span>Kostenstellen & BAB</span>
+                    </div>
+                    <span>Seite 9</span>
+                </div>
+                <div class="toc-item">
+                    <div class="toc-left">
+                        <div class="toc-dot bebu-dot"></div>
+                        <span>Kalkulation & Deckungsbeitrag</span>
+                    </div>
+                    <span>Seite 10</span>
+                </div>
+                <div class="toc-item">
+                    <div class="toc-left">
+                        <div class="toc-dot bebu-dot"></div>
+                        <span>Break-even & Investitionsrechnung</span>
+                    </div>
+                    <span>Seite 11</span>
+                </div>
+                <div class="toc-item">
+                    <div class="toc-left">
+                        <div class="toc-dot special-dot"></div>
+                        <span>Glossar & Formeln</span>
+                    </div>
+                    <span>Seite 12</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: FIBU Grundlagen -->
+    <div class="page">
+        <h1>💼 FIBU Grundlagen & Bewertung</h1>
+        
+        <div class="section-fibu-grundlagen">
+            <h2><span class="emoji">📊</span>Aufgaben des Rechnungswesens</h2>
+            
+            <h3>Finanzbuchhaltung (FIBU)</h3>
+            <ul>
+                <li><strong>Zweck:</strong> Externe Rechnungslegung für Behörden, Banken, Aktionäre</li>
+                <li><strong>Inhalte:</strong> Bilanz, Erfolgsrechnung, Geldflussrechnung, Anhang</li>
+                <li><strong>Grundlage:</strong> OR Art. 957-963, Swiss GAAP FER</li>
+                <li><strong>Buchführungspflicht:</strong> Einzelunternehmen > CHF 500'000 Umsatz</li>
+            </ul>
+            
+            <h3>Betriebsbuchhaltung (BEBU)</h3>
+            <ul>
+                <li><strong>Zweck:</strong> Interne Steuerung und Kostenkontrolle</li>
+                <li><strong>Bereiche:</strong> Kostenarten, Kostenstellen, Kostenträger</li>
+                <li><strong>Methoden:</strong> Vollkosten- und Teilkostenrechnung</li>
+                <li><strong>Ziel:</strong> Preiskalkulation und Wirtschaftlichkeit</li>
+            </ul>
+        </div>
+        
+        <div class="section-fibu-grundlagen">
+            <h2><span class="emoji">⚖️</span>Bewertungsgrundsätze (OR)</h2>
+            
+            <h3>Schweizer Bewertungsvorschriften</h3>
+            <ul>
+                <li><strong>Vorsichtsprinzip:</strong> Lieber zu tief als zu hoch bewerten</li>
+                <li><strong>Realisationsprinzip:</strong> Gewinne erst bei Realisierung verbuchen</li>
+                <li><strong>Imparitätsprinzip:</strong> Verluste sofort, Gewinne erst bei Realisation</li>
+                <li><strong>Niederwertetest:</strong> Tieferer von Anschaffungs-/Marktwert</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Bilanzposition</th>
+                        <th>Bewertung</th>
+                        <th>Besonderheiten</th>
+                    </tr>
+                    <tr>
+                        <td>Anlagevermögen</td>
+                        <td>Anschaffungskosten - Abschreibungen</td>
+                        <td>Planmässige Abschreibung</td>
+                    </tr>
+                    <tr>
+                        <td>Vorräte</td>
+                        <td>Anschaffungs-/Herstellkosten</td>
+                        <td>Niederwertetest anwenden</td>
+                    </tr>
+                    <tr>
+                        <td>Forderungen</td>
+                        <td>Nominalwert - Delkredere</td>
+                        <td>Ausfallrisiko berücksichtigen</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <h3>Stille Reserven</h3>
+            <ul>
+                <li><strong>Definition:</strong> Differenz zwischen Marktwert und Bilanzwert</li>
+                <li><strong>Bildung:</strong> Durch überhöhte Abschreibungen oder Rückstellungen</li>
+                <li><strong>Zweck:</strong> Gläubigerschutz und Gewinnglättung</li>
+                <li><strong>Auflösung:</strong> Bei Verkauf oder reduzierter Abschreibung</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Besonderheit:</strong> OR-Recht erlaubt bewusste Bildung stiller Reserven zur Selbstfinanzierung und Gläubigerschutz - im Gegensatz zu internationalen Standards!
+        </div>
+    </div>
+
+    <!-- Seite 3: Kreditorenbuchhaltung -->
+    <div class="page">
+        <h1>📤 Kreditorenbuchhaltung</h1>
+        
+        <div class="section-kreditoren">
+            <h2><span class="emoji">🔍</span>Kreditoren korrekt überprüfen</h2>
+            
+            <h3>3-Weg-Match-Verfahren</h3>
+            <ul>
+                <li><strong>Bestellung:</strong> Bestellmenge, Preis, Konditionen prüfen</li>
+                <li><strong>Lieferschein:</strong> Quantität und Qualität der Ware kontrollieren</li>
+                <li><strong>Rechnung:</strong> Formelle und materielle Prüfung durchführen</li>
+                <li><strong>Freigabe:</strong> Erst nach vollständiger Übereinstimmung zahlen</li>
+            </ul>
+            
+            <h3>Formelle Rechnungsprüfung</h3>
+            <ul>
+                <li><strong>Pflichtangaben:</strong> Name, Adresse, Datum, USt-IdNr</li>
+                <li><strong>Vollständigkeit:</strong> Alle Positionen aufgeführt</li>
+                <li><strong>Lesbarkeit:</strong> Deutlich und verständlich</li>
+                <li><strong>Originalität:</strong> Keine Duplikate oder Kopien</li>
+            </ul>
+            
+            <h3>Materielle Rechnungsprüfung</h3>
+            <ul>
+                <li><strong>Preise:</strong> Vereinbarte Konditionen eingehalten</li>
+                <li><strong>Mengen:</strong> Tatsächlich gelieferte Quantität</li>
+                <li><strong>Qualität:</strong> Spezifikationen erfüllt</li>
+                <li><strong>Rabatte:</strong> Skonti und Nachlässe korrekt</li>
+            </ul>
+            
+            <div class="formula-box">
+                <strong>Buchungsbeispiel Kreditoren:</strong><br>
+                Warenaufwand 10'000 / Vorsteuer 770 an Kreditoren 10'770<br><br>
+                <strong>Bedeutung:</strong><br>
+                Warenaufwand = Betriebsaufwand (Erfolgsrechnung)<br>
+                Vorsteuer = Forderung gegenüber Staat<br>
+                Kreditoren = Verbindlichkeit (Bilanz)
+            </div>
+        </div>
+        
+        <div class="section-kreditoren">
+            <h2><span class="emoji">💰</span>Zahlungskonditionen</h2>
+            
+            <h3>Skonto-Berechnung</h3>
+            <div class="formula-box">
+                <strong>Skonto-Effektivzins:</strong><br>
+                Jahreszins = (Skonto% × 360) ÷ (100 - Skonto%) ÷ (Zahlungsziel - Skontofrist)<br><br>
+                <strong>Beispiel:</strong> 2% Skonto bei 10 Tagen, Zahlungsziel 30 Tage<br>
+                = (2 × 360) ÷ (100 - 2) ÷ (30 - 10) = 720 ÷ 98 ÷ 20 = 36.7%
+            </div>
+            
+            <h3>Zahlungsarten</h3>
+            <ul>
+                <li><strong>Vorauskasse:</strong> Zahlung vor Lieferung (Sicherheit Lieferant)</li>
+                <li><strong>Barzahlung:</strong> Sofortige Zahlung bei Übergabe</li>
+                <li><strong>Nachnahme:</strong> Zahlung bei Lieferung</li>
+                <li><strong>Ziel:</strong> Zahlung innert vereinbarter Frist</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Skonto %</th>
+                        <th>Frist</th>
+                        <th>Zahlungsziel</th>
+                        <th>Effektivzins p.a.</th>
+                    </tr>
+                    <tr>
+                        <td>2%</td>
+                        <td>10 Tage</td>
+                        <td>30 Tage</td>
+                        <td>36.7%</td>
+                    </tr>
+                    <tr>
+                        <td>3%</td>
+                        <td>8 Tage</td>
+                        <td>30 Tage</td>
+                        <td>49.5%</td>
+                    </tr>
+                    <tr>
+                        <td>2%</td>
+                        <td>14 Tage</td>
+                        <td>60 Tage</td>
+                        <td>15.9%</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Skonto nutzen ist fast immer rentabel! Bei 2% Skonto in 10 Tagen entspricht das 36.7% Jahreszins - deutlich höher als übliche Kreditzinsen.
+        </div>
+    </div>
+
+    <!-- Seite 4: Debitorenbuchhaltung -->
+    <div class="page">
+        <h1>📥 Debitorenbuchhaltung</h1>
+        
+        <div class="section-debitoren">
+            <h2><span class="emoji">💳</span>Debitorenbuchhaltung führen</h2>
+            
+            <h3>Forderungsmanagement</h3>
+            <ul>
+                <li><strong>Bonitätsprüfung:</strong> Kreditwürdigkeit vor Verkauf prüfen</li>
+                <li><strong>Kreditlimite:</strong> Maximale offene Forderungen festlegen</li>
+                <li><strong>Zahlungsüberwachung:</strong> Fällige Forderungen regelmässig kontrollieren</li>
+                <li><strong>Mahnwesen:</strong> Gestuftes Verfahren bei Zahlungsverzug</li>
+            </ul>
+            
+            <h3>Mahnverfahren (3 Stufen)</h3>
+            <ul>
+                <li><strong>1. Mahnung:</strong> Freundliche Erinnerung nach 10-15 Tagen</li>
+                <li><strong>2. Mahnung:</strong> Bestimmter Ton mit Mahngebühren</li>
+                <li><strong>3. Mahnung:</strong> Letzte Mahnung mit Inkasso-Androhung</li>
+                <li><strong>Betreibung:</strong> Rechtliches Verfahren zur Geldeintreibung</li>
+            </ul>
+            
+            <div class="formula-box">
+                <strong>Buchungsbeispiel Verkauf auf Ziel:</strong><br>
+                Debitoren 10'770 an Warenertrag 10'000 / Umsatzsteuer 770<br><br>
+                <strong>Bedeutung:</strong><br>
+                Debitoren = Forderung (Bilanz Aktiven)<br>
+                Warenertrag = Betriebsertrag (Erfolgsrechnung)<br>
+                Umsatzsteuer = Verbindlichkeit gegenüber Staat
+            </div>
+        </div>
+        
+        <div class="section-debitoren">
+            <h2><span class="emoji">📊</span>Delkredere & Wertberichtigungen</h2>
+            
+            <h3>Delkredererechnung</h3>
+            <div class="formula-box">
+                <strong>Delkrederesatz berechnen:</strong><br>
+                Delkrederesatz = (Debitorenverluste der letzten 3 Jahre ÷ 3) ÷ Durchschnittlicher Debitorenbestand × 100<br><br>
+                <strong>Beispiel:</strong><br>
+                Verluste: Jahr 1: CHF 5'000, Jahr 2: CHF 3'000, Jahr 3: CHF 7'000<br>
+                Ø Debitorenbestand: CHF 500'000<br>
+                Delkrederesatz = (5'000 + 3'000 + 7'000) ÷ 3 ÷ 500'000 × 100 = 1%
+            </div>
+            
+            <h3>Einzelwertberichtigungen</h3>
+            <ul>
+                <li><strong>Dubiose Forderungen:</strong> Konkrete Ausfallrisiken</li>
+                <li><strong>Bewertung:</strong> Erwarteter Ausfall in Prozent</li>
+                <li><strong>Buchung:</strong> Debitorenverlust an Wertberichtigung</li>
+                <li><strong>Auflösung:</strong> Bei Zahlung oder definitiver Abschreibung</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Forderungsalter</th>
+                        <th>Ausfallwahrscheinlichkeit</th>
+                        <th>Wertberichtigung</th>
+                    </tr>
+                    <tr>
+                        <td>0-30 Tage</td>
+                        <td>1%</td>
+                        <td>Pauschal (Delkredere)</td>
+                    </tr>
+                    <tr>
+                        <td>31-90 Tage</td>
+                        <td>5%</td>
+                        <td>Einzelwertberichtigung</td>
+                    </tr>
+                    <tr>
+                        <td>91-180 Tage</td>
+                        <td>20%</td>
+                        <td>Einzelwertberichtigung</td>
+                    </tr>
+                    <tr>
+                        <td>über 180 Tage</td>
+                        <td>50-100%</td>
+                        <td>Einzelwertberichtigung</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section-debitoren">
+            <h2><span class="emoji">⏰</span>Debitorenmanagement-Kennzahlen</h2>
+            
+            <h3>Wichtige KPIs</h3>
+            <div class="formula-box">
+                <strong>Debitorenlaufzeit (Days Sales Outstanding):</strong><br>
+                DSO = (Debitoren × 365) ÷ Jahresumsatz<br><br>
+                <strong>Debitorenumschlag:</strong><br>
+                Debitorenumschlag = Jahresumsatz ÷ Ø Debitorenbestand<br><br>
+                <strong>Ausfallquote:</strong><br>
+                Ausfallquote = Debitorenverluste ÷ Jahresumsatz × 100
+            </div>
+            
+            <h3>Factoring als Alternative</h3>
+            <ul>
+                <li><strong>Echtes Factoring:</strong> Verkauf der Forderungen (ohne Rückgriff)</li>
+                <li><strong>Unechtes Factoring:</strong> Verkauf mit Rückgriff bei Ausfall</li>
+                <li><strong>Vorteile:</strong> Sofortige Liquidität, Ausfallschutz</li>
+                <li><strong>Kosten:</strong> 1-3% der Forderungssumme</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Rechtslage:</strong> Bei Zahlungsverzug sind Verzugszinsen von 5% p.a. üblich. Mahngebühren zwischen CHF 20-40 sind angemessen.
+        </div>
+    </div>
+
+    <!-- Seite 5: Laufender Geschäftsverkehr -->
+    <div class="page">
+        <h1>🔄 Laufender Geschäftsverkehr</h1>
+        
+        <div class="section-geschaeftsverkehr">
+            <h2><span class="emoji">📋</span>Geschäftsfälle systematisch erfassen</h2>
+            
+            <h3>Grundsätze ordnungsgemässer Buchführung</h3>
+            <ul>
+                <li><strong>Vollständigkeit:</strong> Alle Geschäftsfälle erfassen</li>
+                <li><strong>Wahrheit:</strong> Nach Treu und Glauben</li>
+                <li><strong>Klarheit:</strong> Nachvollziehbare Struktur</li>
+                <li><strong>Belegnachweis:</strong> Für jeden Geschäftsfall</li>
+            </ul>
+            
+            <h3>Häufige Buchungsarten</h3>
+            <ul>
+                <li><strong>Einfache Buchung:</strong> Ein Soll-Konto, ein Haben-Konto</li>
+                <li><strong>Zusammengesetzte Buchung:</strong> Mehrere Konten betroffen</li>
+                <li><strong>Umbuchung:</strong> Korrekturen zwischen Konten</li>
+                <li><strong>Jahresend-Buchungen:</strong> Abgrenzungen und Abschluss</li>
+            </ul>
+        </div>
+        
+        <div class="section-geschaeftsverkehr">
+            <h2><span class="emoji">🏦</span>Typische Geschäftsfälle</h2>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Geschäftsfall</th>
+                        <th>Buchungssatz</th>
+                        <th>Auswirkung</th>
+                    </tr>
+                    <tr>
+                        <td>Einkauf auf Ziel</td>
+                        <td>Warenaufwand / Vorsteuer an Kreditoren</td>
+                        <td>+Aufwand, +Verbindlichkeiten</td>
+                    </tr>
+                    <tr>
+                        <td>Verkauf auf Ziel</td>
+                        <td>Debitoren an Warenertrag / USt</td>
+                        <td>+Forderungen, +Ertrag</td>
+                    </tr>
+                    <tr>
+                        <td>Lohnzahlung</td>
+                        <td>Personalaufwand an Bank</td>
+                        <td>+Aufwand, -Liquidität</td>
+                    </tr>
+                    <tr>
+                        <td>Mietzahlung</td>
+                        <td>Raumaufwand an Bank</td>
+                        <td>+Aufwand, -Liquidität</td>
+                    </tr>
+                    <tr>
+                        <td>Maschinenkauf</td>
+                        <td>Maschinen / Vorsteuer an Bank</td>
+                        <td>+Anlagen, -Liquidität</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <h3>Abschreibungen</h3>
+            <div class="formula-box">
+                <strong>Lineare Abschreibung:</strong><br>
+                Jährliche Abschreibung = Anschaffungskosten ÷ Nutzungsdauer<br><br>
+                <strong>Degressive Abschreibung:</strong><br>
+                Jährliche Abschreibung = Buchwert × Abschreibungssatz<br><br>
+                <strong>Buchungssatz:</strong><br>
+                Abschreibungen Maschinen an Maschinen (oder Wertberichtigungen Maschinen)
+            </div>
+        </div>
+        
+        <div class="section-geschaeftsverkehr">
+            <h2><span class="emoji">📅</span>Rechnungsabgrenzungen</h2>
+            
+            <h3>Aktive Rechnungsabgrenzung (ARA)</h3>
+            <ul>
+                <li><strong>Definition:</strong> Im Voraus bezahlte Aufwendungen für nächste Periode</li>
+                <li><strong>Beispiele:</strong> Vorausbezahlte Miete, Versicherungen, Lizenzen</li>
+                <li><strong>Buchung:</strong> ARA an Aufwandskonto (Abgrenzung)</li>
+                <li><strong>Auflösung:</strong> Aufwandskonto an ARA (neue Periode)</li>
+            </ul>
+            
+            <h3>Passive Rechnungsabgrenzung (PRA)</h3>
+            <ul>
+                <li><strong>Definition:</strong> Erhaltene Anzahlungen für zukünftige Leistungen</li>
+                <li><strong>Beispiele:</strong> Kundanzahlungen, erhaltene Mietzinsen im Voraus</li>
+                <li><strong>Buchung:</strong> Ertragskonto an PRA (Abgrenzung)</li>
+                <li><strong>Auflösung:</strong> PRA an Ertragskonto (neue Periode)</li>
+            </ul>
+            
+            <div class="highlight">
+                <strong>💡 Faustregel:</strong> ARA = "Ich habe schon bezahlt, aber noch nicht erhalten" / PRA = "Ich habe schon erhalten, aber noch nicht geleistet"
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 6: Jahresabschluss & Kennzahlen -->
+    <div class="page">
+        <h1>📋 Jahresabschluss & Kennzahlen</h1>
+        
+        <div class="section-jahresabschluss">
+            <h2><span class="emoji">🏗️</span>Jahresabschluss erstellen</h2>
+            
+            <h3>Inventur und Bewertung</h3>
+            <ul>
+                <li><strong>Stichtaginventur:</strong> Alle Bestände am Bilanzstichtag</li>
+                <li><strong>Permanente Inventur:</strong> Laufende Bestandsführung</li>
+                <li><strong>Bewertung Vorräte:</strong> Anschaffungskosten oder tiefer</li>
+                <li><strong>Niederwertetest:</strong> Bei gesunkenen Marktpreisen</li>
+            </ul>
+            
+            <h3>Warenbestandskorrekturen</h3>
+            <div class="formula-box">
+                <strong>Warenbestandsveränderung:</strong><br>
+                Schlussbestand - Anfangsbestand = Bestandsveränderung<br><br>
+                <strong>Buchung bei Zunahme:</strong><br>
+                Warenbestand an Bestandsveränderung Waren<br><br>
+                <strong>Buchung bei Abnahme:</strong><br>
+                Bestandsveränderung Waren an Warenbestand
+            </div>
+        </div>
+        
+        <div class="section-jahresabschluss">
+            <h2><span class="emoji">📈</span>Bilanzanalyse & Kennzahlen</h2>
+            
+            <h3>Liquiditätskennzahlen</h3>
+            <div class="formula-box">
+                <strong>Liquidität 1° (Barliquidität):</strong><br>
+                Flüssige Mittel ÷ Kurzfristige Verbindlichkeiten<br>
+                <em>Richtwert: > 20%</em><br><br>
+                
+                <strong>Liquidität 2° (Quick Ratio):</strong><br>
+                (Flüssige Mittel + Forderungen) ÷ Kurzfristige Verbindlichkeiten<br>
+                <em>Richtwert: > 100%</em><br><br>
+                
+                <strong>Liquidität 3° (Current Ratio):</strong><br>
+                Umlaufvermögen ÷ Kurzfristige Verbindlichkeiten<br>
+                <em>Richtwert: > 150%</em>
+            </div>
+            
+            <h3>Finanzierungskennzahlen</h3>
+            <div class="formula-box">
+                <strong>Eigenfinanzierungsgrad:</strong><br>
+                Eigenkapital ÷ Gesamtkapital × 100<br>
+                <em>Richtwert: > 30%</em><br><br>
+                
+                <strong>Verschuldungsgrad:</strong><br>
+                Fremdkapital ÷ Eigenkapital × 100<br>
+                <em>Richtwert: < 200%</em>
+            </div>
+            
+            <h3>Rentabilitätskennzahlen</h3>
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Kennzahl</th>
+                        <th>Formel</th>
+                        <th>Richtwert</th>
+                    </tr>
+                    <tr>
+                        <td>Eigenkapitalrentabilität</td>
+                        <td>Jahresgewinn ÷ Ø Eigenkapital × 100</td>
+                        <td>> 8%</td>
+                    </tr>
+                    <tr>
+                        <td>Gesamtkapitalrentabilität</td>
+                        <td>(Jahresgewinn + Zinsen) ÷ Ø Gesamtkapital × 100</td>
+                        <td>> 6%</td>
+                    </tr>
+                    <tr>
+                        <td>Umsatzrentabilität</td>
+                        <td>Jahresgewinn ÷ Umsatz × 100</td>
+                        <td>> 5%</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section-jahresabschluss">
+            <h2><span class="emoji">⚖️</span>Leverage-Effekt</h2>
+            
+            <h3>Hebelwirkung des Fremdkapitals</h3>
+            <div class="formula-box">
+                <strong>Leverage-Effekt:</strong><br>
+                Wenn Gesamtkapitalrentabilität > Fremdkapitalzins<br>
+                → Eigenkapitalrentabilität steigt durch Fremdkapitaleinsatz<br><br>
+                
+                <strong>Beispiel:</strong><br>
+                Gesamtkapitalrentabilität: 8%<br>
+                Fremdkapitalzins: 4%<br>
+                → Positiver Leverage-Effekt
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Leverage funktioniert nur bei positiver Differenz zwischen Gesamtkapitalrentabilität und Fremdkapitalzins. Bei negativer Differenz verschlechtert sich die Eigenkapitalrentabilität!
+        </div>
+    </div>
+
+    <!-- Seite 7: Mittelflussrechnung -->
+    <div class="page">
+        <h1>💧 Mittelflussrechnung</h1>
+        
+        <div class="section-mittelfluss">
+            <h2><span class="emoji">🌊</span>Grundlagen der Geldflussrechnung</h2>
+            
+            <h3>Definition flüssige Mittel</h3>
+            <ul>
+                <li><strong>Kasse:</strong> Bargeld in CHF und Fremdwährungen</li>
+                <li><strong>Bankguthaben:</strong> Sicht- und kurzfristige Festgelder</li>
+                <li><strong>Postcheck:</strong> Guthaben bei der Post</li>
+                <li><strong>Netto flüssige Mittel:</strong> Minus kurzfristige Bankverbindlichkeiten</li>
+            </ul>
+            
+            <h3>3 Bereiche der Geldflussrechnung</h3>
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Bereich</th>
+                        <th>Inhalt</th>
+                        <th>Beispiele</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Geschäftstätigkeit</strong></td>
+                        <td>Operative Ein-/Ausgaben</td>
+                        <td>Kundeneinzahlungen, Lieferantenzahlungen</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Investitionstätigkeit</strong></td>
+                        <td>An-/Verkäufe Anlagevermögen</td>
+                        <td>Maschinenkauf, Immobilienverkauf</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Finanzierungstätigkeit</strong></td>
+                        <td>Kapitalveränderungen</td>
+                        <td>Kreditaufnahme, Dividendenausschüttung</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section-mittelfluss">
+            <h2><span class="emoji">🧮</span>Cashflow-Berechnung</h2>
+            
+            <h3>Direkte Cashflow-Berechnung</h3>
+            <div class="formula-box">
+                <strong>Direkter Cashflow (Zahlungsflüsse):</strong><br>
+                + Einzahlungen von Kunden<br>
+                - Auszahlungen an Lieferanten<br>
+                - Lohnzahlungen<br>
+                - Mietzahlungen<br>
+                - Übrige Betriebsausgaben<br>
+                = <strong>Cashflow aus Geschäftstätigkeit</strong>
+            </div>
+            
+            <h3>Indirekte Cashflow-Berechnung</h3>
+            <div class="formula-box">
+                <strong>Indirekter Cashflow (Anpassungen):</strong><br>
+                Jahresgewinn<br>
+                + Abschreibungen (liquiditätsunwirksam)<br>
+                +/- Zunahme/Abnahme Vorräte<br>
+                +/- Zunahme/Abnahme Forderungen<br>
+                +/- Zu-/Abnahme Verbindlichkeiten<br>
+                = <strong>Cashflow aus Geschäftstätigkeit</strong>
+            </div>
+            
+            <h3>Praktisches Beispiel</h3>
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th colspan="3">Geldflussrechnung Muster AG</th>
+                    </tr>
+                    <tr style="background: #e3f2fd;">
+                        <td colspan="2"><strong>Cashflow aus Geschäftstätigkeit</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Jahresgewinn</td>
+                        <td></td>
+                        <td>120'000</td>
+                    </tr>
+                    <tr>
+                        <td>+ Abschreibungen</td>
+                        <td></td>
+                        <td>45'000</td>
+                    </tr>
+                    <tr>
+                        <td>- Zunahme Debitoren</td>
+                        <td></td>
+                        <td>-15'000</td>
+                    </tr>
+                    <tr>
+                        <td>+ Zunahme Kreditoren</td>
+                        <td></td>
+                        <td>8'000</td>
+                    </tr>
+                    <tr style="background: #e8f5e8;">
+                        <td><strong>Cashflow Geschäftstätigkeit</strong></td>
+                        <td></td>
+                        <td><strong>158'000</strong></td>
+                    </tr>
+                    <tr style="background: #fff3e0;">
+                        <td colspan="2"><strong>Cashflow aus Investitionstätigkeit</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>- Investitionen Maschinen</td>
+                        <td></td>
+                        <td>-85'000</td>
+                    </tr>
+                    <tr>
+                        <td>+ Verkauf alte Anlage</td>
+                        <td></td>
+                        <td>12'000</td>
+                    </tr>
+                    <tr style="background: #fff3e0;">
+                        <td><strong>Cashflow Investitionstätigkeit</strong></td>
+                        <td></td>
+                        <td><strong>-73'000</strong></td>
+                    </tr>
+                    <tr style="background: #fce4ec;">
+                        <td colspan="2"><strong>Cashflow aus Finanzierungstätigkeit</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>+ Kreditaufnahme</td>
+                        <td></td>
+                        <td>50'000</td>
+                    </tr>
+                    <tr>
+                        <td>- Dividendenausschüttung</td>
+                        <td></td>
+                        <td>-30'000</td>
+                    </tr>
+                    <tr style="background: #fce4ec;">
+                        <td><strong>Cashflow Finanzierungstätigkeit</strong></td>
+                        <td></td>
+                        <td><strong>20'000</strong></td>
+                    </tr>
+                    <tr style="background: #f3e5f5;">
+                        <td><strong>Veränderung flüssige Mittel</strong></td>
+                        <td></td>
+                        <td><strong>105'000</strong></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="formula-box">
+                <strong>Free Cashflow:</strong><br>
+                Cashflow aus Geschäftstätigkeit - Nettoinvestitionen<br>
+                158'000 - 73'000 = 85'000<br><br>
+                <em>Interpretation: Verfügbarer Cashflow für Dividenden und Schuldenrückzahlung</em>
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Wichtig:</strong> Ein positiver Jahresgewinn garantiert nicht automatisch einen positiven Cashflow! Working Capital-Veränderungen können den Cashflow stark beeinflussen.
+        </div>
+    </div>
+
+    <!-- Seite 8: BEBU Grundlagen -->
+    <div class="page">
+        <h1>🏭 BEBU Grundlagen & Kostenarten</h1>
+        
+        <div class="section-bebu-grundlagen">
+            <h2><span class="emoji">🎯</span>FIBU vs. BEBU</h2>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Aspekt</th>
+                        <th>FIBU</th>
+                        <th>BEBU</th>
+                    </tr>
+                    <tr>
+                        <td>Adressaten</td>
+                        <td>Externe (Banken, Behörden)</td>
+                        <td>Management (intern)</td>
+                    </tr>
+                    <tr>
+                        <td>Vorschriften</td>
+                        <td>Gesetzliche (OR)</td>
+                        <td>Keine gesetzlichen</td>
+                    </tr>
+                    <tr>
+                        <td>Orientierung</td>
+                        <td>Vergangenheit</td>
+                        <td>Zukunft</td>
+                    </tr>
+                    <tr>
+                        <td>Perioden</td>
+                        <td>Geschäftsjahr</td>
+                        <td>Flexible Perioden</td>
+                    </tr>
+                    <tr>
+                        <td>Betrachtung</td>
+                        <td>Gesamtunternehmen</td>
+                        <td>Teilbereiche/Produkte</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <h3>3 Bereiche der Kostenrechnung</h3>
+            <ul>
+                <li><strong>Kostenarten:</strong> WAS kostet es? (Material, Personal, Abschreibungen)</li>
+                <li><strong>Kostenstellen:</strong> WO entstehen Kosten? (Abteilungen, Bereiche)</li>
+                <li><strong>Kostenträger:</strong> WOFÜR entstehen Kosten? (Produkte, Aufträge)</li>
+            </ul>
+        </div>
+        
+        <div class="section-kostenarten">
+            <h2><span class="emoji">📋</span>Kostenbegriffe</h2>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Begriff</th>
+                        <th>Definition</th>
+                        <th>Beispiel</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Kosten</strong></td>
+                        <td>Bewerteter Verbrauch für Betriebszweck</td>
+                        <td>Material für Produktion</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aufwendungen</strong></td>
+                        <td>Alle Vermögensminderungen</td>
+                        <td>Spende (betriebsfremd)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ausgaben</strong></td>
+                        <td>Abfluss liquider Mittel</td>
+                        <td>Barzahlung Rechnung</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Auszahlungen</strong></td>
+                        <td>Reduzierung Zahlungsmittel</td>
+                        <td>Überweisung</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <h3>Kostenklassifikation nach Verhalten</h3>
+            <ul>
+                <li><strong>Fixe Kosten:</strong> Unabhängig von Beschäftigung (Miete, Abschreibungen)</li>
+                <li><strong>Variable Kosten:</strong> Abhängig von Ausbringungsmenge (Material, Akkordlöhne)</li>
+                <li><strong>Sprungfixe Kosten:</strong> Sprunghaft bei bestimmten Mengen (zusätzliche Maschine)</li>
+                <li><strong>Degressive Kosten:</strong> Steigen unterproportional (Mengenrabatte)</li>
+            </ul>
+        </div>
+        
+        <div class="section-kostenarten">
+            <h2><span class="emoji">⚖️</span>Vollkosten vs. Teilkosten</h2>
+            
+            <h3>Vollkostenrechnung</h3>
+            <ul>
+                <li><strong>Prinzip:</strong> Alle Kosten werden auf Kostenträger verteilt</li>
+                <li><strong>Vorteil:</strong> Vollständige Kostenerfassung</li>
+                <li><strong>Nachteil:</strong> Problematische Fixkostenverteilung</li>
+                <li><strong>Anwendung:</strong> Bestandsbewertung, langfristige Preisfindung</li>
+            </ul>
+            
+            <h3>Teilkostenrechnung (Deckungsbeitragsrechnung)</h3>
+            <ul>
+                <li><strong>Prinzip:</strong> Nur variable Kosten werden zugerechnet</li>
+                <li><strong>Vorteil:</strong> Keine willkürliche Fixkostenverteilung</li>
+                <li><strong>Nachteil:</strong> Fixkosten werden vernachlässigt</li>
+                <li><strong>Anwendung:</strong> Kurzfristige Entscheidungen, Zusatzaufträge</li>
+            </ul>
+            
+            <div class="formula-box">
+                <strong>Grundformeln Deckungsbeitragsrechnung:</strong><br>
+                Deckungsbeitrag = Erlös - variable Kosten<br>
+                Betriebsergebnis = Deckungsbeitrag - Fixkosten<br><br>
+                
+                <strong>Deckungsbeitrag pro Stück:</strong><br>
+                DB/Stück = Verkaufspreis - variable Kosten/Stück
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Entscheidungsregel:</strong> Vollkostenrechnung für strategische Entscheidungen und Bestandsbewertung, Teilkostenrechnung für operative Entscheidungen und Zusatzgeschäfte.
+        </div>
+    </div>
+
+    <!-- Seite 9: Kostenstellen & BAB -->
+    <div class="page">
+        <h1>🏢 Kostenstellen & BAB</h1>
+        
+        <div class="section-kostenstellen">
+            <h2><span class="emoji">🗂️</span>Kostenstellenrechnung</h2>
+            
+            <h3>Kostenstellenarten</h3>
+            <ul>
+                <li><strong>Hauptkostenstellen:</strong> Direkt am Produkt beteiligt (Fertigung, Montage)</li>
+                <li><strong>Hilfskostenstellen:</strong> Unterstützen Hauptkostenstellen (Reparatur, Qualität)</li>
+                <li><strong>Allgemeine Kostenstellen:</strong> Verwaltung und Vertrieb</li>
+                <li><strong>Nebenkostenstellen:</strong> Unproduktive Bereiche (Kantine, Sozialräume)</li>
+            </ul>
+            
+            <h3>Betriebsabrechnungsbogen (BAB)</h3>
+            <ul>
+                <li><strong>1. Primäre Kostenstellenverteilung:</strong> Direkte Zuordnung</li>
+                <li><strong>2. Sekundäre Kostenstellenverteilung:</strong> Umlage Hilfskostenstellen</li>
+                <li><strong>3. Berechnung Gemeinkostenzuschlagssätze</strong></li>
+            </ul>
+            
+            <div class="table-box">
+                <table style="font-size: 0.8em;">
+                    <tr>
+                        <th>Kostenarten</th>
+                        <th>Total</th>
+                        <th>Material</th>
+                        <th>Fertigung</th>
+                        <th>Verwaltung</th>
+                        <th>Vertrieb</th>
+                    </tr>
+                    <tr>
+                        <td>Gehälter</td>
+                        <td>180'000</td>
+                        <td>20'000</td>
+                        <td>80'000</td>
+                        <td>50'000</td>
+                        <td>30'000</td>
+                    </tr>
+                    <tr>
+                        <td>Miete</td>
+                        <td>36'000</td>
+                        <td>6'000</td>
+                        <td>18'000</td>
+                        <td>8'000</td>
+                        <td>4'000</td>
+                    </tr>
+                    <tr>
+                        <td>Strom</td>
+                        <td>24'000</td>
+                        <td>2'000</td>
+                        <td>20'000</td>
+                        <td>1'000</td>
+                        <td>1'000</td>
+                    </tr>
+                    <tr style="background: #e8f5e8;">
+                        <td><strong>Summe Gemeinkosten</strong></td>
+                        <td><strong>240'000</strong></td>
+                        <td><strong>28'000</strong></td>
+                        <td><strong>118'000</strong></td>
+                        <td><strong>59'000</strong></td>
+                        <td><strong>35'000</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Bezugsgrösse</td>
+                        <td>-</td>
+                        <td>140'000</td>
+                        <td>100'000</td>
+                        <td>450'000</td>
+                        <td>450'000</td>
+                    </tr>
+                    <tr style="background: #fff3e0;">
+                        <td><strong>Zuschlagssatz</strong></td>
+                        <td><strong>-</strong></td>
+                        <td><strong>20%</strong></td>
+                        <td><strong>118%</strong></td>
+                        <td><strong>13.1%</strong></td>
+                        <td><strong>7.8%</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section-kostenstellen">
+            <h2><span class="emoji">🔢</span>Gemeinkostenzuschlagssätze</h2>
+            
+            <h3>Berechnung der Zuschlagssätze</h3>
+            <div class="formula-box">
+                <strong>Materialgemeinkosten-Zuschlagssatz:</strong><br>
+                MGK-Zuschlag = Materialgemeinkosten ÷ Materialeinzelkosten × 100<br><br>
+                
+                <strong>Fertigungsgemeinkosten-Zuschlagssatz:</strong><br>
+                FGK-Zuschlag = Fertigungsgemeinkosten ÷ Fertigungslöhne × 100<br><br>
+                
+                <strong>Verwaltungsgemeinkosten-Zuschlagssatz:</strong><br>
+                VwGK-Zuschlag = Verwaltungsgemeinkosten ÷ Herstellkosten × 100<br><br>
+                
+                <strong>Vertriebsgemeinkosten-Zuschlagssatz:</strong><br>
+                VtGK-Zuschlag = Vertriebsgemeinkosten ÷ Herstellkosten × 100
+            </div>
+            
+            <h3>Maschinenstundensatz</h3>
+            <div class="formula-box">
+                <strong>Maschinenstundensatz berechnen:</strong><br>
+                MSS = Maschinenkosten ÷ Laufzeit der Maschine<br><br>
+                
+                <strong>Maschinenkosten umfassen:</strong><br>
+                • Abschreibungen der Maschine<br>
+                • Reparatur und Wartung<br>
+                • Energiekosten<br>
+                • Raumkosten<br>
+                • Versicherung
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Maschinenstundensätze sind besonders bei maschinenintensiver Fertigung genauer als Zuschläge auf Fertigungslöhne, da sie die tatsächliche Maschinennutzung widerspiegeln.
+        </div>
+    </div>
+
+    <!-- Seite 10: Kalkulation & Deckungsbeitrag -->
+    <div class="page">
+        <h1>💰 Kalkulation & Deckungsbeitrag</h1>
+        
+        <div class="section-kalkulation">
+            <h2><span class="emoji">🧮</span>Zuschlagskalkulation</h2>
+            
+            <h3>Kalkulationsschema (Vollkosten)</h3>
+            <div class="formula-box">
+                Materialeinzelkosten<br>
+                + Materialgemeinkosten (% von MEK)<br>
+                = <strong>Materialkosten</strong><br><br>
+                
+                Fertigungseinzelkosten (Löhne)<br>
+                + Fertigungsgemeinkosten (% von FEK)<br>
+                = <strong>Fertigungskosten</strong><br><br>
+                
+                Materialkosten + Fertigungskosten<br>
+                = <strong>Herstellkosten</strong><br><br>
+                
+                + Verwaltungsgemeinkosten (% von HK)<br>
+                + Vertriebsgemeinkosten (% von HK)<br>
+                = <strong>Selbstkosten</strong><br><br>
+                
+                + Gewinnzuschlag<br>
+                = <strong>Verkaufspreis</strong>
+            </div>
+            
+            <h3>Divisionskalkulation</h3>
+            <div class="formula-box">
+                <strong>Einstufige Divisionskalkulation:</strong><br>
+                Stückkosten = Gesamtkosten ÷ Produktionsmenge<br><br>
+                
+                <strong>Äquivalenzziffernkalkulation:</strong><br>
+                Bei unterschiedlichen Produktvarianten<br>
+                Kosten pro Recheneinheit = Gesamtkosten ÷ Summe Recheneinheiten<br>
+                Stückkosten = Kosten pro RE × Äquivalenzziffer
+            </div>
+            
+            <h3>Handelskalkulation</h3>
+            <div class="formula-box">
+                <strong>Zuschlag (vom niederen zum höheren Wert):</strong><br>
+                Verkaufspreis = Selbstkosten × (1 + Zuschlag%)<br><br>
+                
+                <strong>Rabatt/Marge (vom höheren zum niederen Wert):</strong><br>
+                Selbstkosten = Verkaufspreis × (1 - Rabatt%)<br><br>
+                
+                <strong>Umrechnung Zuschlag ↔ Rabatt:</strong><br>
+                Rabatt% = Zuschlag% ÷ (100 + Zuschlag%) × 100<br>
+                Zuschlag% = Rabatt% ÷ (100 - Rabatt%) × 100
+            </div>
+        </div>
+        
+        <div class="section-deckungsbeitrag">
+            <h2><span class="emoji">📊</span>Deckungsbeitragsrechnung</h2>
+            
+            <h3>Einstufige Deckungsbeitragsrechnung</h3>
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Position</th>
+                        <th>Produkt A</th>
+                        <th>Produkt B</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>Umsatz</td>
+                        <td>300'000</td>
+                        <td>200'000</td>
+                        <td>500'000</td>
+                    </tr>
+                    <tr>
+                        <td>- Variable Kosten</td>
+                        <td>180'000</td>
+                        <td>140'000</td>
+                        <td>320'000</td>
+                    </tr>
+                    <tr style="background: #fff3e0;">
+                        <td><strong>= Deckungsbeitrag I</strong></td>
+                        <td><strong>120'000</strong></td>
+                        <td><strong>60'000</strong></td>
+                        <td><strong>180'000</strong></td>
+                    </tr>
+                    <tr>
+                        <td>- Fixkosten</td>
+                        <td></td>
+                        <td></td>
+                        <td>140'000</td>
+                    </tr>
+                    <tr style="background: #e8f5e8;">
+                        <td><strong>= Betriebsergebnis</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>40'000</strong></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <h3>Mehrstufige Deckungsbeitragsrechnung</h3>
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Position</th>
+                        <th>Bereich Nord</th>
+                        <th>Bereich Süd</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>Umsatz</td>
+                        <td>800'000</td>
+                        <td>600'000</td>
+                        <td>1'400'000</td>
+                    </tr>
+                    <tr>
+                        <td>- Variable Kosten</td>
+                        <td>480'000</td>
+                        <td>420'000</td>
+                        <td>900'000</td>
+                    </tr>
+                    <tr style="background: #fff3e0;">
+                        <td><strong>= Deckungsbeitrag I</strong></td>
+                        <td><strong>320'000</strong></td>
+                        <td><strong>180'000</strong></td>
+                        <td><strong>500'000</strong></td>
+                    </tr>
+                    <tr>
+                        <td>- Bereichsfixkosten</td>
+                        <td>120'000</td>
+                        <td>80'000</td>
+                        <td>200'000</td>
+                    </tr>
+                    <tr style="background: #e3f2fd;">
+                        <td><strong>= Deckungsbeitrag II</strong></td>
+                        <td><strong>200'000</strong></td>
+                        <td><strong>100'000</strong></td>
+                        <td><strong>300'000</strong></td>
+                    </tr>
+                    <tr>
+                        <td>- Unternehmensfixkosten</td>
+                        <td></td>
+                        <td></td>
+                        <td>180'000</td>
+                    </tr>
+                    <tr style="background: #e8f5e8;">
+                        <td><strong>= Betriebsergebnis</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>120'000</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Mehrstufige DB-Rechnung hilft bei Make-or-Buy-Entscheidungen: Solange DB > 0, trägt das Produkt zur Fixkostendeckung bei.
+        </div>
+    </div>
+
+    <!-- Seite 11: Break-even & Investitionsrechnung -->
+    <div class="page">
+        <h1>📈 Break-even & Investitionsrechnung</h1>
+        
+        <div class="section-breakeven">
+            <h2><span class="emoji">⚖️</span>Break-even-Analyse</h2>
+            
+            <h3>Nutzschwelle berechnen</h3>
+            <div class="formula-box">
+                <strong>Mengenmässige Nutzschwelle:</strong><br>
+                Break-even-Menge = Fixkosten ÷ Deckungsbeitrag pro Stück<br><br>
+                
+                <strong>Wertmässige Nutzschwelle:</strong><br>
+                Break-even-Umsatz = Fixkosten ÷ Deckungsbeitragsquote<br><br>
+                
+                <strong>Deckungsbeitragsquote:</strong><br>
+                DB-Quote = Deckungsbeitrag ÷ Umsatz × 100
+            </div>
+            
+            <h3>Praktisches Beispiel</h3>
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Grösse</th>
+                        <th>Wert</th>
+                        <th>Berechnung</th>
+                    </tr>
+                    <tr>
+                        <td>Verkaufspreis pro Stück</td>
+                        <td>CHF 50</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Variable Kosten pro Stück</td>
+                        <td>CHF 30</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Deckungsbeitrag pro Stück</td>
+                        <td>CHF 20</td>
+                        <td>50 - 30</td>
+                    </tr>
+                    <tr>
+                        <td>Fixkosten</td>
+                        <td>CHF 100'000</td>
+                        <td>-</td>
+                    </tr>
+                    <tr style="background: #fff3e0;">
+                        <td><strong>Break-even-Menge</strong></td>
+                        <td><strong>5'000 Stück</strong></td>
+                        <td>100'000 ÷ 20</td>
+                    </tr>
+                    <tr style="background: #fff3e0;">
+                        <td><strong>Break-even-Umsatz</strong></td>
+                        <td><strong>CHF 250'000</strong></td>
+                        <td>5'000 × 50</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <h3>Sensitivitätsanalyse</h3>
+            <ul>
+                <li><strong>Preisänderung:</strong> Wie wirkt sich eine Preiserhöhung/senkung aus?</li>
+                <li><strong>Kostenänderung:</strong> Auswirkung steigender Materialkosten</li>
+                <li><strong>Mengenänderung:</strong> Effekt bei höherem/niedrigerem Absatz</li>
+                <li><strong>Sicherheitsmarge:</strong> (Ist-Umsatz - Break-even-Umsatz) ÷ Ist-Umsatz</li>
+            </ul>
+        </div>
+        
+        <div class="section-investition">
+            <h2><span class="emoji">🏗️</span>Investitionsrechnung</h2>
+            
+            <h3>Statische Verfahren</h3>
+            <div class="formula-box">
+                <strong>Kostenvergleichsrechnung:</strong><br>
+                Vergleich der jährlichen Gesamtkosten<br><br>
+                
+                <strong>Gewinnvergleichsrechnung:</strong><br>
+                Vergleich der jährlichen Gewinne<br><br>
+                
+                <strong>Rentabilitätsrechnung:</strong><br>
+                Rentabilität = Ø Jahresgewinn ÷ Ø Kapitaleinsatz × 100<br><br>
+                
+                <strong>Amortisationsrechnung:</strong><br>
+                Amortisationszeit = Anschaffungskosten ÷ Ø Jahresrückfluss
+            </div>
+            
+            <h3>Dynamische Verfahren</h3>
+            <div class="formula-box">
+                <strong>Kapitalwertmethode (NPV):</strong><br>
+                NPV = Σ (Einzahlungen - Auszahlungen) ÷ (1 + i)^t - Anschaffungskosten<br><br>
+                
+                <strong>Interner Zinsfuss (IRR):</strong><br>
+                Zinssatz, bei dem NPV = 0<br><br>
+                
+                <strong>Annuitätenmethode:</strong><br>
+                Kapitalwert in gleiche Jahresraten umrechnen
+            </div>
+            
+            <h3>Praktisches Beispiel statische Rechnung</h3>
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Verfahren</th>
+                        <th>Maschine A</th>
+                        <th>Maschine B</th>
+                        <th>Entscheidung</th>
+                    </tr>
+                    <tr>
+                        <td>Anschaffungskosten</td>
+                        <td>CHF 100'000</td>
+                        <td>CHF 120'000</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Jährliche Kosten</td>
+                        <td>CHF 25'000</td>
+                        <td>CHF 20'000</td>
+                        <td>B besser</td>
+                    </tr>
+                    <tr>
+                        <td>Jährlicher Gewinn</td>
+                        <td>CHF 15'000</td>
+                        <td>CHF 18'000</td>
+                        <td>B besser</td>
+                    </tr>
+                    <tr>
+                        <td>Rentabilität</td>
+                        <td>15%</td>
+                        <td>15%</td>
+                        <td>Gleich</td>
+                    </tr>
+                    <tr>
+                        <td>Amortisation</td>
+                        <td>6.7 Jahre</td>
+                        <td>6.7 Jahre</td>
+                        <td>Gleich</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Entscheidungsregel:</strong> Statische Verfahren für einfache Investitionen ohne Zinsen. Dynamische Verfahren für komplexe, langfristige Investitionen mit Zinsenbetrachtung.
+        </div>
+    </div>
+
+    <!-- Seite 12: Glossar & Formeln -->
+    <div class="page">
+        <h1>📚 Glossar & Formeln</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Abschreibungen</div>
+            <div class="glossar-def">Planmässiger Wertverzehr von Anlagevermögen (linear oder degressiv)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ARA (Aktive Rechnungsabgrenzung)</div>
+            <div class="glossar-def">Vorausbezahlte Aufwendungen für die nächste Periode</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">BAB (Betriebsabrechnungsbogen)</div>
+            <div class="glossar-def">Hilfsmittel zur Kostenstellenrechnung und Zuschlagssatzberechnung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Break-even-Point</div>
+            <div class="glossar-def">Nutzschwelle, bei der Erlös = Gesamtkosten (weder Gewinn noch Verlust)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Cashflow</div>
+            <div class="glossar-def">Saldo aus operativen Einnahmen und Ausgaben (Jahresgewinn + Abschreibungen)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Deckungsbeitrag</div>
+            <div class="glossar-def">Erlös minus variable Kosten; Beitrag zur Fixkostendeckung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Delkredere</div>
+            <div class="glossar-def">Pauschalwertberichtigung für allgemeines Ausfallrisiko bei Forderungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Divisionskalkulation</div>
+            <div class="glossar-def">Stückkosten = Gesamtkosten ÷ Produktionsmenge (bei homogenen Produkten)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">EBIT</div>
+            <div class="glossar-def">Earnings Before Interest and Taxes (Betriebsergebnis vor Zinsen und Steuern)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">EBITDA</div>
+            <div class="glossar-def">Earnings Before Interest, Taxes, Depreciation and Amortization</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Eigenfinanzierungsgrad</div>
+            <div class="glossar-def">Eigenkapital ÷ Gesamtkapital × 100 (Richtwert: > 30%)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Factoring</div>
+            <div class="glossar-def">Verkauf von Forderungen an Factoringgesellschaft</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">FIBU (Finanzbuchhaltung)</div>
+            <div class="glossar-def">Externe Rechnungslegung nach OR für Behörden, Banken, Aktionäre</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Free Cashflow</div>
+            <div class="glossar-def">Cashflow aus Geschäftstätigkeit minus Nettoinvestitionen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Herstellkosten</div>
+            <div class="glossar-def">Materialkosten + Fertigungskosten (ohne Verwaltung/Vertrieb)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Imparitätsprinzip</div>
+            <div class="glossar-def">Verluste sofort verbuchen, Gewinne erst bei Realisierung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kreditoren</div>
+            <div class="glossar-def">Verbindlichkeiten aus Lieferungen und Leistungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Leverage-Effekt</div>
+            <div class="glossar-def">Hebelwirkung: Eigenkapitalrentabilität steigt durch günstiges Fremdkapital</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Liquidität 1°</div>
+            <div class="glossar-def">Flüssige Mittel ÷ kurzfristige Verbindlichkeiten (Richtwert: > 20%)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Maschinenstundensatz</div>
+            <div class="glossar-def">Maschinenkosten ÷ Maschinenlaufzeit (genauer als Lohnzuschläge)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Niederwertetest</div>
+            <div class="glossar-def">Bewertung zum tieferen von Anschaffungskosten oder Marktwert</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">PRA (Passive Rechnungsabgrenzung)</div>
+            <div class="glossar-def">Erhaltene Anzahlungen für zukünftige Leistungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Realisationsprinzip</div>
+            <div class="glossar-def">Gewinne erst bei tatsächlicher Realisierung verbuchen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Selbstkosten</div>
+            <div class="glossar-def">Herstellkosten + Verwaltungs- + Vertriebsgemeinkosten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Skonto</div>
+            <div class="glossar-def">Frühzahlerrabatt; 2% Skonto entspricht oft über 35% Jahreszins</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Stille Reserven</div>
+            <div class="glossar-def">Differenz zwischen Marktwert und Bilanzwert (Gläubigerschutz)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Vollkostenrechnung</div>
+            <div class="glossar-def">Alle Kosten werden auf Kostenträger verteilt (für langfristige Preise)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Vorsichtsprinzip</div>
+            <div class="glossar-def">Im Zweifelsfall lieber zu tief als zu hoch bewerten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Zuschlagskalkulation</div>
+            <div class="glossar-def">Einzelkosten + Gemeinkostenzuschläge = Vollkosten</div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f0f8ff; border-radius: 10px; border-left: 4px solid #1565C0;">
+            <h3 style="color: #1565C0; margin-bottom: 15px;">🧮 Wichtige Formeln</h3>
+            
+            <div class="formula-box" style="margin: 10px 0;">
+                <strong>Break-even-Analyse:</strong><br>
+                Mengenmässige Nutzschwelle = Fixkosten ÷ DB pro Stück<br>
+                Wertmässige Nutzschwelle = Fixkosten ÷ DB-Quote
+            </div>
+            
+            <div class="formula-box" style="margin: 10px 0;">
+                <strong>Liquiditätskennzahlen:</strong><br>
+                Liquidität 1° = Flüssige Mittel ÷ kurzfr. Verbindlichkeiten<br>
+                Liquidität 2° = (Flüssige Mittel + Forderungen) ÷ kurzfr. Verbindlichkeiten
+            </div>
+            
+            <div class="formula-box" style="margin: 10px 0;">
+                <strong>Rentabilitätskennzahlen:</strong><br>
+                Eigenkapitalrentabilität = Jahresgewinn ÷ Ø Eigenkapital × 100<br>
+                Umsatzrentabilität = Jahresgewinn ÷ Umsatz × 100
+            </div>
+            
+            <div class="formula-box" style="margin: 10px 0;">
+                <strong>Cashflow (indirekt):</strong><br>
+                Jahresgewinn + Abschreibungen +/- Working Capital-Veränderungen
+            </div>
+            
+            <div class="formula-box" style="margin: 10px 0;">
+                <strong>Skonto-Effektivzins:</strong><br>
+                (Skonto% × 360) ÷ (100 - Skonto%) ÷ (Zahlungsziel - Skontofrist)
+            </div>
+            
+            <div class="formula-box" style="margin: 10px 0;">
+                <strong>Zuschlagssätze:</strong><br>
+                MGK-Zuschlag = Materialgemeinkosten ÷ Materialeinzelkosten × 100<br>
+                FGK-Zuschlag = Fertigungsgemeinkosten ÷ Fertigungslöhne × 100
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center; font-style: italic; color: #666;">
+            <p><strong>HF9: Finanzbuchhaltung und Rechnungswesen</strong><br>
+            Technische Kaufleute - Eidgenössische Berufsprüfung<br>
+            Basierend auf Schweizer OR und aktuellen Standards 2025

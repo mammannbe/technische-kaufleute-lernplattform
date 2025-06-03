@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF8: Personal(-arbeit) - Factsheet</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; font-size: 11pt; }
+            .page { page-break-after: always; height: 100vh; }
+            .page:last-child { page-break-after: avoid; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: white;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        
+        /* Titel-Seite */
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.5em;
+            color: #FF6B35;
+            margin-bottom: 20px;
+        }
+        
+        .title-page h2 {
+            font-size: 1.5em;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .toc h3 {
+            color: #FF6B35;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .dot1 { background: #FF6B35; }
+        .dot2 { background: #FF8C42; }
+        .dot3 { background: #FFA726; }
+        .dot4 { background: #FFB74D; }
+        
+        .toc-left {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        /* Content-Seiten */
+        h1 {
+            color: #FF6B35;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #FF6B35;
+            padding-bottom: 5px;
+        }
+        
+        h2 {
+            color: #1a1a1a;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.1em;
+            margin: 15px 0 8px 0;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        /* Sektionen */
+        .section-rekrutierung {
+            background: white;
+            border-left: 3px solid #FF6B35;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-rekrutierung h2 { color: #FF6B35; background: white; }
+        
+        .section-entwicklung {
+            background: white;
+            border-left: 3px solid #FF8C42;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-entwicklung h2 { color: #FF8C42; background: white; }
+        
+        .section-lohn {
+            background: white;
+            border-left: 3px solid #FFA726;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-lohn h2 { color: #FFA726; background: white; }
+        
+        .section-arbeitsrecht {
+            background: white;
+            border-left: 3px solid #FFB74D;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-arbeitsrecht h2 { color: #FFB74D; background: white; }
+        
+        ul {
+            margin: 8px 0 15px 20px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+        
+        strong {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            padding: 12px;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .process-box {
+            background: #f3e5f5;
+            padding: 15px;
+            border-left: 4px solid #9c27b0;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .glossar-item {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #FF6B35;
+            font-size: 1.05em;
+        }
+        
+        .glossar-def {
+            margin-top: 3px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #FF6B35;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .print-btn:hover {
+            background: #e55a2b;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <!-- Seite 1: Titel und Inhaltsverzeichnis -->
+    <div class="page title-page">
+        <h1>Handlungsfeld 8</h1>
+        <h2>Personal(-arbeit)</h2>
+        <p style="margin-bottom: 30px;">Technische Kaufleute - Eidgenössische Berufsprüfung</p>
+        
+        <div class="toc">
+            <h3>📋 Inhaltsverzeichnis</h3>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot1"></div>
+                    <span>Personalplanung & Rekrutierung</span>
+                </div>
+                <span>Seite 2</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot2"></div>
+                    <span>Personalbeurteilung & Entwicklung</span>
+                </div>
+                <span>Seite 3</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot3"></div>
+                    <span>Lohn & Sozialversicherungen</span>
+                </div>
+                <span>Seite 4</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot4"></div>
+                    <span>Arbeitsrecht & Personalfreisetzung</span>
+                </div>
+                <span>Seite 5</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot"></div>
+                    <span>Glossar</span>
+                </div>
+                <span>Seite 6</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: Personalplanung & Rekrutierung -->
+    <div class="page">
+        <h1>👥 Personalplanung & Rekrutierung</h1>
+        
+        <div class="section-rekrutierung">
+            <h2><span class="emoji">📊</span>Personalplanung</h2>
+            
+            <h3>Drei Planungsebenen</h3>
+            <ul>
+                <li><strong>Kurzfristig (bis 1 Jahr):</strong> Monatliche/wöchentliche Personaleinsatzplanung</li>
+                <li><strong>Mittelfristig (1-3 Jahre):</strong> Nachfolgeplanung, Fachkräftebedarf, Freistellungen</li>
+                <li><strong>Langfristig (3-10 Jahre):</strong> Strategische Personalpolitik, Grundsätze</li>
+            </ul>
+            
+            <h3>Qualitative vs. Quantitative Planung</h3>
+            <ul>
+                <li><strong>Quantitativ:</strong> Wie viele Mitarbeitende? (Fluktuation, Fehlzeiten, Militär)</li>
+                <li><strong>Qualitativ:</strong> Welche Kompetenzen? (Fach-, Methoden-, Sozial-, Ich-Kompetenz)</li>
+                <li><strong>Personal-Kompetenzportfolio:</strong> IST-Analyse vorhandener Fähigkeiten</li>
+                <li><strong>Grundformel:</strong> Soll-Bestand - IST-Bestand = Personalbedarf</li>
+            </ul>
+        </div>
+        
+        <div class="section-rekrutierung">
+            <h2><span class="emoji">📝</span>Stellenbeschrieb & Anforderungsprofil</h2>
+            
+            <h3>Stellenbeschrieb-Inhalt</h3>
+            <ul>
+                <li><strong>Stellenbezeichnung:</strong> Funktion, hierarchische Stellung, Stellvertretung</li>
+                <li><strong>Stellenziel:</strong> Zielsetzung und Zweck der Position</li>
+                <li><strong>Aufgaben:</strong> Haupt- und Nebenaufgaben mit Zeitanteilen</li>
+                <li><strong>Kompetenzen:</strong> Entscheidungsbefugnisse und Verantwortlichkeiten</li>
+            </ul>
+            
+            <h3>Anforderungsprofil (4 Kompetenzbereiche)</h3>
+            <ul>
+                <li><strong>Fachkompetenz:</strong> Ausbildung, Berufserfahrung, Fachwissen</li>
+                <li><strong>Methodenkompetenz:</strong> Arbeitstechniken, Problemlösung, Analytisches Denken</li>
+                <li><strong>Sozialkompetenz:</strong> Teamfähigkeit, Kommunikation, Führungsfähigkeit</li>
+                <li><strong>Ich-Kompetenz:</strong> Belastbarkeit, Motivation, Lernbereitschaft</li>
+            </ul>
+        </div>
+        
+        <div class="section-rekrutierung">
+            <h2><span class="emoji">🎯</span>Rekrutierungsprozess</h2>
+            
+            <h3>AIDA-Prinzip für Stelleninserate</h3>
+            <ul>
+                <li><strong>Attention:</strong> Aufmerksamkeit der Zielgruppe gewinnen</li>
+                <li><strong>Interest:</strong> Interesse für die Position wecken</li>
+                <li><strong>Desire:</strong> Wunsch nach der Stelle auslösen</li>
+                <li><strong>Action:</strong> Bewerbung motivieren</li>
+            </ul>
+            
+            <h3>4 Phasen der Personalauswahl</h3>
+            <ul>
+                <li><strong>1. Vorauswahl:</strong> Formale Prüfung, ABC-Bewertung der Bewerbungen</li>
+                <li><strong>2. Bewerbungsgespräch:</strong> Strukturiertes Interview (ca. 60 Min)</li>
+                <li><strong>3. Referenzauskünfte:</strong> Nur mit Einverständnis des Kandidaten</li>
+                <li><strong>4. Entscheidung:</strong> Bewertungsmatrix mit Muss-/Soll-/Kann-Kriterien</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> ABC-Methode für Kandidatenbewertung: A-Kandidaten (sehr geeignet), B-Kandidaten (geeignet), C-Kandidaten (weniger geeignet). Immer Muss-Kriterien zuerst prüfen!
+        </div>
+    </div>
+
+    <!-- Seite 3: Personalbeurteilung & Entwicklung -->
+    <div class="page">
+        <h1>📈 Personalbeurteilung & Entwicklung</h1>
+        
+        <div class="section-entwicklung">
+            <h2><span class="emoji">🎯</span>Mitarbeitereinführung</h2>
+            
+            <h3>3-Phasen-Einführung</h3>
+            <ul>
+                <li><strong>Vor Arbeitsbeginn:</strong> Arbeitsplatz vorbereiten, IT-Zugänge, Vertragsunterlagen</li>
+                <li><strong>Erster Arbeitstag:</strong> Begrüssung, Rundgang, Team-Vorstellung, Götti/Pate zuteilen</li>
+                <li><strong>Probezeit:</strong> Strukturierte Begleitung, regelmässige Gespräche, Bewertung</li>
+            </ul>
+            
+            <h3>Götti/Pate-System</h3>
+            <ul>
+                <li><strong>Vorteile:</strong> Reduziert Einarbeitungszeit um bis zu 30%</li>
+                <li><strong>Aufgaben Pate:</strong> Praktische Einführung, Arbeitsplatz zeigen, Alltagshilfe</li>
+                <li><strong>Aufgaben Vorgesetzter:</strong> Fachliche/strategische Einführung, Zielsetzung</li>
+                <li><strong>Probezeit CH:</strong> 1-3 Monate, Kündigung mit 7 Tagen Frist möglich</li>
+            </ul>
+        </div>
+        
+        <div class="section-entwicklung">
+            <h2><span class="emoji">⭐</span>Beurteilungssystem</h2>
+            
+            <h3>2 Beurteilungsebenen</h3>
+            <ul>
+                <li><strong>Leistungsbeurteilung (jährlich):</strong> Arbeitsleistung und Arbeitsergebnisse</li>
+                <li><strong>Potentialbeurteilung (1-2x jährlich):</strong> Entwicklungsmöglichkeiten, Laufbahn</li>
+                <li><strong>Beurteilungsformen:</strong> Freie Schilderung, Eigenschaftsskalen, Zielvereinbarung</li>
+                <li><strong>SMART-Ziele:</strong> Spezifisch, Messbar, Akzeptiert, Realistisch, Terminiert</li>
+            </ul>
+            
+            <h3>Häufige Beurteilungsfehler</h3>
+            <ul>
+                <li><strong>Halo-Effekt:</strong> Ein Merkmal überstrahlt alle anderen</li>
+                <li><strong>Tendenz zur Mitte:</strong> Vermeidung extremer Bewertungen</li>
+                <li><strong>Sympathie-Effekt:</strong> Persönliche Vorlieben beeinflussen Bewertung</li>
+                <li><strong>Recency-Effekt:</strong> Nur letzte Ereignisse werden berücksichtigt</li>
+            </ul>
+        </div>
+        
+        <div class="section-entwicklung">
+            <h2><span class="emoji">🚀</span>Personalentwicklung</h2>
+            
+            <h3>6 PE-Formen nach Einsatzort</h3>
+            <ul>
+                <li><strong>Into the Job:</strong> Einführung in neue Tätigkeit</li>
+                <li><strong>On the Job:</strong> Training direkt am Arbeitsplatz</li>
+                <li><strong>Near the Job:</strong> Arbeitsplatznahe Schulungen</li>
+                <li><strong>Off the Job:</strong> Externe Weiterbildungsveranstaltungen</li>
+                <li><strong>Along the Job:</strong> Karrierebezogene Entwicklung (Coaching)</li>
+                <li><strong>Out of the Job:</strong> Ruhestandsvorbereitung</li>
+            </ul>
+            
+            <h3>Kompetenzentwicklung</h3>
+            <ul>
+                <li><strong>Hoch entwickelbar:</strong> Fach- und Methodenkompetenz</li>
+                <li><strong>Mittel entwickelbar:</strong> Sozialkompetenz</li>
+                <li><strong>Gering entwickelbar:</strong> Ich-Kompetenz (Persönlichkeit)</li>
+                <li><strong>Bedeutung für Rekrutierung:</strong> Persönlichkeit kann kaum verändert werden</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> 70% Praxis, 30% Theorie bei Schulungen. Lerntransfer gelingt besser, wenn Teilnehmende sofort anwenden können, was sie gelernt haben.
+        </div>
+    </div>
+
+    <!-- Seite 4: Lohn & Sozialversicherungen -->
+    <div class="page">
+        <h1>💰 Lohn & Sozialversicherungen</h1>
+        
+        <div class="section-lohn">
+            <h2><span class="emoji">💼</span>Lohnzusammensetzung</h2>
+            
+            <h3>3 Hauptkomponenten</h3>
+            <ul>
+                <li><strong>Grundlohn:</strong> Funktion und Anforderungen der Stelle</li>
+                <li><strong>Erfahrungsanteil:</strong> Dienstjahre und Berufserfahrung</li>
+                <li><strong>Leistungsanteil:</strong> Individuelle Leistung und Zielerreichung</li>
+                <li><strong>Zulagen:</strong> 13. Monatslohn, Gratifikation, Provisionen, Familienzulagen</li>
+            </ul>
+            
+            <h3>LAMOUR-Konzept für Lohnfindung</h3>
+            <ul>
+                <li><strong>Leistung:</strong> Mitarbeitergespräch, Zielerreichung</li>
+                <li><strong>Anforderung:</strong> Arbeitsplatzbewerung, Funktionsbeschrieb</li>
+                <li><strong>Marktkonformität:</strong> Externe Lohnvergleiche, Branchenstandards</li>
+                <li><strong>Organisationsabsicht:</strong> Unternehmensstrategie und -ziele</li>
+                <li><strong>Unternehmensmöglichkeit:</strong> Betriebsergebnis, Gewinn, Umsatz</li>
+                <li><strong>Recht & Ethik:</strong> OR, ArG, GAV, Mindestlöhne, Lohngleichheit</li>
+            </ul>
+        </div>
+        
+        <div class="section-lohn">
+            <h2><span class="emoji">⚖️</span>5 Dimensionen der Lohngerechtigkeit</h2>
+            
+            <h3>Gerechtigkeitsprinzipien</h3>
+            <ul>
+                <li><strong>Anforderungsgerechtigkeit:</strong> Lohn nach Ausbildung, Erfahrung, Schwierigkeit</li>
+                <li><strong>Leistungsgerechtigkeit:</strong> Zielerreichung, Arbeits- und Sozialverhalten</li>
+                <li><strong>Sozialgerechtigkeit:</strong> Gleicher Lohn für Mann/Frau, Familienzulagen</li>
+                <li><strong>Marktgerechtigkeit:</strong> Branchenübliche Entlöhnung</li>
+                <li><strong>Erfolgsgerechtigkeit:</strong> Gewinnbeteiligung, Umsatzbeteiligung</li>
+            </ul>
+        </div>
+        
+        <div class="section-lohn">
+            <h2><span class="emoji">🛡️</span>Schweizer 3-Säulen-System</h2>
+            
+            <h3>1. Säule: AHV/IV/EO (staatlich)</h3>
+            <ul>
+                <li><strong>Beitragssatz:</strong> 10.6% (je 5.3% AG/AN) des Lohnes</li>
+                <li><strong>Renten 2025:</strong> Min. CHF 1'260, Max. CHF 2'520, Ehepaar max. CHF 3'780</li>
+                <li><strong>Vollrente:</strong> Männer 44 Beitragsjahre, Frauen 43 Beitragsjahre</li>
+                <li><strong>Familienzulagen:</strong> Min. CHF 200/Kind, CHF 250/Ausbildung</li>
+            </ul>
+            
+            <h3>2. Säule: BVG (beruflich)</h3>
+            <ul>
+                <li><strong>Obligatorisch ab:</strong> CHF 22'680 Jahreslohn (2025)</li>
+                <li><strong>Koordinierter Lohn:</strong> CHF 26'460 - CHF 90'720 (2025)</li>
+                <li><strong>Altersgutschriften:</strong> 7-18% je nach Alter (AG min. 50%)</li>
+                <li><strong>3. Säule:</strong> Steuerlich privilegierte private Vorsorge</li>
+            </ul>
+            
+            <h3>Weitere Sozialversicherungen</h3>
+            <ul>
+                <li><strong>UVG:</strong> Berufs-/Nichtberufsunfall, AG zahlt 100%/50%</li>
+                <li><strong>ALV:</strong> 2.2% bis CHF 148'200, darüber 1%</li>
+                <li><strong>Krankentaggeld:</strong> Freiwillig, bei Lohnfortzahlung nach OR</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Besonderheit:</strong> Lohngleichheitsanalyse für Unternehmen ab 100 Mitarbeitende obligatorisch. Alle 4 Jahre durchzuführen.
+        </div>
+    </div>
+
+    <!-- Seite 5: Arbeitsrecht & Personalfreisetzung -->
+    <div class="page">
+        <h1>⚖️ Arbeitsrecht & Personalfreisetzung</h1>
+        
+        <div class="section-arbeitsrecht">
+            <h2><span class="emoji">📋</span>Schweizer Arbeitsvertragsrecht</h2>
+            
+            <h3>OR Art. 319-362: Grundlagen</h3>
+            <ul>
+                <li><strong>Arbeitgeberpflichten:</strong> Lohnzahlung, Fürsorgepflicht, Zeugnis (Art. 321a-330)</li>
+                <li><strong>Arbeitnehmerpflichten:</strong> Sorgfalt, Treue, Rechenschaft (Art. 321a-321e)</li>
+                <li><strong>Überstunden:</strong> Über Normalarbeitszeit, unter ArG-Maximum</li>
+                <li><strong>Überzeit:</strong> Über ArG-Maximum (45/50h), zwingend +25% Zuschlag</li>
+            </ul>
+            
+            <h3>Lohnfortzahlung bei Krankheit (Art. 324a OR)</h3>
+            <ul>
+                <li><strong>Bedingung:</strong> Arbeitsverhältnis über 3 Monate</li>
+                <li><strong>1. Dienstjahr:</strong> Mindestens 3 Wochen 100% Lohn</li>
+                <li><strong>Kantonale Skalen:</strong> Z.B. Berner Skala, Zürcher Skala</li>
+                <li><strong>Sperrfristen:</strong> Kündigungsschutz bei Krankheit, Schwangerschaft, Militär</li>
+            </ul>
+        </div>
+        
+        <div class="section-arbeitsrecht">
+            <h2><span class="emoji">📄</span>Kündigungsrecht</h2>
+            
+            <h3>Ordentliche Kündigung</h3>
+            <ul>
+                <li><strong>1. Dienstjahr:</strong> 1 Monat Kündigungsfrist</li>
+                <li><strong>2.-9. Dienstjahr:</strong> 2 Monate Kündigungsfrist</li>
+                <li><strong>Ab 10. Dienstjahr:</strong> 3 Monate Kündigungsfrist</li>
+                <li><strong>Probezeit:</strong> 7 Tage Kündigungsfrist</li>
+            </ul>
+            
+            <h3>Fristlose Kündigung (Art. 337 OR)</h3>
+            <ul>
+                <li><strong>Wichtige Gründe:</strong> Schwere Pflichtverletzung</li>
+                <li><strong>Sofortige Wirkung:</strong> Kündigung innert 2-3 Tagen</li>
+                <li><strong>Beispiele:</strong> Diebstahl, Vertrauensbruch, Arbeitsverweigerung</li>
+                <li><strong>Beweislast:</strong> Beim kündigenden Arbeitgeber</li>
+            </ul>
+            
+            <h3>Missbräuchliche Kündigung (Art. 336 OR)</h3>
+            <ul>
+                <li><strong>Verboten:</strong> Diskriminierung, Rache, Gewerkschaftstätigkeit</li>
+                <li><strong>Folgen:</strong> Entschädigung bis 6 Monatslöhne</li>
+                <li><strong>Kündigung zu Unzeit:</strong> Bei Krankheit, Schwangerschaft</li>
+                <li><strong>Massenentlassung:</strong> Ab 10 Kündigungen (je nach Betriebsgrösse)</li>
+            </ul>
+        </div>
+        
+        <div class="section-arbeitsrecht">
+            <h2><span class="emoji">💼</span>Personalfreisetzung professionell</h2>
+            
+            <h3>Kündigungsgespräch: 3 Phasen</h3>
+            <ul>
+                <li><strong>Vorbereitung:</strong> Rechtliche Grundlagen prüfen, Unterlagen bereitlegen</li>
+                <li><strong>Durchführung:</strong> Direkter Einstieg, Gründe sachlich erläutern</li>
+                <li><strong>Nachbearbeitung:</strong> Zeugnis, Lohnabrechnung, Versicherungen informieren</li>
+                <li><strong>Outplacement:</strong> Professionelle Begleitung bei der Neuorientierung</li>
+            </ul>
+            
+            <h3>Arbeitszeugnis-Grundsätze</h3>
+            <ul>
+                <li><strong>Wahrheitsgetreu:</strong> Sachlich korrekte Darstellung</li>
+                <li><strong>Wohlwollend:</strong> Positive Formulierung ohne Codes</li>
+                <li><strong>Vollständig:</strong> Arbeitsbestätigung oder qualifiziertes Zeugnis</li>
+                <li><strong>Arbeitszeugnis 2.0:</strong> Neue Initiative für modernere, standardisierte Form</li>
+            </ul>
+        </div>
+        
+        <div class="section-arbeitsrecht">
+            <h2><span class="emoji">🛡️</span>Datenschutz im Arbeitsverhältnis</h2>
+            
+            <h3>Schweizer DSG (seit 1.9.2023 verschärft)</h3>
+            <ul>
+                <li><strong>Zweckbindung:</strong> Daten nur für angegebenen Zweck verwenden</li>
+                <li><strong>Verhältnismäßigkeit:</strong> Nur notwendige Daten erheben</li>
+                <li><strong>Transparenz:</strong> Betroffene über Datenbearbeitung informieren</li>
+                <li><strong>Auskunftsrecht:</strong> Mitarbeitende haben Recht auf Dateneinsicht</li>
+            </ul>
+            
+            <h3>Aufbewahrung Personaldaten</h3>
+            <ul>
+                <li><strong>Während Anstellung:</strong> Nur beruflich relevante Daten</li>
+                <li><strong>Nach Beendigung:</strong> 10 Jahre für gesetzliche Daten</li>
+                <li><strong>Arbeitszeugnis-Grundlagen:</strong> Für allfällige spätere Zeugnisse</li>
+                <li><strong>Bewerbungsunterlagen:</strong> Zurückgeben oder mit Einverständnis behalten</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Bei komplexen arbeitsrechtlichen Fragen immer Rechtsexperten beiziehen. Ein Fehler kann das Unternehmen teuer zu stehen kommen - speziell bei Kündigungen und Datenschutz.
+        </div>
+    </div>
+
+    <!-- Seite 6: Glossar -->
+    <div class="page">
+        <h1>📚 Glossar</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ABC-Methode</div>
+            <div class="glossar-def">Kandidatenbewertung: A-Kandidaten (sehr geeignet), B-Kandidaten (geeignet), C-Kandidaten (weniger geeignet)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">AIDA-Prinzip</div>
+            <div class="glossar-def">Formel für Stelleninserate: Attention → Interest → Desire → Action</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ALV (Arbeitslosenversicherung)</div>
+            <div class="glossar-def">Obligatorische Versicherung: 2.2% bis CHF 148'200, darüber 1%</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ArG (Arbeitsgesetz)</div>
+            <div class="glossar-def">Schweizer Gesetz über Arbeitszeiten und Schutzbestimmungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">BVG (Berufliche Vorsorge)</div>
+            <div class="glossar-def">2. Säule: Obligatorisch ab CHF 22'680 Jahreslohn (2025)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">DSG (Datenschutzgesetz)</div>
+            <div class="glossar-def">Schweizer Gesetz zum Schutz von Personendaten (seit 1.9.2023 verschärft)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Götti/Pate-System</div>
+            <div class="glossar-def">Erfahrene Mitarbeitende begleiten neue Kolleg/innen bei der Einarbeitung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Halo-Effekt</div>
+            <div class="glossar-def">Beurteilungsfehler: Ein Merkmal überstrahlt alle anderen Eigenschaften</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Into/On/Near/Off/Along/Out the Job</div>
+            <div class="glossar-def">6 Personalentwicklungsformen nach Einsatzort und Karrierephase</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">LAMOUR-Konzept</div>
+            <div class="glossar-def">Lohnfindung: Leistung, Anforderung, Markt, Organisation, Unternehmen, Recht</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Leistungs- vs. Potentialbeurteilung</div>
+            <div class="glossar-def">Leistung: Was wurde erreicht? Potential: Was kann entwickelt werden?</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Massenentlassung</div>
+            <div class="glossar-def">Ab 10 Kündigungen innerhalb 30 Tagen (je nach Betriebsgrösse)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Missbräuchliche Kündigung</div>
+            <div class="glossar-def">Diskriminierende oder rachsüchtige Kündigung (Art. 336 OR)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">OR (Obligationenrecht)</div>
+            <div class="glossar-def">Schweizer Arbeitsvertragsrecht (Art. 319-362)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Outplacement</div>
+            <div class="glossar-def">Professionelle Begleitung bei Stellenverlust und Neuorientierung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Personal-Kompetenzportfolio</div>
+            <div class="glossar-def">IST-Analyse vorhandener Fähigkeiten aller Mitarbeitenden</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Probezeit</div>
+            <div class="glossar-def">1-3 Monate mit 7 Tagen Kündigungsfrist in der Schweiz</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Recency-Effekt</div>
+            <div class="glossar-def">Beurteilungsfehler: Nur letzte Ereignisse werden berücksichtigt</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SMART-Ziele</div>
+            <div class="glossar-def">Spezifisch, Messbar, Akzeptiert, Realistisch, Terminiert</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Sperrfristen</div>
+            <div class="glossar-def">Kündigungsschutz bei Krankheit, Schwangerschaft, Militärdienst</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Sympathie-Effekt</div>
+            <div class="glossar-def">Beurteilungsfehler: Persönliche Vorlieben beeinflussen Bewertung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Tendenz zur Mitte</div>
+            <div class="glossar-def">Beurteilungsfehler: Vermeidung extremer Bewertungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">UVG (Unfallversicherung)</div>
+            <div class="glossar-def">Berufs-/Nichtberufsunfall: Arbeitgeber zahlt 100%/50% der Prämie</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Überstunden vs. Überzeit</div>
+            <div class="glossar-def">Überstunden: Über Normalarbeitszeit. Überzeit: Über ArG-Maximum (+25%)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">4 Kompetenzbereiche</div>
+            <div class="glossar-def">Fach-, Methoden-, Sozial- und Ich-Kompetenz für Anforderungsprofile</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">5 Lohngerechtigkeit-Dimensionen</div>
+            <div class="glossar-def">Anforderungs-, Leistungs-, Sozial-, Markt- und Erfolgsgerechtigkeit</div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #fff3e0; border-radius: 10px; border-left: 4px solid #FF6B35;">
+            <h3 style="color: #FF6B35; margin-bottom: 15px;">📋 Prüfungsrelevante Schwerpunkte</h3>
+            <p><strong>Fokus auf:</strong></p>
+            <ul style="margin-top: 10px;">
+                <li>Schweizer Arbeitsrecht (OR, Kündigungsfristen, Sperrfristen)</li>
+                <li>3-Säulen-System und aktuelle Grenzbeträge 2025</li>
+                <li>Personalentwicklung und Beurteilungsfehler</li>
+                <li>LAMOUR-Konzept und Lohngerechtigkeit</li>
+                <li>Rekrutierungsprozess und AIDA-Prinzip</li>
+                <li>Datenschutz und Fürsorgepflicht des Arbeitgebers</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

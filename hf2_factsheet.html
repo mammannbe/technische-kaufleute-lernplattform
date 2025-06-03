@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF2: Unternehmensführung und Umwelt</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; }
+            .page { page-break-after: always; height: 100vh; }
+            .page:last-child { page-break-after: avoid; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            color: #1a1a1a;
+        }
+        
+        .page {
+            min-height: 100vh;
+            padding: 20mm;
+            box-sizing: border-box;
+            background: white;
+        }
+        
+        /* Titel-Seite */
+        .title-page {
+            background: white;
+            color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            font-weight: 300;
+            color: #1e3a8a;
+        }
+        
+        .title-page h2 {
+            font-size: 1.8em;
+            margin-bottom: 2em;
+            font-weight: 400;
+            color: #1a1a1a;
+        }
+        
+        .toc {
+            background: white;
+            border-radius: 15px;
+            padding: 2em;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .toc * {
+            color: #1a1a1a !important;
+        }
+        
+        .toc h3 {
+            color: #1e3a8a !important;
+            margin-bottom: 1.5em;
+            font-size: 1.4em;
+            text-align: center;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8em 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .toc-item:last-child { border-bottom: none; }
+        
+        .toc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 1em;
+        }
+        
+        .dot1 { background: #1e40af; }
+        .dot2 { background: #2563eb; }
+        .dot3 { background: #3b82f6; }
+        .dot4 { background: #60a5fa; }
+        .dot5 { background: #93c5fd; }
+        .dot6 { background: #dbeafe; }
+        .dot7 { background: #1e3a8a; }
+        
+        .toc-left {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        /* Content-Seiten */
+        .content-page {
+            background: white;
+        }
+        
+        .section-strategieentwicklung { border-left: 4px solid #1e40af; }
+        .section-strategieumsetzung { border-left: 4px solid #2563eb; }
+        .section-veraenderung { border-left: 4px solid #3b82f6; }
+        .section-projekt { border-left: 4px solid #60a5fa; }
+        .section-problemloesung { border-left: 4px solid #93c5fd; }
+        .section-wissen { border-left: 4px solid #dbeafe; }
+        .section-entwicklung { border-left: 4px solid #1e3a8a; }
+        
+        .content-page h1 {
+            color: #1e3a8a;
+            background: white;
+            font-size: 1.8em;
+            margin-bottom: 1.5em;
+            padding-bottom: 0.5em;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .section-strategieentwicklung h2 { color: #1e40af; background: white; }
+        .section-strategieumsetzung h2 { color: #2563eb; background: white; }
+        .section-veraenderung h2 { color: #3b82f6; background: white; }
+        .section-projekt h2 { color: #60a5fa; background: white; }
+        .section-problemloesung h2 { color: #93c5fd; background: white; }
+        .section-wissen h2 { color: #1e40af; background: white; }
+        .section-entwicklung h2 { color: #1e3a8a; background: white; }
+        
+        h2 {
+            font-size: 1.3em;
+            margin: 1.5em 0 1em 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 .emoji {
+            margin-right: 0.5em;
+            font-size: 1.2em;
+        }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.1em;
+            margin: 1em 0 0.5em 0;
+            font-weight: 600;
+        }
+        
+        ul {
+            margin: 0.5em 0 1.5em 1em;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 0.4em;
+            font-size: 0.95em;
+            color: #1a1a1a;
+        }
+        
+        .highlight {
+            background: #fef3c7;
+            padding: 1em;
+            border-left: 4px solid #f59e0b;
+            margin: 1em 0;
+            font-size: 0.9em;
+        }
+        
+        /* Glossar */
+        .glossar {
+            background: white;
+        }
+        
+        .glossar h1 {
+            color: #1e3a8a;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5em;
+        }
+        
+        .glossar-item {
+            margin-bottom: 1em;
+            padding-bottom: 0.8em;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #1e40af;
+            font-size: 1.05em;
+        }
+        
+        .glossar-def {
+            margin-top: 0.3em;
+            font-size: 0.95em;
+            line-height: 1.4;
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Seite 1: Titel und Inhaltsverzeichnis -->
+<div class="page title-page">
+    <h1>Handlungsfeld 2</h1>
+    <h2>Unternehmensführung und Umwelt</h2>
+    
+    <div class="toc">
+        <h3>📋 Inhaltsverzeichnis</h3>
+        
+        <div class="toc-item">
+            <div class="toc-left">
+                <div class="toc-dot dot1"></div>
+                <span>Strategieentwicklung</span>
+            </div>
+            <span>Seite 2</span>
+        </div>
+        
+        <div class="toc-item">
+            <div class="toc-left">
+                <div class="toc-dot dot2"></div>
+                <span>Strategieumsetzung</span>
+            </div>
+            <span>Seite 2</span>
+        </div>
+        
+        <div class="toc-item">
+            <div class="toc-left">
+                <div class="toc-dot dot3"></div>
+                <span>Veränderungsmanagement</span>
+            </div>
+            <span>Seite 3</span>
+        </div>
+        
+        <div class="toc-item">
+            <div class="toc-left">
+                <div class="toc-dot dot4"></div>
+                <span>Projektmanagement</span>
+            </div>
+            <span>Seite 3</span>
+        </div>
+        
+        <div class="toc-item">
+            <div class="toc-left">
+                <div class="toc-dot dot5"></div>
+                <span>Problemlösung</span>
+            </div>
+            <span>Seite 4</span>
+        </div>
+        
+        <div class="toc-item">
+            <div class="toc-left">
+                <div class="toc-dot dot6"></div>
+                <span>Wissensmanagement</span>
+            </div>
+            <span>Seite 4</span>
+        </div>
+        
+        <div class="toc-item">
+            <div class="toc-left">
+                <div class="toc-dot dot7"></div>
+                <span>Businessplan & Archivierung</span>
+            </div>
+            <span>Seite 5</span>
+        </div>
+    </div>
+</div>
+
+<!-- Seite 2: Strategieentwicklung & Strategieumsetzung -->
+<div class="page content-page">
+    <h1>🎯 Strategieentwicklung & Umsetzung</h1>
+    
+    <div class="section-strategieentwicklung">
+        <h2><span class="emoji">📊</span>Strategieentwicklung</h2>
+        
+        <h3>Strategische Analyse (3 Phasen)</h3>
+        <ul>
+            <li><strong>Umweltanalyse:</strong> Gesellschaft, Natur, Technik, Wirtschaft systematisch bewerten</li>
+            <li><strong>Unternehmensanalyse:</strong> Management, Finanzen, Produktion, Marketing prüfen</li>
+            <li><strong>SWOT-Analyse:</strong> Stärken/Schwächen intern, Chancen/Risiken extern kombinieren</li>
+            <li><strong>Porter's 5 Forces:</strong> Konkurrenten, neue Anbieter, Substitute, Kunden-/Lieferantenmacht</li>
+        </ul>
+        
+        <h3>Strategieoptionen nach Porter</h3>
+        <ul>
+            <li><strong>Kostenführerschaft:</strong> Tiefste Kosten in der Branche erreichen</li>
+            <li><strong>Differenzierung:</strong> Einzigartige Lösungen, die von anderen unterscheiden</li>
+            <li><strong>Nischenstrategie:</strong> Konzentration auf einzelne Branchenausschnitte</li>
+            <li><strong>Produkt-Markt-Matrix:</strong> Penetration, Markt-/Produktentwicklung, Diversifikation</li>
+        </ul>
+    </div>
+    
+    <div class="section-strategieumsetzung">
+        <h2><span class="emoji">⚡</span>Strategieumsetzung</h2>
+        
+        <h3>Strategiekonkretisierung</h3>
+        <ul>
+            <li><strong>Strategiepapier:</strong> Leistungsziele, verfügbare Mittel, Zeitplan konkretisieren</li>
+            <li><strong>Vollständige Strategie:</strong> Allen Zielen qualitative, quantitative, zeitliche Soll-Werte zuordnen</li>
+            <li><strong>Aufgaben definieren:</strong> Zusammenhänge, Prioritäten erklären und begründen</li>
+            <li><strong>Operatives Management:</strong> Kurzfristige Lenkung (1-3 Jahre), Ressourcen ausrichten</li>
+        </ul>
+        
+        <h3>Strategische Kontrolle</h3>
+        <ul>
+            <li><strong>Fortschrittskontrolle:</strong> Strategieumsetzung regelmässig überwachen</li>
+            <li><strong>Prämissenkontrolle:</strong> Annahmen über Umwelt auf Gültigkeit prüfen</li>
+            <li><strong>Risikomanagement:</strong> Risiken erkennen, bewerten, bewältigen, überwachen</li>
+            <li><strong>Benchmarking:</strong> Vergleich mit Konkurrenten (extern) oder eigenen Bereichen (intern)</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Führungskräfte dienen als Vorbild - Führungsaufgaben und -stil prägen die Beziehung zu Mitarbeitenden.
+        </div>
+    </div>
+</div>
+
+<!-- Seite 3: Veränderungsmanagement & Projektmanagement -->
+<div class="page content-page">
+    <h1>🔄 Veränderung & Projekte führen</h1>
+    
+    <div class="section-veraenderung">
+        <h2><span class="emoji">🌀</span>Veränderungsmanagement</h2>
+        
+        <h3>3 Voraussetzungen für Change</h3>
+        <ul>
+            <li><strong>Veränderungsbedarf:</strong> Notwendigkeit einer Veränderung erkennen</li>
+            <li><strong>Veränderungsbereitschaft:</strong> Einstellung und Verhalten der Betroffenen</li>
+            <li><strong>Veränderungsfähigkeit:</strong> Wissen und Können für Veränderungsprozess</li>
+            <li><strong>Externe/Interne Impulse:</strong> Auslöser für Veränderungsbedarf identifizieren</li>
+        </ul>
+        
+        <h3>Individueller Veränderungsprozess (7 Phasen)</h3>
+        <ul>
+            <li><strong>1. Schock:</strong> Diskrepanz zwischen Erwartungen und Realität</li>
+            <li><strong>2. Verneinung:</strong> Falsches Spiel, überhöhte Selbsteinschätzung</li>
+            <li><strong>3. Einsicht:</strong> Notwendigkeit von Veränderung akzeptieren</li>
+            <li><strong>4. Akzeptanz:</strong> Loslassen alter Gewohnheiten</li>
+            <li><strong>5. Ausprobieren:</strong> Neue Verhaltensweisen testen</li>
+            <li><strong>6. Erkenntnis:</strong> Zusammenhänge zwischen Verhalten und Erfolg</li>
+            <li><strong>7. Integration:</strong> Erfolgreiche Verhaltensweisen übernehmen</li>
+        </ul>
+    </div>
+    
+    <div class="section-projekt">
+        <h2><span class="emoji">📋</span>Projektmanagement</h2>
+        
+        <h3>Projektarten & Komplexität</h3>
+        <ul>
+            <li><strong>Kompliziert:</strong> Viele Teile, aber berechenbar (z.B. Maschine bauen)</li>
+            <li><strong>Komplex:</strong> Unvorhersagbare Wechselwirkungen (z.B. Organisationsveränderung)</li>
+            <li><strong>Projektarten:</strong> Entwicklungs-, Investitions-, Organisations-, IT-Projekte</li>
+            <li><strong>Projektmerkmale:</strong> Einmalig, zeitlich begrenzt, definierte Ziele, Ressourcen</li>
+        </ul>
+        
+        <h3>Basis-Phasenmodell (5 Phasen)</h3>
+        <ul>
+            <li><strong>1. Initialisierung:</strong> Projektidee entwickeln, Machbarkeit prüfen</li>
+            <li><strong>2. Definition:</strong> Projektauftrag erstellen, Ziele konkretisieren</li>
+            <li><strong>3. Planung:</strong> Detailplanung Zeit, Kosten, Qualität, Ressourcen</li>
+            <li><strong>4. Realisierung:</strong> Projektdurchführung, Steuerung, Controlling</li>
+            <li><strong>5. Abschluss:</strong> Ergebnisse übergeben, Lessons Learned dokumentieren</li>
+        </ul>
+        
+        <h3>Projektauftrag-Inhalt</h3>
+        <ul>
+            <li><strong>Ausgangslage:</strong> Warum wird das Projekt durchgeführt?</li>
+            <li><strong>Ziele & Abgrenzung:</strong> Was soll erreicht werden (SMART-Ziele)?</li>
+            <li><strong>Lieferobjekte:</strong> Welche konkreten Ergebnisse werden erwartet?</li>
+            <li><strong>Termine & Budget:</strong> Zeitrahmen, Meilensteine, Kostenrahmen</li>
+            <li><strong>Organisation:</strong> Projektleiter, Auftraggeber, Kernteam, Stakeholder</li>
+        </ul>
+        
+        <h3>Projektorganisationsformen</h3>
+        <ul>
+            <li><strong>Reine Projektorganisation:</strong> Vollzeit-Projektteam, hohe Autorität</li>
+            <li><strong>Matrix-Organisation:</strong> Projektleiter + Linienvorgesetzte teilen sich Führung</li>
+            <li><strong>Einfluss-Organisation:</strong> Projektleiter als Koordinator ohne Weisungsbefugnis</li>
+            <li><strong>Magisches Dreieck:</strong> Zeit, Kosten, Qualität in Balance halten</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Seite 4: Problemlösung & Wissensmanagement -->
+<div class="page content-page">
+    <h1>🔍 Probleme lösen & Wissen managen</h1>
+    
+    <div class="section-problemloesung">
+        <h2><span class="emoji">⚙️</span>Problemlösung</h2>
+        
+        <h3>Systematisches Vorgehen (PEAK)</h3>
+        <ul>
+            <li><strong>Planen:</strong> Problem erkennen, analysieren, Ziele setzen</li>
+            <li><strong>Entscheiden:</strong> Lösungsvorschläge auswählen, notwendige Mittel definieren</li>
+            <li><strong>Anordnen:</strong> Entscheidungen in Tat umsetzen, Anordnungen geben</li>
+            <li><strong>Kontrolle:</strong> Phasen überwachen, Ergebnisse kontrollieren</li>
+        </ul>
+        
+        <h3>Ökonomisches Prinzip</h3>
+        <ul>
+            <li><strong>Minimumprinzip:</strong> Bestimmten Output mit möglichst wenig Input erreichen</li>
+            <li><strong>Maximumprinzip:</strong> Mit vorgegebenem Input möglichst hohen Output erzielen</li>
+            <li><strong>Optimumprinzip:</strong> Kombination für bestmöglichen, optimierten Gewinn</li>
+            <li><strong>Effizienz vs. Effektivität:</strong> Dinge richtig tun vs. richtige Dinge tun</li>
+        </ul>
+    </div>
+    
+    <div class="section-wissen">
+        <h2><span class="emoji">💡</span>Wissensmanagement</h2>
+        
+        <h3>6 Kernprozesse des Wissensmanagements</h3>
+        <ul>
+            <li><strong>Wissensidentifikation:</strong> Vorhandenes Wissen transparent machen (Intranet, Handbücher)</li>
+            <li><strong>Wissenserwerb:</strong> Fehlendes Wissen einkaufen (Expertenrekrutierung, externe Quellen)</li>
+            <li><strong>Wissensentwicklung:</strong> Neues Wissen schaffen (F&E, Marktforschung, Lernprozesse)</li>
+            <li><strong>Wissens(ver)teilung:</strong> Push (E-Mail) oder Pull-Verfahren (Intranet-Selbstbedienung)</li>
+            <li><strong>Wissensnutzung:</strong> Wissen produktiv einsetzen (Coaching, Checklisten)</li>
+            <li><strong>Wissensbewahrung:</strong> Dauerhaft speichern (gegen Mitarbeiterwechsel-Verluste)</li>
+        </ul>
+        
+        <h3>Wissensziele (3 Ebenen)</h3>
+        <ul>
+            <li><strong>Normative Ziele:</strong> Rahmenbedingungen für Wissensaustausch schaffen</li>
+            <li><strong>Strategische Ziele:</strong> Langfristig wichtiges Wissen für Innovation definieren</li>
+            <li><strong>Operative Ziele:</strong> Tägliche Arbeit effizient und effektiv ermöglichen</li>
+            <li><strong>Wissenstreppe:</strong> Daten → Information → Wissen → Können → Handeln → Kompetenz</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Seite 5: Unternehmensentwicklung -->
+<div class="page content-page">
+    <h1>🏢 Unternehmen entwickeln & Wissen managen</h1>
+    
+    <div class="section-entwicklung">
+        <h2><span class="emoji">📈</span>Businessplan-Entwicklung</h2>
+        
+        <h3>Businessplan-Struktur (11 Kapitel)</h3>
+        <ul>
+            <li><strong>Management Summary:</strong> Wichtigste Ergebnisse auf max. 2 Seiten</li>
+            <li><strong>Unternehmen:</strong> Vision, Leitbild, Ziele, Rechtsform, Organigramm</li>
+            <li><strong>Produkte/Dienstleistungen:</strong> Nutzen, Alleinstellungsmerkmale, Kundenwert</li>
+            <li><strong>Markt & Konkurrenz:</strong> Zielgruppen, Markttrends, Wettbewerbsanalyse</li>
+            <li><strong>Marketing & Vertrieb:</strong> Marketingmix, Preispolitik, Kommunikation</li>
+            <li><strong>Finanzen & Risiken:</strong> Kapitalbedarf, Szenarien, Risikomanagement</li>
+        </ul>
+        
+        <h3>Businessplan-Empfänger</h3>
+        <ul>
+            <li><strong>Kapitalgeber:</strong> Banken und Investoren überzeugen</li>
+            <li><strong>Strategische Partner:</strong> Lieferanten, Outsourcing-Partner einbinden</li>
+            <li><strong>Interne Stakeholder:</strong> Gründerteam, Familie, Lebenspartner</li>
+            <li><strong>Qualitätskriterien:</strong> 15-30 Seiten, optisch ansprechend, konkret schreiben</li>
+        </ul>
+        
+        <h2><span class="emoji">🏗️</span>Organisationsentwicklung</h2>
+        
+        <h3>Aufbauorganisation</h3>
+        <ul>
+            <li><strong>Funktionsanalyse:</strong> Bestehende Strukturen systematisch prüfen</li>
+            <li><strong>Optimierungsbedarf:</strong> Verbesserungspotentiale identifizieren</li>
+            <li><strong>Marktanpassung:</strong> Organisation an veränderte Situationen anpassen</li>
+            <li><strong>Gesamtsicht:</strong> Bereichsübergreifende Lösungen mitgestalten</li>
+        </ul>
+        
+        <h3>Prozessorganisation</h3>
+        <ul>
+            <li><strong>Prozesslandkarte:</strong> Haupt- und Teilprozesse definieren und visualisieren</li>
+            <li><strong>Schnittstellen:</strong> Übergänge zwischen Bereichen optimieren</li>
+            <li><strong>Testverfahren:</strong> Prozesse systematisch testen und validieren</li>
+            <li><strong>Kontinuierliche Verbesserung:</strong> Prozesse regelmässig überprüfen und anpassen</li>
+        </ul>
+        
+        <h2><span class="emoji">📁</span>Archivierung & Compliance</h2>
+        
+        <h3>Aufbewahrungspflicht Schweiz (seit 2013)</h3>
+        <ul>
+            <li><strong>Wer:</strong> Handelsregister-pflichtige Unternehmen (ab CHF 100'000 Umsatz)</li>
+            <li><strong>Was:</strong> Jahresabschluss, Geschäftsbücher, Belege, Korrespondenz, MWST-Unterlagen</li>
+            <li><strong>Dauer:</strong> 10 Jahre (Grundstücke: 20 Jahre), ab Ablauf Geschäftsjahr</li>
+            <li><strong>Form:</strong> Schriftlich, elektronisch oder vergleichbar (nachvollziehbar)</li>
+        </ul>
+        
+        <h3>Rechtsgrundlagen & Risiken</h3>
+        <ul>
+            <li><strong>Gesetze:</strong> OR, GeBüV, DSG, MWStG, StGB, kantonale Steuergesetze</li>
+            <li><strong>Risiken bei Nichtbeachtung:</strong> Beweisnotstand, Wegfall Vorsteuerabzug</li>
+            <li><strong>Sanktionen:</strong> Strafgesetzbuch droht Busse oder Gefängnis</li>
+            <li><strong>Besondere Sorgfalt:</strong> Produkthaftung, Revisionsstelle-Berichte</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Wissensmanagement schafft Vorteile (Produktivität, Motivation), braucht aber Zeit, Geld und geeignete IT-Infrastruktur.
+        </div>
+    </div>
+</div>
+
+<!-- Seite 6: Glossar -->
+<div class="page glossar">
+    <h1>📚 Glossar</h1>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Ansoff-Matrix</div>
+        <div class="glossar-def">Produkt-Markt-Matrix für Wachstumsstrategien: Penetration, Markt-/Produktentwicklung, Diversifikation</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Benchmarking</div>
+        <div class="glossar-def">Vergleich mit Konkurrenten (extern) oder eigenen Bereichen (intern) zur Leistungsmessung</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Change Management</div>
+        <div class="glossar-def">Gezielte Gestaltung von Veränderungsprozessen in Organisationen</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Code of Conduct</div>
+        <div class="glossar-def">Verhaltenskodex für Mitarbeitende (Geheimhaltung, Interessenkonflikte, Gesetzestreue)</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Corporate Governance</div>
+        <div class="glossar-def">Empfehlungen für ordnungsgemässe Unternehmensführung und -kontrolle</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">CSR (Corporate Social Responsibility)</div>
+        <div class="glossar-def">Gesellschaftliche Verantwortung: ökonomisch, rechtlich, ethisch, wohltätig</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Effizienz vs. Effektivität</div>
+        <div class="glossar-def">Die Dinge richtig tun (Leistungsfähigkeit) vs. die richtigen Dinge tun (Wirksamkeit)</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">PEAK-Prinzip</div>
+        <div class="glossar-def">Führungskreislauf: Planen, Entscheiden, Anordnen, Kontrolle</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Porter's 5 Forces</div>
+        <div class="glossar-def">Branchenanalyse: Konkurrenten, neue Anbieter, Substitute, Kunden-/Lieferantenmacht</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Risikomanagement</div>
+        <div class="glossar-def">4-Schritt-Prozess: Risiken erkennen, bewerten, bewältigen, überwachen</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Stakeholder vs. Shareholder</div>
+        <div class="glossar-def">Alle Anspruchsgruppen vs. nur Anteilseigner berücksichtigen</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">SWOT-Analyse</div>
+        <div class="glossar-def">Strategisches Planungsinstrument: Strengths, Weaknesses, Opportunities, Threats</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Aufbewahrungspflicht</div>
+        <div class="glossar-def">Schweizer Unternehmen müssen Geschäftsunterlagen 10 Jahre (Grundstücke: 20 Jahre) archivieren</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Businessplan</div>
+        <div class="glossar-def">11-Kapitel-Dokument zur systematischen Geschäftsideen-Entwicklung (15-30 Seiten)</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">GeBüV</div>
+        <div class="glossar-def">Verordnung über die Führung und Aufbewahrung der Geschäftsbücher</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Management Summary</div>
+        <div class="glossar-def">Businessplan-Zusammenfassung der wichtigsten Ergebnisse auf max. 2 Seiten</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Pull vs. Push-Verfahren</div>
+        <div class="glossar-def">Wissensabruf auf Initiative des Nutzers (Intranet) vs. systematische Zustellung (E-Mail)</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Wissensmanagement</div>
+        <div class="glossar-def">Bewusster, zielgerichteter Umgang mit der Ressource Wissen im Unternehmen</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Komplex vs. Kompliziert</div>
+        <div class="glossar-def">Unvorhersagbare Wechselwirkungen vs. viele berechenbare Teile</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Magisches Dreieck</div>
+        <div class="glossar-def">Projektmanagement-Balance zwischen Zeit, Kosten und Qualität</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Matrix-Organisation</div>
+        <div class="glossar-def">Projektorganisationsform mit geteilter Führung (Projekt- und Linienvorgesetzte)</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">Projektauftrag</div>
+        <div class="glossar-def">Dokument mit Ausgangslage, Zielen, Lieferobjekten, Terminen und Organisation</div>
+    </div>
+    
+    <div class="glossar-item">
+        <div class="glossar-term">SMART-Ziele</div>
+        <div class="glossar-def">Spezifisch, Messbar, Akzeptiert, Realistisch, Terminiert</div>
+    </div>
+</div>
+
+</body>
+</html>

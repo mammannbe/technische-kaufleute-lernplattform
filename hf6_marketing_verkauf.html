@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF6: Marketing und Verkauf</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; font-size: 10pt; }
+            .page { page-break-after: always; height: 100vh; }
+            .page:last-child { page-break-after: avoid; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.3;
+            color: #1a1a1a;
+            background: white;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 15mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.5em;
+            color: #e91e63;
+            margin-bottom: 20px;
+        }
+        
+        .title-page h2 {
+            font-size: 1.5em;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .toc h3 {
+            color: #e91e63;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toc-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: inline-block;
+        }
+        
+        .dot1 { background: #e91e63; }
+        .dot2 { background: #f06292; }
+        .dot3 { background: #ad1457; }
+        .dot4 { background: #c2185b; }
+        .dot5 { background: #880e4f; }
+        .dot6 { background: #f8bbd9; }
+        
+        h1 {
+            color: #e91e63;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e91e63;
+            padding-bottom: 5px;
+        }
+        
+        h2 {
+            font-size: 1.3em;
+            margin: 15px 0 10px 0;
+            border-left: 3px solid;
+            padding-left: 10px;
+        }
+        
+        .section-grundlagen { background: white; border-left: 3px solid #e91e63; }
+        .section-grundlagen h2 { color: #e91e63; background: white; border-left-color: #e91e63; }
+        
+        .section-analyse { background: white; border-left: 3px solid #f06292; }
+        .section-analyse h2 { color: #f06292; background: white; border-left-color: #f06292; }
+        
+        .section-segmentierung { background: white; border-left: 3px solid #ad1457; }
+        .section-segmentierung h2 { color: #ad1457; background: white; border-left-color: #ad1457; }
+        
+        .section-mix1 { background: white; border-left: 3px solid #c2185b; }
+        .section-mix1 h2 { color: #c2185b; background: white; border-left-color: #c2185b; }
+        
+        .section-mix2 { background: white; border-left: 3px solid #880e4f; }
+        .section-mix2 h2 { color: #880e4f; background: white; border-left-color: #880e4f; }
+        
+        .section-verkauf { background: white; border-left: 3px solid #4a148c; }
+        .section-verkauf h2 { color: #4a148c; background: white; border-left-color: #f8bbd9; }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.1em;
+            margin: 10px 0 5px 0;
+            font-weight: bold;
+        }
+        
+        ul {
+            margin: 5px 0 15px 15px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 4px;
+            font-size: 0.95em;
+        }
+        
+        strong {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            padding: 10px;
+            border-left: 4px solid #ff9800;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        
+        .formula-box {
+            background: #e8f5e8;
+            padding: 12px;
+            border-left: 4px solid #4caf50;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+        
+        .glossar-item {
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #e91e63;
+        }
+        
+        .glossar-def {
+            margin-top: 2px;
+            font-size: 0.9em;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #e91e63;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <!-- Seite 1: Titel und Inhaltsverzeichnis -->
+    <div class="page title-page">
+        <h1>Handlungsfeld 6</h1>
+        <h2>Marketing und Verkauf</h2>
+        <p style="margin-bottom: 30px;">Technische Kaufleute - Eidgenössische Berufsprüfung</p>
+        
+        <div class="toc">
+            <h3>📋 Inhaltsverzeichnis</h3>
+            
+            <div class="toc-item">
+                <span><span class="toc-dot dot1"></span>Marketing-Grundlagen & Marktforschung</span>
+                <span>Seite 2</span>
+            </div>
+            
+            <div class="toc-item">
+                <span><span class="toc-dot dot2"></span>Marktanalyse & SWOT</span>
+                <span>Seite 3</span>
+            </div>
+            
+            <div class="toc-item">
+                <span><span class="toc-dot dot3"></span>Segmentierung & Positionierung</span>
+                <span>Seite 4</span>
+            </div>
+            
+            <div class="toc-item">
+                <span><span class="toc-dot dot4"></span>Marketingmix & Verkaufsprozess</span>
+                <span>Seite 5</span>
+            </div>
+            
+            <div class="toc-item">
+                <span><span class="toc-dot dot5"></span>CRM & Verkaufsförderung</span>
+                <span>Seite 6</span>
+            </div>
+            
+            <div class="toc-item">
+                <span><span class="toc-dot dot6"></span>Glossar</span>
+                <span>Seite 7</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: Marketing-Grundlagen & Marktforschung -->
+    <div class="page">
+        <h1>📊 Marketing-Grundlagen & Marktforschung</h1>
+        
+        <div class="section-grundlagen">
+            <h2>🎯 Marketing-Grundlagen</h2>
+            
+            <h3>Marketingkonzept</h3>
+            <ul>
+                <li><strong>Ableitung:</strong> Marketingkonzept wird aus Unternehmensstrategie abgeleitet</li>
+                <li><strong>Strategischer Fokus:</strong> Langfristige Ziele mit definierten Instrumenten</li>
+                <li><strong>Operativer Fokus:</strong> Konkrete Maßnahmen für bestimmte Zeitperiode</li>
+                <li><strong>4P-Modell:</strong> Product, Price, Place, Promotion als Grundpfeiler</li>
+            </ul>
+            
+            <h3>Marketing-Aufgaben (Prozess)</h3>
+            <ul>
+                <li><strong>Bedürfnisse erkennen:</strong> Markt- und Kundenanalyse durchführen</li>
+                <li><strong>Produkte entwickeln:</strong> Lösungen für identifizierte Bedürfnisse schaffen</li>
+                <li><strong>Markteinführung:</strong> Produkte/Dienstleistungen auf den Markt bringen</li>
+                <li><strong>Vermarktung:</strong> Bekannt machen und erfolgreich verkaufen</li>
+            </ul>
+        </div>
+        
+        <div class="section-grundlagen">
+            <h2>🔍 Marktforschung</h2>
+            
+            <h3>Marktforschungsprozess (5D)</h3>
+            <ul>
+                <li><strong>Definition:</strong> Problem formulieren und Zielsetzung definieren</li>
+                <li><strong>Design:</strong> Methode bestimmen und Untersuchungsplan erstellen</li>
+                <li><strong>Datengewinnung:</strong> Repräsentative Stichproben erheben</li>
+                <li><strong>Datenanalyse:</strong> Datenaufbereitung und statistische Auswertung</li>
+                <li><strong>Dokumentation:</strong> Bericht erstellen und Präsentation vorbereiten</li>
+            </ul>
+            
+            <h3>Marktforschungsarten</h3>
+            <ul>
+                <li><strong>Primärforschung:</strong> Befragungen, Tests, Mystery Shopping, Fokusgruppen</li>
+                <li><strong>Sekundärforschung:</strong> Externe/interne Quellen (BFS, CRM, Berichte)</li>
+                <li><strong>Qualitativ:</strong> Tiefe Einblicke, kleine Stichproben</li>
+                <li><strong>Quantitativ:</strong> Messbare Ergebnisse, große Stichproben</li>
+            </ul>
+            
+            <div class="highlight">
+                <strong>💡 Schweizer Fokus:</strong> Nutzen Sie das Bundesamt für Statistik (BFS) und die KOF-Konjunkturforschungsstelle der ETH Zürich für verlässliche Marktdaten.
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 3: Marktanalyse & SWOT -->
+    <div class="page">
+        <h1>📈 Marktanalyse & SWOT</h1>
+        
+        <div class="section-analyse">
+            <h2>📊 Marktgrössen & Kennzahlen</h2>
+            
+            <h3>Zentrale Marktgrössen</h3>
+            <ul>
+                <li><strong>Marktkapazität:</strong> Maximale Aufnahmefähigkeit des Marktes</li>
+                <li><strong>Marktpotenzial:</strong> Theoretisch erreichbarer Markt unter optimalen Bedingungen</li>
+                <li><strong>Marktvolumen:</strong> Tatsächlich abgesetzte Menge/Werte aller Anbieter</li>
+                <li><strong>Marktanteil:</strong> Anteil des eigenen Unternehmens am Gesamtmarkt</li>
+            </ul>
+            
+            <div class="formula-box">
+                <strong>Marktanteil (%) = (Eigener Umsatz / Marktvolumen) × 100</strong><br><br>
+                <strong>Sättigungsgrad (%) = (Marktvolumen / Marktpotenzial) × 100</strong>
+            </div>
+            
+            <h3>5-Forces-Modell nach Porter</h3>
+            <ul>
+                <li><strong>Konkurrenz in der Branche:</strong> Anzahl und Stärke der direkten Wettbewerber</li>
+                <li><strong>Bedrohung durch neue Anbieter:</strong> Eintrittsbarrieren und Marktzugänglichkeit</li>
+                <li><strong>Bedrohung durch Substitute:</strong> Alternative Lösungen für Kundenbedürfnisse</li>
+                <li><strong>Verhandlungsmacht der Kunden:</strong> Einfluss der Abnehmer auf Preise</li>
+                <li><strong>Verhandlungsmacht der Lieferanten:</strong> Abhängigkeit von Zulieferern</li>
+            </ul>
+        </div>
+        
+        <div class="section-analyse">
+            <h2>🔍 SWOT-Analyse</h2>
+            
+            <h3>SWOT-Matrix Dimensionen</h3>
+            <ul>
+                <li><strong>Stärken (Strengths):</strong> Interne Vorteile gegenüber Wettbewerbern</li>
+                <li><strong>Schwächen (Weaknesses):</strong> Interne Nachteile, Verbesserungsbedarf</li>
+                <li><strong>Chancen (Opportunities):</strong> Externe Marktmöglichkeiten</li>
+                <li><strong>Gefahren (Threats):</strong> Externe Marktrisiken und Bedrohungen</li>
+            </ul>
+            
+            <h3>SWOT-Strategieableitung</h3>
+            <ul>
+                <li><strong>SO-Strategie:</strong> Stärken nutzen, um Chancen zu ergreifen</li>
+                <li><strong>ST-Strategie:</strong> Stärken einsetzen, um Gefahren abzuwehren</li>
+                <li><strong>WO-Strategie:</strong> Schwächen eliminieren, um Chancen zu nutzen</li>
+                <li><strong>WT-Strategie:</strong> Schwächen reduzieren und Gefahren minimieren</li>
+            </ul>
+            
+            <h3>Schweizer Umweltfaktoren (PESTEL)</h3>
+            <ul>
+                <li><strong>Political:</strong> Politische Stabilität, EU-Beziehungen, Regulierung</li>
+                <li><strong>Economic:</strong> Konjunktur, Wechselkurse (CHF), Inflation</li>
+                <li><strong>Social:</strong> Demografischer Wandel, Work-Life-Balance</li>
+                <li><strong>Technological:</strong> Digitalisierung, Industrie 4.0, Innovation</li>
+                <li><strong>Environmental:</strong> Nachhaltigkeit, CO₂-Gesetz, Umweltbewusstsein</li>
+                <li><strong>Legal:</strong> Datenschutz (DSG), Arbeitsrecht, Compliance</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Seite 4: Segmentierung & Positionierung -->
+    <div class="page">
+        <h1>🎯 Segmentierung & Positionierung</h1>
+        
+        <div class="section-segmentierung">
+            <h2>👥 Marktsegmentierung</h2>
+            
+            <h3>B2C-Segmentierung</h3>
+            <ul>
+                <li><strong>Demografisch:</strong> Alter, Geschlecht, Einkommen, Bildung</li>
+                <li><strong>Geografisch:</strong> Region, Stadt/Land, Klimazone</li>
+                <li><strong>Psychografisch:</strong> Lifestyle, Persönlichkeit, Werte</li>
+                <li><strong>Verhaltensorientiert:</strong> Kaufverhalten, Markentreue, Nutzenorientierung</li>
+            </ul>
+            
+            <h3>B2B-Segmentierung</h3>
+            <ul>
+                <li><strong>Unternehmensgröße:</strong> Mitarbeiterzahl, Umsatz, Marktanteil</li>
+                <li><strong>Branche:</strong> Industriezweig, Geschäftsfeld, Wertschöpfungskette</li>
+                <li><strong>Geografisch:</strong> Standort, Marktgebiet, internationale Präsenz</li>
+                <li><strong>Organisational:</strong> Entscheidungsstrukturen, Einkaufsprozesse</li>
+            </ul>
+            
+            <h3>Marktsegmentstrategien</h3>
+            <ul>
+                <li><strong>Gesamtmarktstrategie:</strong> Einheitliche Marktbearbeitung ohne Segmentierung</li>
+                <li><strong>Teilmarktstrategie:</strong> Fokus auf spezifische Produktkategorien</li>
+                <li><strong>Marktsegmentstrategie:</strong> Spezialisierung auf definierte Kundengruppen</li>
+                <li><strong>Kombinierte SGF-Strategie:</strong> Matrix aus Teilmarkt und Marktsegment</li>
+            </ul>
+        </div>
+        
+        <div class="section-segmentierung">
+            <h2>📍 Positionierung</h2>
+            
+            <h3>Wettbewerbsstrategien nach Porter</h3>
+            <ul>
+                <li><strong>Kostenführerschaft:</strong> Niedrigste Kosten in der Branche erzielen</li>
+                <li><strong>Differenzierung:</strong> Einzigartige Produkte/Services mit Mehrwert</li>
+                <li><strong>Nischenstrategie:</strong> Spezialisierung auf kleine Marktsegmente</li>
+                <li><strong>Stuck-in-the-Middle:</strong> Vermeiden - weder kostengünstig noch differenziert</li>
+            </ul>
+            
+            <h3>Wachstumsstrategien nach Ansoff</h3>
+            <ul>
+                <li><strong>Marktdurchdringung:</strong> Bestehende Produkte, bestehende Märkte</li>
+                <li><strong>Marktentwicklung:</strong> Bestehende Produkte, neue Märkte</li>
+                <li><strong>Produktentwicklung:</strong> Neue Produkte, bestehende Märkte</li>
+                <li><strong>Diversifikation:</strong> Neue Produkte, neue Märkte (höchstes Risiko)</li>
+            </ul>
+            
+            <h3>Markenstrategie</h3>
+            <ul>
+                <li><strong>Wortmarke:</strong> Firmenname, Produktname, Slogan</li>
+                <li><strong>Bildmarke:</strong> Logo, Symbol, Farben, Design</li>
+                <li><strong>Corporate Identity:</strong> Verhalten, Kommunikation, Design</li>
+                <li><strong>HALO-Effekt:</strong> Positive Markenwahrnehmung überträgt sich auf Produkte</li>
+            </ul>
+            
+            <div class="highlight">
+                <strong>💡 Schweizer Besonderheit:</strong> "Swiss Made" ist ein starkes Qualitätsmerkmal. Nutzen Sie die Herkunft als Differenzierungsmerkmal für Premium-Positionierung.
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 5: Marketingmix & Verkaufsprozess -->
+    <div class="page">
+        <h1>📦 Marketingmix & Verkaufsprozess</h1>
+        
+        <div class="section-mix1">
+            <h2>🎁 Produktpolitik</h2>
+            
+            <h3>Produktdimensionen</h3>
+            <ul>
+                <li><strong>Kernprodukt:</strong> Grundnutzen, den das Produkt stiftet</li>
+                <li><strong>Formales Produkt:</strong> Konkrete Ausgestaltung (Design, Qualität, Verpackung)</li>
+                <li><strong>Erweitertes Produkt:</strong> Zusatzleistungen (Service, Garantie, Support)</li>
+                <li><strong>Produktimage:</strong> Wahrnehmung und Bewertung durch Kunden</li>
+            </ul>
+            
+            <h3>BCG-Matrix (Boston Consulting Group)</h3>
+            <ul>
+                <li><strong>Stars:</strong> Hoher Marktanteil, hohes Wachstum (investieren)</li>
+                <li><strong>Cash Cows:</strong> Hoher Marktanteil, niedriges Wachstum (melken)</li>
+                <li><strong>Question Marks:</strong> Niedriger Marktanteil, hohes Wachstum (selektiv fördern)</li>
+                <li><strong>Poor Dogs:</strong> Niedriger Marktanteil, niedriges Wachstum (eliminieren)</li>
+            </ul>
+            
+            <h3>Preispolitik (4K-Modell)</h3>
+            <ul>
+                <li><strong>Kosten:</strong> Variable und fixe Kosten als Preisuntergrenze</li>
+                <li><strong>Konkurrenz:</strong> Preisvergleich und Wettbewerbsanalyse</li>
+                <li><strong>Kunden:</strong> Zahlungsbereitschaft und Preiselastizität</li>
+                <li><strong>Kapazität:</strong> Auslastung und Produktionskapazitäten</li>
+            </ul>
+            
+            <div class="formula-box">
+                <strong>Preiselastizität = (% Mengenänderung) / (% Preisänderung)</strong><br><br>
+                <strong>Break-Even-Menge = Fixkosten / (Preis - variable Kosten)</strong>
+            </div>
+        </div>
+        
+        <div class="section-verkauf">
+            <h2>🤝 Verkaufsprozess (6 Phasen)</h2>
+            
+            <h3>1. Vorbereitungsphase</h3>
+            <ul>
+                <li><strong>Kundenanalyse:</strong> Bedürfnisse, Entscheidungsstrukturen, Budget</li>
+                <li><strong>Produktvorbereitung:</strong> Nutzenargumente, Preise, Alternativen</li>
+                <li><strong>Zieldefinition:</strong> Gesprächsziel und gewünschtes Ergebnis</li>
+                <li><strong>Materialvorbereitung:</strong> Unterlagen, Muster, Präsentationen</li>
+            </ul>
+            
+            <h3>2. Eröffnungsphase</h3>
+            <ul>
+                <li><strong>Kontaktaufbau:</strong> Begrüßung, Smalltalk, Vertrauensaufbau</li>
+                <li><strong>Agenda abstimmen:</strong> Gesprächsablauf und Zeitrahmen klären</li>
+                <li><strong>Nutzen kommunizieren:</strong> Mehrwert des Gesprächs aufzeigen</li>
+                <li><strong>Erste Einwände behandeln:</strong> Grundlegende Bedenken ausräumen</li>
+            </ul>
+            
+            <h3>3. Bedarfsanalyse</h3>
+            <ul>
+                <li><strong>Offene Fragen:</strong> W-Fragen zum Verstehen der Situation</li>
+                <li><strong>Aktives Zuhören:</strong> Aufmerksamkeit und Verständnis zeigen</li>
+                <li><strong>Schmerzpunkte identifizieren:</strong> Probleme und Herausforderungen</li>
+                <li><strong>Entscheidungskriterien:</strong> Was ist dem Kunden wichtig?</li>
+            </ul>
+            
+            <h3>4. Angebots- und Argumentationsphase</h3>
+            <ul>
+                <li><strong>Nutzenargumentation:</strong> Features in Benefits übersetzen</li>
+                <li><strong>Proof of Concept:</strong> Belege und Referenzen liefern</li>
+                <li><strong>Einwände behandeln:</strong> Bedenken ernst nehmen und entkräften</li>
+                <li><strong>Trial Close:</strong> Zwischenfragen zur Kaufbereitschaft</li>
+            </ul>
+            
+            <h3>5. Abschlussphase & 6. Nachbearbeitung</h3>
+            <ul>
+                <li><strong>Kaufsignale erkennen:</strong> Verbale und nonverbale Signale</li>
+                <li><strong>Abschlusstechniken:</strong> Direkt fragen, Alternative anbieten</li>
+                <li><strong>Follow-up:</strong> Zusage per Email bestätigen</li>
+                <li><strong>Kundenzufriedenheit:</strong> Feedback einholen und Beziehung pflegen</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Seite 6: CRM & Verkaufsförderung -->
+    <div class="page">
+        <h1>💼 CRM & Verkaufsförderung</h1>
+        
+        <div class="section-verkauf">
+            <h2>📊 CRM (Customer Relationship Management)</h2>
+            
+            <h3>CRM-Ziele</h3>
+            <ul>
+                <li><strong>Kundenzufriedenheit:</strong> Bessere Kundenbetreuung durch vollständige Daten</li>
+                <li><strong>Kundenbindung:</strong> Langfristige Beziehungen aufbauen und pflegen</li>
+                <li><strong>Cross-/Upselling:</strong> Zusatzgeschäfte durch Datenanalyse identifizieren</li>
+                <li><strong>Effizienz:</strong> Verkaufsprozesse automatisieren und optimieren</li>
+            </ul>
+            
+            <h3>Kundentypologien</h3>
+            <ul>
+                <li><strong>A-Kunden:</strong> Hoher Umsatz, strategische Bedeutung (Key Accounts)</li>
+                <li><strong>B-Kunden:</strong> Mittlerer Umsatz, Entwicklungspotenzial</li>
+                <li><strong>C-Kunden:</strong> Geringer Umsatz, Standardbetreuung</li>
+                <li><strong>Loyalitätsstufen:</strong> Fans, Loyale, Wechselbereite, Abwanderer</li>
+            </ul>
+            
+            <h3>Offertenerstellung</h3>
+            <ul>
+                <li><strong>Pflichtinhalte:</strong> Absender/Adressat, Ausgangslage, Leistungsbeschreibung</li>
+                <li><strong>Preis & MWST:</strong> Menge, Preise, Rabatte, MWST (7,7% / 2,5%)</li>
+                <li><strong>Konditionen:</strong> Lieferzeit, Erfüllungsort, Zahlungsbedingungen</li>
+                <li><strong>Rechtliches:</strong> AGB, Gerichtsstand, Gültigkeit, Datenschutz</li>
+            </ul>
+        </div>
+        
+        <div class="section-verkauf">
+            <h2>🎪 Verkaufsförderung & Kommunikation</h2>
+            
+            <h3>Verkaufsförderungsarten</h3>
+            <ul>
+                <li><strong>Price-Off:</strong> Temporäre Preisreduktionen (max. 12 Wochen)</li>
+                <li><strong>Couponing:</strong> Gutscheine und Rabattmarken</li>
+                <li><strong>Sampling:</strong> Kostproben und Produkttests</li>
+                <li><strong>Gewinnspiele:</strong> Aufmerksamkeit und Kundendaten generieren</li>
+            </ul>
+            
+            <h3>AIDA-Modell & GIULIO-Prinzip</h3>
+            <ul>
+                <li><strong>AIDA:</strong> Attention → Interest → Desire → Action</li>
+                <li><strong>GIULIO:</strong> Glaubwürdigkeit, Information, Unverwechselbarkeit, Lesbarkeit, Identität, Optik</li>
+            </ul>
+            
+            <h3>Fragetechniken</h3>
+            <ul>
+                <li><strong>Offene Fragen:</strong> W-Fragen für ausführliche Antworten</li>
+                <li><strong>Geschlossene Fragen:</strong> Ja/Nein-Fragen für klare Entscheidungen</li>
+                <li><strong>Alternativfragen:</strong> Auswahl zwischen Optionen</li>
+                <li><strong>Ja-Straße-Technik:</strong> Aufeinanderfolgende Ja-Antworten erzeugen</li>
+            </ul>
+            
+            <h3>Schweizer Compliance</h3>
+            <ul>
+                <li><strong>UWG:</strong> Unlautere Geschäftspraktiken vermeiden</li>
+                <li><strong>DSG:</strong> Neues Datenschutzgesetz seit September 2023</li>
+                <li><strong>WEKO:</strong> Wettbewerbskommission - Kartellrecht beachten</li>
+                <li><strong>Preisbekanntgabe:</strong> Preise klar und vollständig auszeichnen</li>
+            </ul>
+            
+            <h3>Erfolgsmessung</h3>
+            <ul>
+                <li><strong>Conversion Rate:</strong> Abschlussquote von Interessenten</li>
+                <li><strong>Customer Lifetime Value:</strong> Wert eines Kunden über gesamte Beziehung</li>
+                <li><strong>ROAS:</strong> Return on Advertising Spend</li>
+                <li><strong>Arbeitsintensität:</strong> Besuche/Zeit bzw. Umsatz/Besuche</li>
+            </ul>
+            
+            <div class="formula-box">
+                <strong>Arbeitsintensität (Geschwindigkeit) = Anzahl Besuche / Zeit</strong><br><br>
+                <strong>Arbeitsintensität (Erlös) = Umsatz / Anzahl Besuche</strong>
+            </div>
+            
+            <div class="highlight">
+                <strong>💡 Praxis-Tipp:</strong> Etablieren Sie ein monatliches Marketing-Dashboard mit den wichtigsten KPIs. So behalten Sie den Überblick und können schnell reagieren.
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 7: Glossar -->
+    <div class="page">
+        <h1>📚 Glossar</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">AIDA-Modell</div>
+            <div class="glossar-def">Werbewirkungsmodell: Attention, Interest, Desire, Action - Stufen der Kaufentscheidung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Ansoff-Matrix</div>
+            <div class="glossar-def">Wachstumsstrategien: Marktdurchdringung, Marktentwicklung, Produktentwicklung, Diversifikation</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">BCG-Matrix</div>
+            <div class="glossar-def">Portfolioanalyse: Stars, Cash Cows, Question Marks, Poor Dogs basierend auf Marktanteil und -wachstum</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">B2B (Business-to-Business)</div>
+            <div class="glossar-def">Geschäftsbeziehungen zwischen Unternehmen, Industriekunden</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">B2C (Business-to-Consumer)</div>
+            <div class="glossar-def">Geschäftsbeziehungen zwischen Unternehmen und Endverbrauchern</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Corporate Identity (CI)</div>
+            <div class="glossar-def">Unternehmensidentität aus Corporate Behavior, Communication und Design</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">CRM (Customer Relationship Management)</div>
+            <div class="glossar-def">Kundenbeziehungsmanagement zur systematischen Kundenbetreuung und -bindung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Cross-Selling</div>
+            <div class="glossar-def">Verkauf ergänzender Produkte an bestehende Kunden (Drucker + Tinte)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Customer Lifetime Value (CLV)</div>
+            <div class="glossar-def">Gesamtwert eines Kunden über die gesamte Geschäftsbeziehung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">GIULIO-Prinzip</div>
+            <div class="glossar-def">Werbegestaltung: Glaubwürdigkeit, Information, Unverwechselbarkeit, Lesbarkeit, Identität, Optik</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">HALO-Effekt</div>
+            <div class="glossar-def">Übertragung des positiven Markenimages auf Produkte</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Key Account Management</div>
+            <div class="glossar-def">Strategische Betreuung von Großkunden mit hohem Umsatzpotenzial</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Marketing-Mix (4P)</div>
+            <div class="glossar-def">Product, Price, Place, Promotion - Grundinstrumente des Marketings</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Marktanteil</div>
+            <div class="glossar-def">Anteil des eigenen Unternehmens am Gesamtmarktvolumen in Prozent</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Marktpotenzial</div>
+            <div class="glossar-def">Theoretisch maximal erreichbares Marktvolumen unter optimalen Bedingungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Marktvolumen</div>
+            <div class="glossar-def">Tatsächlich abgesetzte Menge/Werte aller Anbieter in einem bestimmten Zeitraum</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Marktsegmentierung</div>
+            <div class="glossar-def">Aufteilung des Gesamtmarktes in homogene Kundengruppen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Mystery Shopping</div>
+            <div class="glossar-def">Marktforschungsmethode durch Scheineinkäufe zur Qualitätskontrolle</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Penetrationsstrategie</div>
+            <div class="glossar-def">Niedrige Preise für schnelle Marktdurchdringung und Marktanteilsgewinnung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Persona</div>
+            <div class="glossar-def">Fiktive Kundenprototypen mit detaillierten demografischen und psychografischen Merkmalen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">PESTEL-Analyse</div>
+            <div class="glossar-def">Umweltanalyse: Political, Economic, Social, Technological, Environmental, Legal</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Porter's 5 Forces</div>
+            <div class="glossar-def">Branchenstrukturanalyse: Konkurrenz, neue Anbieter, Substitute, Kunden-/Lieferantenmacht</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Positionierung</div>
+            <div class="glossar-def">Angestrebte Wahrnehmung einer Marke/Produkts in den Köpfen der Zielgruppe</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Price-Off</div>
+            <div class="glossar-def">Verkaufsförderungsmaßnahme mit temporären Preisreduktionen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Preiselastizität</div>
+            <div class="glossar-def">Reagibilität der Nachfrage auf Preisänderungen (% Mengenänderung / % Preisänderung)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Primärforschung</div>
+            <div class="glossar-def">Erstmalige Erhebung von Daten durch Befragungen, Tests oder Beobachtungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Pull-Strategie</div>
+            <div class="glossar-def">Nachfrage beim Endkunden schaffen, der das Produkt vom Handel "zieht"</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Push-Strategie</div>
+            <div class="glossar-def">Produkte aktiv in den Handel "drücken" durch Trade Marketing</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Return on Advertising Spend (ROAS)</div>
+            <div class="glossar-def">Verhältnis von Werbeeinnahmen zu Werbeausgaben (Umsatz/Werbekosten)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Sättigungsgrad</div>
+            <div class="glossar-def">Verhältnis von Marktvolumen zu Marktpotenzial in Prozent</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Sekundärforschung</div>
+            <div class="glossar-def">Auswertung bereits vorhandener Daten aus internen oder externen Quellen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Strategisches Geschäftsfeld (SGF)</div>
+            <div class="glossar-def">Kombination aus Teilmarkt (Produkt) und Marktsegment (Kunden)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Stuck-in-the-Middle</div>
+            <div class="glossar-def">Unklare Positionierung zwischen Kostenführerschaft und Differenzierung (vermeiden!)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SWOT-Analyse</div>
+            <div class="glossar-def">Strategieanalyse: Strengths, Weaknesses (intern), Opportunities, Threats (extern)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Trial Close</div>
+            <div class="glossar-def">Testabschluss im Verkaufsgespräch zur Prüfung der Kaufbereitschaft</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Unique Selling Proposition (USP)</div>
+            <div class="glossar-def">Einzigartiges Verkaufsversprechen zur Differenzierung von Wettbewerbern</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Upselling</div>
+            <div class="glossar-def">Verkauf höherwertiger Produktvarianten an bestehende Kunden</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">UWG (Gesetz gegen unlauteren Wettbewerb)</div>
+            <div class="glossar-def">Schweizer Gesetz zum Schutz vor unlauteren Geschäftspraktiken</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Verkaufsförderung</div>
+            <div class="glossar-def">Kurzfristige Maßnahmen zur Verkaufssteigerung (max. 12 Wochen)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">WEKO</div>
+            <div class="glossar-def">Wettbewerbskommission - Schweizer Kartellbehörde</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">W-Fragen</div>
+            <div class="glossar-def">Offene Fragetechniken: Wer, Was, Wann, Wo, Wie, Warum, Wieviel</div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f0f8ff; border-radius: 10px; border-left: 4px solid #e91e63;">
+            <h3 style="color: #e91e63; margin-bottom: 15px;">🧮 Wichtige Formeln</h3>
+            
+            <div class="formula-box">
+                <strong>Marktanteil (%) = (Eigener Umsatz / Marktvolumen) × 100</strong>
+            </div>
+            
+            <div class="formula-box">
+                <strong>Sättigungsgrad (%) = (Marktvolumen / Marktpotenzial) × 100</strong>
+            </div>
+            
+            <div class="formula-box">
+                <strong>Preiselastizität = (% Mengenänderung) / (% Preisänderung)</strong>
+            </div>
+            
+            <div class="formula-box">
+                <strong>Break-Even-Menge = Fixkosten / (Preis - variable Kosten)</strong>
+            </div>
+            
+            <div class="formula-box">
+                <strong>Customer Lifetime Value = Durchschnittlicher Jahresumsatz × Kundendauer</strong>
+            </div>
+            
+            <div class="formula-box">
+                <strong>ROAS = Umsatz aus Werbung / Werbeausgaben</strong>
+            </div>
+            
+            <div class="formula-box">
+                <strong>Conversion Rate (%) = (Abschlüsse / Leads) × 100</strong>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; padding: 15px; background: #fff3e0; border-radius: 8px;">
+            <h4 style="color: #e91e63; margin-bottom: 10px;">📋 Prüfungsvorbereitung HF6</h4>
+            <p><strong>Schwerpunkte für die Prüfung:</strong></p>
+            <ul style="margin-top: 10px; font-size: 0.9em;">
+                <li>6-Phasen-Verkaufsprozess detailliert kennen</li>
+                <li>Marktgrössen berechnen und interpretieren können</li>
+                <li>4P-Marketing-Mix praktisch anwenden</li>
+                <li>SWOT-Analyse eigenständig durchführen</li>
+                <li>Segmentierungskriterien B2B vs. B2C unterscheiden</li>
+                <li>Positionierungsstrategien nach Porter verstehen</li>
+                <li>Verkaufsförderungsmaßnahmen konzipieren</li>
+                <li>CRM-Funktionen und Kundentypologien</li>
+                <li>Schweizer Rechtslage (DSG, UWG) beachten</li>
+                <li>Offertenerstellung mit allen Pflichtangaben</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center; font-style: italic; color: #666;">
+            <p><strong>HF6: Marketing und Verkauf</strong><br>
+            Technische Kaufleute - Eidgenössische Berufsprüfung<br>
+            Basierend auf Lernzielkatalog und aktuellen Schweizer Standards</p>
+        </div>
+    </div>
+
+</body>
+</html>
