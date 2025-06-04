@@ -501,6 +501,7 @@
         <div class="actions">
             <h3 style="margin-bottom: 20px; color: #2c3e50;">Aktionen</h3>
             <div class="btn-group">
+                <a href="technische-kaufleute-inhaltsverzeichnis.html" class="btn btn-primary">📋 Inhaltsverzeichnis</a>
                 <button class="btn btn-primary" onclick="printAllPages()">Alle Seiten drucken</button>
                 <button class="btn btn-secondary" onclick="resetProgress()">Fortschritt zurücksetzen</button>
                 <button class="btn btn-secondary" onclick="exportProgress()">Fortschritt exportieren</button>
@@ -572,6 +573,7 @@
         // Print all pages
         function printAllPages() {
             const pages = [
+                'technische-kaufleute-inhaltsverzeichnis.html',
                 'hf1-recht-volkswirtschaft.html',
                 'hf2-unternehmensfuehrung.html',
                 'hf3-mitarbeiterfuehrung.html',
@@ -586,7 +588,7 @@
                 'hf12-pruefungsmethodik.html'
             ];
             
-            if (confirm('Möchten Sie alle 12 Handlungsfeld-Seiten in neuen Tabs öffnen zum Drucken?')) {
+            if (confirm('Möchten Sie das Inhaltsverzeichnis und alle 12 Handlungsfeld-Seiten in neuen Tabs öffnen zum Drucken?')) {
                 pages.forEach((page, index) => {
                     setTimeout(() => {
                         window.open(page, '_blank');
