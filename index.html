@@ -50,13 +50,13 @@
 
         .search-container {
             position: relative;
-            max-width: 400px;
+            max-width: 600px;
             margin: 0 auto 20px;
         }
 
         #searchInput {
             width: 100%;
-            padding: 15px 20px;
+            padding: 15px 50px 15px 20px;
             border: 2px solid #e0e6ed;
             border-radius: 50px;
             font-size: 16px;
@@ -67,6 +67,105 @@
         #searchInput:focus {
             border-color: #3498db;
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .search-button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #3498db;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: #2980b9;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #ecf0f1;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .search-result-item:hover {
+            background: #f8f9fa;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .search-result-snippet {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .search-result-highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .search-loading {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+        }
+
+        .search-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .search-mode {
+            padding: 8px 16px;
+            border: 2px solid #e0e6ed;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .search-mode.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
         }
 
         .progress-overview {
@@ -349,7 +448,15 @@
             <div class="subtitle">Eidgenössische Berufsprüfung - Übersicht aller Handlungsfelder</div>
             
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Handlungsfeld suchen...">
+                <div class="search-toggle">
+                    <button class="search-mode active" data-mode="simple">🔍 Einfache Suche</button>
+                    <button class="search-mode" data-mode="advanced">🌐 Volltext-Suche</button>
+                </div>
+                <div style="position: relative;">
+                    <input type="text" id="searchInput" placeholder="Handlungsfeld oder Inhalt suchen...">
+                    <button class="search-button" onclick="performAdvancedSearch()">🔍</button>
+                </div>
+                <div class="search-results" id="searchResults"></div>
             </div>
 
             <div class="progress-overview">
@@ -516,7 +623,250 @@
     </div>
 
     <script>
-        // Progress Tracking
+        // Advanced Search System
+        let searchMode = 'simple';
+        let documentContents = {};
+        let isSearching = false;
+
+        // Document metadata for search
+        const documents = [
+            {
+                file: 'technische-kaufleute-inhaltsverzeichnis.html',
+                title: 'Inhaltsverzeichnis',
+                description: 'Vollständige Übersicht aller Themen und Inhalte'
+            },
+            {
+                file: 'hf1-recht-volkswirtschaft.html',
+                title: 'HF1: Recht und Volkswirtschaft',
+                description: 'Grundlagen des Rechts, Vertragsrecht, Gesellschaftsrecht und volkswirtschaftliche Zusammenhänge'
+            },
+            {
+                file: 'hf2-unternehmensfuehrung.html',
+                title: 'HF2: Unternehmensführung',
+                description: 'Strategische Planung, Organisationsentwicklung und Führungsinstrumente'
+            },
+            {
+                file: 'hf3-mitarbeiterfuehrung.html',
+                title: 'HF3: Mitarbeiterführung',
+                description: 'Führungsstile, Motivation, Kommunikation und Teamführung'
+            },
+            {
+                file: 'hf4-finanzielle-fuehrung.html',
+                title: 'HF4: Finanzielle Führung',
+                description: 'Budgetierung, Kostenrechnung, Investitionsrechnung und finanzielle Analyse'
+            },
+            {
+                file: 'hf5-supply-chain.html',
+                title: 'HF5: Supply Chain Management',
+                description: 'Beschaffung, Logistik, Lagerung und Lieferantenmanagement'
+            },
+            {
+                file: 'hf6-marketing-verkauf.html',
+                title: 'HF6: Marketing und Verkauf',
+                description: 'Marktanalyse, Marketingstrategien, Verkaufsprozesse und Kundenbeziehungsmanagement'
+            },
+            {
+                file: 'hf7-services.html',
+                title: 'HF7: Services',
+                description: 'Servicemanagement, Kundendienst, After-Sales-Services und Qualitätsmanagement'
+            },
+            {
+                file: 'hf8-personal.html',
+                title: 'HF8: Personal',
+                description: 'Personalplanung, Rekrutierung, Personalentwicklung und Arbeitsrecht'
+            },
+            {
+                file: 'hf9-finanzbuchhaltung.html',
+                title: 'HF9: Finanzbuchhaltung',
+                description: 'Buchführung, Jahresabschluss, Bilanzierung und Controlling'
+            },
+            {
+                file: 'hf10-infrastruktur.html',
+                title: 'HF10: Infrastruktur',
+                description: 'IT-Management, Facility Management und technische Infrastruktur'
+            },
+            {
+                file: 'hf11-unterstuetzungsprozesse.html',
+                title: 'HF11: Unterstützungsprozesse',
+                description: 'Prozessmanagement, Qualitätsmanagement und kontinuierliche Verbesserung'
+            },
+            {
+                file: 'hf12-pruefungsmethodik.html',
+                title: 'HF12: Prüfungsmethodik',
+                description: 'Prüfungsstrategien, Zeitmanagement, Lernmethoden und optimale Vorbereitung'
+            }
+        ];
+
+        // Load document content for full-text search
+        async function loadDocumentContent(filename) {
+            if (documentContents[filename]) {
+                return documentContents[filename];
+            }
+            
+            try {
+                const response = await fetch(filename);
+                if (response.ok) {
+                    const html = await response.text();
+                    // Extract text content from HTML
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = html;
+                    
+                    // Remove script and style elements
+                    const scripts = tempDiv.querySelectorAll('script, style');
+                    scripts.forEach(el => el.remove());
+                    
+                    const content = tempDiv.textContent || tempDiv.innerText || '';
+                    documentContents[filename] = content.replace(/\s+/g, ' ').trim();
+                    return documentContents[filename];
+                }
+            } catch (error) {
+                console.log('Could not load:', filename);
+            }
+            return '';
+        }
+
+        // Perform advanced search
+        async function performAdvancedSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query || query.length < 2) {
+                hideSearchResults();
+                return;
+            }
+
+            if (searchMode === 'simple') {
+                performSimpleSearch();
+                return;
+            }
+
+            if (isSearching) return;
+            isSearching = true;
+
+            showSearchLoading();
+
+            const results = [];
+            const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 1);
+
+            for (const doc of documents) {
+                const content = await loadDocumentContent(doc.file);
+                if (!content) continue;
+
+                const contentLower = content.toLowerCase();
+                const titleLower = doc.title.toLowerCase();
+                const descLower = doc.description.toLowerCase();
+
+                let score = 0;
+                let snippets = [];
+
+                // Search in title (higher weight)
+                for (const term of searchTerms) {
+                    if (titleLower.includes(term)) score += 10;
+                    if (descLower.includes(term)) score += 5;
+                }
+
+                // Search in content
+                for (const term of searchTerms) {
+                    const regex = new RegExp(`(.{0,50})(${term})(.{0,50})`, 'gi');
+                    const matches = [...contentLower.matchAll(regex)];
+                    
+                    if (matches.length > 0) {
+                        score += matches.length;
+                        // Get the first few matches as snippets
+                        for (let i = 0; i < Math.min(matches.length, 3); i++) {
+                            const match = matches[i];
+                            const snippet = content.substr(match.index - 50, 150);
+                            snippets.push(snippet.replace(new RegExp(`(${term})`, 'gi'), '<span class="search-result-highlight">$1</span>'));
+                        }
+                    }
+                }
+
+                if (score > 0) {
+                    results.push({
+                        ...doc,
+                        score,
+                        snippets: snippets.slice(0, 2) // Max 2 snippets per result
+                    });
+                }
+            }
+
+            // Sort by score
+            results.sort((a, b) => b.score - a.score);
+            
+            displaySearchResults(results, query);
+            isSearching = false;
+        }
+
+        // Show search loading
+        function showSearchLoading() {
+            const resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = '<div class="search-loading">🔍 Durchsuche alle Dokumente...</div>';
+            resultsDiv.style.display = 'block';
+        }
+
+        // Display search results
+        function displaySearchResults(results, query) {
+            const resultsDiv = document.getElementById('searchResults');
+            
+            if (results.length === 0) {
+                resultsDiv.innerHTML = `<div class="search-loading">Keine Ergebnisse für "${query}" gefunden.</div>`;
+                return;
+            }
+
+            let html = '';
+            results.forEach(result => {
+                let snippetHtml = '';
+                if (result.snippets && result.snippets.length > 0) {
+                    snippetHtml = result.snippets.map(snippet => 
+                        `<div class="search-result-snippet">...${snippet}...</div>`
+                    ).join('');
+                } else {
+                    snippetHtml = `<div class="search-result-snippet">${result.description}</div>`;
+                }
+
+                html += `
+                    <div class="search-result-item" onclick="openDocument('${result.file}')">
+                        <div class="search-result-title">${result.title}</div>
+                        ${snippetHtml}
+                    </div>
+                `;
+            });
+
+            resultsDiv.innerHTML = html;
+            resultsDiv.style.display = 'block';
+        }
+
+        // Open document
+        function openDocument(filename) {
+            window.open(filename, '_blank');
+            hideSearchResults();
+        }
+
+        // Hide search results
+        function hideSearchResults() {
+            document.getElementById('searchResults').style.display = 'none';
+        }
+
+        // Setup search mode toggle
+        function setupSearchToggle() {
+            document.querySelectorAll('.search-mode').forEach(button => {
+                button.addEventListener('click', function() {
+                    searchMode = this.dataset.mode;
+                    
+                    // Update active state
+                    document.querySelectorAll('.search-mode').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update placeholder
+                    const input = document.getElementById('searchInput');
+                    if (searchMode === 'simple') {
+                        input.placeholder = 'Handlungsfeld suchen...';
+                    } else {
+                        input.placeholder = 'Volltext durchsuchen...';
+                    }
+                    
+                    hideSearchResults();
+                });
+            });
+        }
         function updateProgress() {
             const checkboxes = document.querySelectorAll('.hf-checkbox');
             const checked = document.querySelectorAll('.hf-checkbox:checked').length;
@@ -554,20 +904,55 @@
             const cards = document.querySelectorAll('.hf-card');
             
             searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                
-                cards.forEach(card => {
-                    const searchText = card.dataset.hf + ' ' + 
-                                    card.querySelector('.hf-title').textContent + ' ' +
-                                    card.querySelector('.hf-description').textContent;
-                    
-                    if (searchText.toLowerCase().includes(searchTerm)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = searchTerm === '' ? 'block' : 'none';
-                    }
-                });
+                if (searchMode === 'simple') {
+                    performSimpleSearch();
+                } else {
+                    // Debounced advanced search
+                    clearTimeout(this.searchTimeout);
+                    this.searchTimeout = setTimeout(() => {
+                        if (this.value.length >= 2) {
+                            performAdvancedSearch();
+                        } else {
+                            hideSearchResults();
+                        }
+                    }, 300);
+                }
             });
+
+            // Handle Enter key
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performAdvancedSearch();
+                }
+            });
+
+            // Hide results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.search-container')) {
+                    hideSearchResults();
+                }
+            });
+        }
+
+        // Simple search (original functionality)
+        function performSimpleSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const cards = document.querySelectorAll('.hf-card');
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            cards.forEach(card => {
+                const searchText = card.dataset.hf + ' ' + 
+                                card.querySelector('.hf-title').textContent + ' ' +
+                                card.querySelector('.hf-description').textContent;
+                
+                if (searchText.toLowerCase().includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+            
+            hideSearchResults();
         }
 
         // Print all pages
@@ -641,6 +1026,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadProgress();
             setupSearch();
+            setupSearchToggle();
             
             // Add event listeners to checkboxes
             document.querySelectorAll('.hf-checkbox').forEach(checkbox => {
