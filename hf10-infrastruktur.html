@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF10: Infrastruktur - Factsheet</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; font-size: 11pt; }
+            .page { page-break-after: always; height: 100vh; }
+            .page:last-child { page-break-after: avoid; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: white;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        
+        /* Titel-Seite */
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.5em;
+            color: #6B46C1;
+            margin-bottom: 20px;
+        }
+        
+        .title-page h2 {
+            font-size: 1.5em;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .toc h3 {
+            color: #6B46C1;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .dot1 { background: #8B5CF6; }
+        .dot2 { background: #A78BFA; }
+        .dot3 { background: #C4B5FD; }
+        .dot4 { background: #DDD6FE; }
+        .dot5 { background: #EDE9FE; }
+        
+        .toc-left {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        /* Content-Seiten */
+        h1 {
+            color: #6B46C1;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #6B46C1;
+            padding-bottom: 5px;
+        }
+        
+        h2 {
+            color: #1a1a1a;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.1em;
+            margin: 15px 0 8px 0;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        /* Sektionen */
+        .section-it-infrastruktur {
+            background: white;
+            border-left: 3px solid #8B5CF6;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-it-infrastruktur h2 { color: #8B5CF6; background: white; }
+        
+        .section-allgemeine-infrastruktur {
+            background: white;
+            border-left: 3px solid #A78BFA;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-allgemeine-infrastruktur h2 { color: #A78BFA; background: white; }
+        
+        .section-management {
+            background: white;
+            border-left: 3px solid #C4B5FD;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-management h2 { color: #C4B5FD; background: white; }
+        
+        .section-hardware-software {
+            background: white;
+            border-left: 3px solid #DDD6FE;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-hardware-software h2 { color: #8B5CF6; background: white; }
+        
+        .section-ergonomie {
+            background: white;
+            border-left: 3px solid #EDE9FE;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-ergonomie h2 { color: #8B5CF6; background: white; }
+        
+        ul {
+            margin: 8px 0 15px 20px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+        
+        strong {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            padding: 12px;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .process-box {
+            background: #f3e5f5;
+            padding: 15px;
+            border-left: 4px solid #9c27b0;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .glossar-item {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #6B46C1;
+            font-size: 1.05em;
+        }
+        
+        .glossar-def {
+            margin-top: 3px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #6B46C1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .print-btn:hover {
+            background: #553C9A;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <!-- Seite 1: Titel und Inhaltsverzeichnis -->
+    <div class="page title-page">
+        <h1>Handlungsfeld 10</h1>
+        <h2>Infrastruktur</h2>
+        <p style="margin-bottom: 30px;">Technische Kaufleute - Eidgenössische Berufsprüfung</p>
+        
+        <div class="toc">
+            <h3>📋 Inhaltsverzeichnis</h3>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot1"></div>
+                    <span>IT-Infrastruktur</span>
+                </div>
+                <span>Seite 2</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot2"></div>
+                    <span>Allgemeine Infrastruktur</span>
+                </div>
+                <span>Seite 3</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot3"></div>
+                    <span>Infrastrukturmanagement</span>
+                </div>
+                <span>Seite 4</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot4"></div>
+                    <span>Hardware & Software</span>
+                </div>
+                <span>Seite 5</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot5"></div>
+                    <span>Ergonomie & Standards</span>
+                </div>
+                <span>Seite 6</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot"></div>
+                    <span>Glossar</span>
+                </div>
+                <span>Seite 7</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: IT-Infrastruktur -->
+    <div class="page">
+        <h1>💻 IT-Infrastruktur</h1>
+        
+        <div class="section-it-infrastruktur">
+            <h2><span class="emoji">📊</span>IT-Beschaffung planen</h2>
+            
+            <h3>Anforderungsanalyse</h3>
+            <ul>
+                <li><strong>Funktionale Anforderungen:</strong> Was muss das System können?</li>
+                <li><strong>Systemanforderungen:</strong> Performance, Speicher, Kompatibilität</li>
+                <li><strong>Herstelleranforderungen:</strong> Support, Referenzen, Stabilität</li>
+                <li><strong>Zukunftssicherheit:</strong> Skalierbarkeit und Erweiterbarkeit</li>
+            </ul>
+            
+            <h3>Beschaffungsmarkt analysieren</h3>
+            <ul>
+                <li><strong>Anbietervergleich:</strong> Standardsoftware vs. Individuallösungen</li>
+                <li><strong>Kostenvergleich:</strong> Lizenz-, Support-, Implementierungskosten</li>
+                <li><strong>Referenzen prüfen:</strong> Ähnliche Unternehmen, Branchenerfahrung</li>
+                <li><strong>Zukunftsfähigkeit:</strong> Technologie-Roadmap des Anbieters</li>
+            </ul>
+        </div>
+        
+        <div class="section-it-infrastruktur">
+            <h2><span class="emoji">📋</span>Anforderungsprofile erstellen</h2>
+            
+            <h3>Software-Anforderungen</h3>
+            <ul>
+                <li><strong>Muss-Kriterien:</strong> Unverzichtbare Funktionen definieren</li>
+                <li><strong>Soll-Kriterien:</strong> Gewünschte Features priorisieren</li>
+                <li><strong>Kann-Kriterien:</strong> Nice-to-have Features auflisten</li>
+                <li><strong>K.O.-Kriterien:</strong> Ausschlusskriterien festlegen</li>
+            </ul>
+            
+            <h3>Hardware-Spezifikationen</h3>
+            <ul>
+                <li><strong>Leistungsanforderungen:</strong> CPU, RAM, Speicher definieren</li>
+                <li><strong>Schnittstellen:</strong> USB, HDMI, Netzwerk spezifizieren</li>
+                <li><strong>Ergonomie:</strong> Bildschirmgröße, Tastatur, Arbeitsplatz</li>
+                <li><strong>Mobilität:</strong> Desktop, Laptop, Tablet-Anforderungen</li>
+            </ul>
+            
+            <div class="process-box">
+                <strong>Beschaffungsleitsatz:</strong><br>
+                "So viel wie unbedingt nötig, so wenig wie möglich"
+            </div>
+        </div>
+        
+        <div class="section-it-infrastruktur">
+            <h2><span class="emoji">🛡️</span>Datensicherheit gewährleisten</h2>
+            
+            <h3>VIVA-Ziele</h3>
+            <ul>
+                <li><strong>Verfügbarkeit:</strong> Systeme sind verfügbar wenn benötigt</li>
+                <li><strong>Integrität:</strong> Daten sind unverändert und korrekt</li>
+                <li><strong>Vertraulichkeit:</strong> Nur autorisierte Personen haben Zugriff</li>
+                <li><strong>Authentizität:</strong> Identität ist nachprüfbar</li>
+            </ul>
+            
+            <h3>Sicherheitsmassnahmen</h3>
+            <ul>
+                <li><strong>Backup-Strategie:</strong> 3-2-1-Regel (3 Kopien, 2 Medien, 1 extern)</li>
+                <li><strong>Zugriffskontrolle:</strong> Benutzerrechte und Passwort-Policy</li>
+                <li><strong>Firewall/Antivirus:</strong> Schutz vor externen Bedrohungen</li>
+                <li><strong>Verschlüsselung:</strong> Daten bei Transport und Speicherung</li>
+            </ul>
+        </div>
+        
+        <div class="section-it-infrastruktur">
+            <h2><span class="emoji">🎓</span>Schulungsbedarf erfassen</h2>
+            
+            <h3>Kompetenzanalyse</h3>
+            <ul>
+                <li><strong>IST-Analyse:</strong> Aktuelle IT-Kenntnisse der Mitarbeitenden</li>
+                <li><strong>SOLL-Analyse:</strong> Benötigte Kompetenzen für neue Systeme</li>
+                <li><strong>Gap-Analyse:</strong> Unterschiede zwischen IST und SOLL</li>
+                <li><strong>Priorisierung:</strong> Kritische vs. wünschenswerte Skills</li>
+            </ul>
+            
+            <h3>Schulungsplanung</h3>
+            <ul>
+                <li><strong>Zielgruppen:</strong> Power-User, Standard-User, Management</li>
+                <li><strong>Lernformate:</strong> Präsenz, E-Learning, Blended Learning</li>
+                <li><strong>Timing:</strong> Vor, während oder nach der Einführung</li>
+                <li><strong>Erfolgscontrolling:</strong> Tests, Feedbacks, Praxisbeobachtung</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Bei IT-Einführungen sollten 15-20% des Projektbudgets für Schulungen eingeplant werden. Eine gute Schulung reduziert später Support-Kosten erheblich.
+        </div>
+    </div>
+
+    <!-- Seite 3: Allgemeine Infrastruktur -->
+    <div class="page">
+        <h1>🏢 Allgemeine Infrastruktur</h1>
+        
+        <div class="section-allgemeine-infrastruktur">
+            <h2><span class="emoji">📊</span>Infrastrukturbedarf analysieren</h2>
+            
+            <h3>Bedarfsanalyse durchführen</h3>
+            <ul>
+                <li><strong>IST-Zustand erfassen:</strong> Bestehende Infrastruktur inventarisieren</li>
+                <li><strong>SOLL-Zustand definieren:</strong> Zukünftige Anforderungen ermitteln</li>
+                <li><strong>Gap-Analyse:</strong> Unterschiede und Handlungsbedarf identifizieren</li>
+                <li><strong>Priorisierung:</strong> Dringlichkeit und Wichtigkeit bewerten</li>
+            </ul>
+            
+            <h3>Einflussfaktoren berücksichtigen</h3>
+            <ul>
+                <li><strong>Unternehmenswachstum:</strong> Mitarbeiterzahl, Standorte, Produktionsvolumen</li>
+                <li><strong>Technologische Entwicklung:</strong> Neue Standards, Obsoleszenz</li>
+                <li><strong>Gesetzliche Anforderungen:</strong> Arbeitssicherheit, Umweltschutz</li>
+                <li><strong>Kostenrahmen:</strong> Budget und Finanzierungsmöglichkeiten</li>
+            </ul>
+        </div>
+        
+        <div class="section-allgemeine-infrastruktur">
+            <h2><span class="emoji">💰</span>Offerten einholen und bewerten</h2>
+            
+            <h3>Offertprozess strukturieren</h3>
+            <ul>
+                <li><strong>Lastenheft erstellen:</strong> Anforderungen präzise definieren</li>
+                <li><strong>Anbieter identifizieren:</strong> Marktrecherche und Vorauswahl</li>
+                <li><strong>Offertanfrage:</strong> Standardisierte Unterlagen verwenden</li>
+                <li><strong>Bewertungsmatrix:</strong> Kriterien gewichten und bewerten</li>
+            </ul>
+            
+            <h3>Bewertungskriterien</h3>
+            <ul>
+                <li><strong>Technische Eignung:</strong> Erfüllung der Anforderungen</li>
+                <li><strong>Wirtschaftlichkeit:</strong> TCO über gesamte Nutzungsdauer</li>
+                <li><strong>Qualität:</strong> Referenzen, Zertifizierungen, Standards</li>
+                <li><strong>Service:</strong> Support, Wartung, Schulungen</li>
+            </ul>
+        </div>
+        
+        <div class="section-allgemeine-infrastruktur">
+            <h2><span class="emoji">🛒</span>Beschaffungen durchführen</h2>
+            
+            <h3>Beschaffungsarten</h3>
+            <ul>
+                <li><strong>Kauf:</strong> Eigentumsübergang, hohe Anfangsinvestition</li>
+                <li><strong>Leasing:</strong> Nutzungsrecht, planbare Raten</li>
+                <li><strong>Miete:</strong> Kurzfristige Nutzung, flexible Kündigungsfristen</li>
+                <li><strong>Outsourcing:</strong> Service-Bezug statt Infrastruktur-Besitz</li>
+            </ul>
+            
+            <h3>Vertragsgestaltung</h3>
+            <ul>
+                <li><strong>Leistungsumfang:</strong> Spezifikationen, SLA, Garantien</li>
+                <li><strong>Preise und Konditionen:</strong> Zahlungsmodalitäten, Rabatte</li>
+                <li><strong>Termine:</strong> Lieferung, Installation, Inbetriebnahme</li>
+                <li><strong>Risikoteilung:</strong> Haftung, Versicherung, Gewährleistung</li>
+            </ul>
+        </div>
+        
+        <div class="section-allgemeine-infrastruktur">
+            <h2><span class="emoji">👤</span>Ergonomische Richtlinien berücksichtigen</h2>
+            
+            <h3>Arbeitsplatzgestaltung</h3>
+            <ul>
+                <li><strong>Bildschirmarbeitsplatz:</strong> Höhe, Abstand, Beleuchtung optimieren</li>
+                <li><strong>Sitzmöbel:</strong> Verstellbarkeit, Lordosenstütze, Armauflagen</li>
+                <li><strong>Raumklima:</strong> Temperatur, Luftfeuchtigkeit, Lüftung</li>
+                <li><strong>Lärmschutz:</strong> Schallabsorption, Raumtrennung</li>
+            </ul>
+            
+            <h3>Schweizer Richtlinien</h3>
+            <ul>
+                <li><strong>SUVA-Richtlinien:</strong> Arbeitssicherheit und Gesundheitsschutz</li>
+                <li><strong>Arbeitsgesetz (ArG):</strong> Arbeitszeiten und Pausenregelungen</li>
+                <li><strong>VUV:</strong> Verordnung über Unfallverhütung</li>
+                <li><strong>Norm SN EN ISO:</strong> Ergonomische Standards</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Besonderheit:</strong> Die SUVA bietet kostenlose Beratung zur ergonomischen Arbeitsplatzgestaltung. Nutzen Sie diese Expertise für optimale Lösungen.
+        </div>
+    </div>
+
+    <!-- Seite 4: Infrastrukturmanagement -->
+    <div class="page">
+        <h1>🔄 Infrastrukturmanagement</h1>
+        
+        <div class="section-management">
+            <h2><span class="emoji">♻️</span>Infrastruktur-Lebenszyklus</h2>
+            
+            <h3>Phasen des Lebenszyklus</h3>
+            <ul>
+                <li><strong>Beschaffung:</strong> Planung, Evaluation, Kauf/Leasing</li>
+                <li><strong>Finanzierung:</strong> Eigen-/Fremdfinanzierung, Abschreibungen</li>
+                <li><strong>Nutzung:</strong> Betrieb, Wartung, Optimierung</li>
+                <li><strong>Liquidation/Entsorgung:</strong> Verkauf oder fachgerechte Entsorgung</li>
+            </ul>
+            
+            <h3>Beschaffungsquellen und -zeitpunkt</h3>
+            <ul>
+                <li><strong>Neue Ausrüstung:</strong> Garantie, neueste Technologie</li>
+                <li><strong>Gebrauchte Ausrüstung:</strong> Kostengünstiger, kürzere Lebensdauer</li>
+                <li><strong>Leasing/Miete:</strong> Planbare Kosten, Service inklusive</li>
+                <li><strong>Timing:</strong> Technologie-Zyklen und Budget-Zyklen beachten</li>
+            </ul>
+        </div>
+        
+        <div class="section-management">
+            <h2><span class="emoji">💰</span>Total Cost of Ownership (TCO)</h2>
+            
+            <h3>TCO-Komponenten</h3>
+            <ul>
+                <li><strong>Beschaffungskosten:</strong> Anschaffung, Installation, Schulung</li>
+                <li><strong>Betriebskosten:</strong> Energie, Wartung, Support, Personal</li>
+                <li><strong>Entsorgungskosten:</strong> Demontage, Recycling, Datenlöschung</li>
+                <li><strong>Opportunitätskosten:</strong> Entgangene Zinsen, Alternativen</li>
+            </ul>
+            
+            <h3>TCO-Optimierung</h3>
+            <ul>
+                <li><strong>Energieeffizienz:</strong> Geräte mit tiefem Verbrauch wählen</li>
+                <li><strong>Wartungsverträge:</strong> Präventiv statt reaktiv</li>
+                <li><strong>Standardisierung:</strong> Weniger Varianten = tiefere Kosten</li>
+                <li><strong>Lebensdauer maximieren:</strong> Qualität vor Anschaffungskosten</li>
+            </ul>
+        </div>
+        
+        <div class="section-management">
+            <h2><span class="emoji">🔧</span>Führungszyklus Infrastruktur</h2>
+            
+            <h3>Analyse und Planung</h3>
+            <ul>
+                <li><strong>IST-Analyse:</strong> Bestehende Infrastruktur bewerten</li>
+                <li><strong>Bedarfsplanung:</strong> Zukünftige Anforderungen ermitteln</li>
+                <li><strong>Strategieentwicklung:</strong> Langfristige Ausrichtung definieren</li>
+                <li><strong>Budgetplanung:</strong> Investitions- und Betriebskosten</li>
+            </ul>
+            
+            <h3>Ausführung und Realisation</h3>
+            <ul>
+                <li><strong>Projektmanagement:</strong> Umsetzung koordinieren</li>
+                <li><strong>Change Management:</strong> Mitarbeitende einbeziehen</li>
+                <li><strong>Qualitätssicherung:</strong> Standards einhalten</li>
+                <li><strong>Risikomanagement:</strong> Probleme antizipieren</li>
+            </ul>
+            
+            <h3>Kontrolle und Überwachung</h3>
+            <ul>
+                <li><strong>Performance Monitoring:</strong> KPIs kontinuierlich messen</li>
+                <li><strong>Wartungscontrolling:</strong> Präventive Massnahmen</li>
+                <li><strong>Kostencontrolling:</strong> Budget-Überwachung</li>
+                <li><strong>Optimierungszyklen:</strong> Kontinuierliche Verbesserung</li>
+            </ul>
+        </div>
+        
+        <div class="section-management">
+            <h2><span class="emoji">⚡</span>Energieeffizienz</h2>
+            
+            <h3>Sparpotentiale identifizieren</h3>
+            <ul>
+                <li><strong>Beleuchtung:</strong> LED-Umstellung, Tageslichtsteuerung</li>
+                <li><strong>Klimatisierung:</strong> Intelligente Regelung, Wärmerückgewinnung</li>
+                <li><strong>IT-Geräte:</strong> Energy Star, Standby-Modi, Virtualisierung</li>
+                <li><strong>Druckluft:</strong> Leckagen vermeiden, Druckniveau optimieren</li>
+            </ul>
+            
+            <h3>Energiemonitoring</h3>
+            <ul>
+                <li><strong>Verbrauchsmessung:</strong> Smart Meter, Lastganganalyse</li>
+                <li><strong>Benchmarking:</strong> Branchenvergleiche, interne Vergleiche</li>
+                <li><strong>Zielsetzung:</strong> Messbare Einsparziele definieren</li>
+                <li><strong>Reporting:</strong> Regelmässige Fortschrittsmessung</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Energiestrategie:</strong> Nutzen Sie ProKilowatt-Förderprogramme für Energieeffizienz-Massnahmen. Bis zu 30% der Investitionskosten werden übernommen.
+        </div>
+    </div>
+
+    <!-- Seite 5: Hardware & Software -->
+    <div class="page">
+        <h1>🖥️ Hardware & Software</h1>
+        
+        <div class="section-hardware-software">
+            <h2><span class="emoji">⚙️</span>EVA-Prinzip & Hardware</h2>
+            
+            <h3>Computer-Grundlagen (EVA)</h3>
+            <ul>
+                <li><strong>Eingabe:</strong> Tastatur, Maus, Scanner, Mikrofon</li>
+                <li><strong>Verarbeitung:</strong> CPU, RAM, Betriebssystem</li>
+                <li><strong>Ausgabe:</strong> Monitor, Drucker, Lautsprecher</li>
+                <li><strong>Speicherung:</strong> Festplatten (HDD/SSD), Cloud-Storage</li>
+            </ul>
+            
+            <h3>Hauptkomponenten</h3>
+            <ul>
+                <li><strong>Prozessor (CPU):</strong> Rechenwerk und Steuerwerk</li>
+                <li><strong>Arbeitsspeicher (RAM):</strong> Temporäre Datenspeicherung</li>
+                <li><strong>Festplatte:</strong> Dauerhafte Datenspeicherung (HDD/SSD)</li>
+                <li><strong>Mainboard:</strong> Verbindung aller Komponenten</li>
+            </ul>
+            
+            <h3>Schnittstellen</h3>
+            <ul>
+                <li><strong>USB:</strong> Universal Serial Bus (1.0 bis 3.1)</li>
+                <li><strong>HDMI:</strong> High Definition Multimedia Interface</li>
+                <li><strong>VGA/DVI:</strong> Video Graphics Array/Digital Visual Interface</li>
+                <li><strong>Thunderbolt:</strong> Hochgeschwindigkeits-Schnittstelle</li>
+            </ul>
+        </div>
+        
+        <div class="section-hardware-software">
+            <h2><span class="emoji">💻</span>ERP-Systeme & Anwendungssoftware</h2>
+            
+            <h3>ERP-Module</h3>
+            <ul>
+                <li><strong>Auftragsbearbeitung:</strong> Interne/externe Aufträge, Terminüberwachung</li>
+                <li><strong>Materialwirtschaft:</strong> Lager Ein-/Ausgang, Warenflusskontrolle</li>
+                <li><strong>Produktionsplanung:</strong> Ressourcenverwaltung, Produktionspläne</li>
+                <li><strong>Finanzbuchhaltung:</strong> Geschäftsfälle, Budgetierung, Kostenstellen</li>
+            </ul>
+            
+            <h3>Weitere Business-Software</h3>
+            <ul>
+                <li><strong>CRM:</strong> Customer Relationship Management</li>
+                <li><strong>DMS:</strong> Document Management System</li>
+                <li><strong>CMS:</strong> Content Management System</li>
+                <li><strong>WfMS:</strong> Workflow Management System</li>
+            </ul>
+        </div>
+        
+        <div class="section-hardware-software">
+            <h2><span class="emoji">🔗</span>Netzwerke & Systemarchitektur</h2>
+            
+            <h3>Client-Server-Architektur</h3>
+            <ul>
+                <li><strong>2-Schichten:</strong> Client und Server (Datenanbieter/Datennutzer)</li>
+                <li><strong>3-Schichten:</strong> Präsentation, Logik, Datenhaltung</li>
+                <li><strong>Mehrschichten:</strong> Skalierbar, anpassungsfähig</li>
+                <li><strong>Cloud-Services:</strong> Software as a Service (SaaS)</li>
+            </ul>
+            
+            <h3>Netzwerk-Standards</h3>
+            <ul>
+                <li><strong>Ethernet:</strong> 10/100/1000 Mbit/s über Twisted-Pair</li>
+                <li><strong>WLAN:</strong> 802.11 Standards (a/b/g/n/ac/ax)</li>
+                <li><strong>Glasfaser:</strong> Hohe Geschwindigkeiten über große Distanzen</li>
+                <li><strong>TCP/IP:</strong> Grundprotokoll für Internet-Kommunikation</li>
+            </ul>
+        </div>
+        
+        <div class="section-hardware-software">
+            <h2><span class="emoji">☁️</span>Cloud Computing & Virtualisierung</h2>
+            
+            <h3>Cloud-Modelle</h3>
+            <ul>
+                <li><strong>Public Cloud:</strong> Geteilte Ressourcen, kosteneffizient</li>
+                <li><strong>Private Cloud:</strong> Dedizierte Umgebung, höhere Sicherheit</li>
+                <li><strong>Hybrid Cloud:</strong> Kombination beider Ansätze</li>
+                <li><strong>Multi-Cloud:</strong> Mehrere Cloud-Anbieter nutzen</li>
+            </ul>
+            
+            <h3>Service-Modelle</h3>
+            <ul>
+                <li><strong>IaaS:</strong> Infrastructure as a Service (Server, Storage)</li>
+                <li><strong>PaaS:</strong> Platform as a Service (Entwicklungsumgebung)</li>
+                <li><strong>SaaS:</strong> Software as a Service (Anwendungen)</li>
+                <li><strong>On-Premises:</strong> Eigene IT-Infrastruktur vor Ort</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Virtualisierung kann Hardware-Kosten um 30-50% reduzieren und die Ausfallsicherheit durch Live-Migration erhöhen.
+        </div>
+    </div>
+
+    <!-- Seite 6: Ergonomie & Standards -->
+    <div class="page">
+        <h1>👤 Ergonomie & Standards</h1>
+        
+        <div class="section-ergonomie">
+            <h2><span class="emoji">🪑</span>Ergonomische Arbeitsplatzgestaltung</h2>
+            
+            <h3>Bildschirmarbeitsplatz</h3>
+            <ul>
+                <li><strong>Bildschirmposition:</strong> 50-70cm Abstand, obere Zeile auf Augenhöhe</li>
+                <li><strong>Beleuchtung:</strong> 500 Lux, keine Reflexionen vermeiden</li>
+                <li><strong>Sitzhaltung:</strong> 90° Winkel Ober-/Unterschenkel</li>
+                <li><strong>Pausen:</strong> Alle 2 Stunden 15 Min. oder alle 50 Min. 5 Min.</li>
+            </ul>
+            
+            <h3>Büromöbel-Standards</h3>
+            <ul>
+                <li><strong>Schreibtisch:</strong> Höhenverstellbar 68-76cm oder fix 72cm</li>
+                <li><strong>Stuhl:</strong> Rückenlehne 95-110°, Lordosenstütze</li>
+                <li><strong>Fußstütze:</strong> Bei Bedarf für kleinere Personen</li>
+                <li><strong>Dokumentenhalter:</strong> Gleiche Entfernung wie Bildschirm</li>
+            </ul>
+        </div>
+        
+        <div class="section-ergonomie">
+            <h2><span class="emoji">🌡️</span>Raumklima & Umgebung</h2>
+            
+            <h3>Klimatische Bedingungen</h3>
+            <ul>
+                <li><strong>Temperatur:</strong> 20-26°C (Winter/Sommer)</li>
+                <li><strong>Luftfeuchtigkeit:</strong> 40-60% relative Feuchtigkeit</li>
+                <li><strong>Luftgeschwindigkeit:</strong> Unter 0.15 m/s (Zugluft vermeiden)</li>
+                <li><strong>Luftqualität:</strong> Regelmäßiger Luftaustausch (CO₂ unter 1000 ppm)</li>
+            </ul>
+            
+            <h3>Akustik & Lärm</h3>
+            <ul>
+                <li><strong>Einzelbüro:</strong> Unter 35 dB(A) Grundgeräusch</li>
+                <li><strong>Großraumbüro:</strong> Unter 45 dB(A), Nachhallzeit reduzieren</li>
+                <li><strong>Schallabsorption:</strong> Teppiche, Akustikdecken, Pflanzen</li>
+                <li><strong>Rückzugszonen:</strong> Ruhige Bereiche für konzentrierte Arbeit</li>
+            </ul>
+        </div>
+        
+        <div class="section-ergonomie">
+            <h2><span class="emoji">⚖️</span>Schweizer Rechtliche Grundlagen</h2>
+            
+            <h3>Arbeitsgesetz (ArG)</h3>
+            <ul>
+                <li><strong>Arbeitszeiten:</strong> Max. 45h/Woche (Büro), 50h (Industrie)</li>
+                <li><strong>Pausenregelung:</strong> Min. 15 Min. bei 5.5-7h, 30 Min. bei 7-9h</li>
+                <li><strong>Ruhezeiten:</strong> Min. 11h zwischen Arbeitstagen</li>
+                <li><strong>Bildschirmarbeit:</strong> Spezielle Schutzbestimmungen</li>
+            </ul>
+            
+            <h3>SUVA-Richtlinien</h3>
+            <ul>
+                <li><strong>Arbeitsplatz-Checklisten:</strong> Ergonomie-Bewertung</li>
+                <li><strong>Präventionsberatung:</strong> Kostenlose Arbeitsplatz-Analyse</li>
+                <li><strong>Arbeitshygiene:</strong> Grenzwerte für Lärm, Licht, Klima</li>
+                <li><strong>Unfallverhütung:</strong> VUV-Bestimmungen einhalten</li>
+            </ul>
+        </div>
+        
+        <div class="section-ergonomie">
+            <h2><span class="emoji">🏆</span>Qualitäts- & Umweltstandards</h2>
+            
+            <h3>ISO-Normen</h3>
+            <ul>
+                <li><strong>ISO 9241:</strong> Ergonomie der Mensch-System-Interaktion</li>
+                <li><strong>ISO 14001:</strong> Umweltmanagementsysteme</li>
+                <li><strong>ISO 27001:</strong> Informationssicherheits-Management</li>
+                <li><strong>ISO 45001:</strong> Arbeits- und Gesundheitsschutz</li>
+            </ul>
+            
+            <h3>Energiestandards</h3>
+            <ul>
+                <li><strong>Energy Star:</strong> Energieeffizienz-Label für IT-Geräte</li>
+                <li><strong>MINERGIE:</strong> Schweizer Gebäude-Energiestandard</li>
+                <li><strong>LED-Qualität:</strong> Ra > 80, Flicker-frei unter 100Hz</li>
+                <li><strong>Standby-Verbrauch:</strong> Unter 1W bei IT-Geräten</li>
+            </ul>
+        </div>
+        
+        <div class="section-ergonomie">
+            <h2><span class="emoji">♿</span>Barrierefreiheit & Inklusion</h2>
+            
+            <h3>Behindertengleichstellungsgesetz (BehiG)</h3>
+            <ul>
+                <li><strong>Bauliche Barrierefreiheit:</strong> Rollstuhlgängige Zugänge</li>
+                <li><strong>Technische Hilfsmittel:</strong> Bildschirmvergrößerung, Sprachausgabe</li>
+                <li><strong>Arbeitsplatzanpassung:</strong> Individuelle Lösungen</li>
+                <li><strong>Kommunikationsbarrieren:</strong> Gebärdensprache, Leichte Sprache</li>
+            </ul>
+            
+            <h3>Universal Design</h3>
+            <ul>
+                <li><strong>Breite Gänge:</strong> Min. 120cm für Rollstuhlfahrer</li>
+                <li><strong>Höhenverstellbare Tische:</strong> 65-85cm Verstellbereich</li>
+                <li><strong>Kontrastreiche Gestaltung:</strong> Für sehbeeinträchtigte Personen</li>
+                <li><strong>Ergonomische Hilfsmittel:</strong> Spezialtastaturen, Trackballs</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Besonderheit:</strong> Unternehmen mit über 250 Mitarbeitenden müssen laut BehiG behindertengerechte Arbeitsplätze schaffen. IV-Beiträge unterstützen Anpassungen.
+        </div>
+    </div>
+
+    <!-- Seite 7: Glossar -->
+    <div class="page">
+        <h1>📚 Glossar</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ArG (Arbeitsgesetz)</div>
+            <div class="glossar-def">Schweizer Bundesgesetz über die Arbeit in Industrie, Gewerbe und Handel</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">BehiG</div>
+            <div class="glossar-def">Behindertengleichstellungsgesetz der Schweiz für Barrierefreiheit</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Client-Server-System</div>
+            <div class="glossar-def">Netzwerkarchitektur mit leistungsstarken Servern und Arbeitsplatz-Clients</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Cloud Computing</div>
+            <div class="glossar-def">Bereitstellung von IT-Ressourcen über das Internet (IaaS, PaaS, SaaS)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">CRM</div>
+            <div class="glossar-def">Customer Relationship Management - Kundenbeziehungsmanagement-System</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">DMS</div>
+            <div class="glossar-def">Document Management System - Dokumentenverwaltungssystem</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ERP</div>
+            <div class="glossar-def">Enterprise Resource Planning - Integrierte Unternehmenssoftware</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">EVA-Prinzip</div>
+            <div class="glossar-def">Eingabe-Verarbeitung-Ausgabe: Grundprinzip der Datenverarbeitung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Gap-Analyse</div>
+            <div class="glossar-def">Vergleich zwischen IST-Zustand und SOLL-Zustand zur Bedarfsermittlung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">HDMI</div>
+            <div class="glossar-def">High Definition Multimedia Interface - Digitale Audio/Video-Schnittstelle</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ISO 9241</div>
+            <div class="glossar-def">Internationale Norm für Ergonomie der Mensch-System-Interaktion</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Lastenheft</div>
+            <div class="glossar-def">Dokument des Auftraggebers mit Anforderungen an ein System</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">MINERGIE</div>
+            <div class="glossar-def">Schweizer Qualitätslabel für energieeffiziente Gebäude</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">On-Premises</div>
+            <div class="glossar-def">Software und Hardware werden in den eigenen Räumlichkeiten betrieben</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Peer-to-Peer</div>
+            <div class="glossar-def">Netzwerkarchitektur ohne zentrale Server, alle Teilnehmer gleichberechtigt</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Pflichtenheft</div>
+            <div class="glossar-def">Dokument des Auftragnehmers als Antwort auf das Lastenheft</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SaaS</div>
+            <div class="glossar-def">Software as a Service - Softwarenutzung über das Internet</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SLA</div>
+            <div class="glossar-def">Service Level Agreement - Dienstgütevereinbarung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SSD</div>
+            <div class="glossar-def">Solid State Drive - Festplatte ohne bewegliche Teile</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SUVA</div>
+            <div class="glossar-def">Schweizerische Unfallversicherungsanstalt - Arbeitsschutz und Prävention</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">TCP/IP</div>
+            <div class="glossar-def">Transmission Control Protocol/Internet Protocol - Grundprotokoll des Internets</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">TCO</div>
+            <div class="glossar-def">Total Cost of Ownership - Gesamtkosten über die komplette Nutzungsdauer</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">USB</div>
+            <div class="glossar-def">Universal Serial Bus - Standardschnittstelle für Peripheriegeräte</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">VIVA-Ziele</div>
+            <div class="glossar-def">Verfügbarkeit, Integrität, Vertraulichkeit, Authentizität - IT-Sicherheitsziele</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">VUV</div>
+            <div class="glossar-def">Verordnung über die Verhütung von Unfällen und Berufskrankheiten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">WfMS</div>
+            <div class="glossar-def">Workflow Management System - Geschäftsprozess-Automatisierung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">WLAN</div>
+            <div class="glossar-def">Wireless Local Area Network - Drahtloses lokales Netzwerk</div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #6B46C1;">
+            <h3 style="color: #6B46C1; margin-bottom: 15px;">📋 Prüfungsrelevante Schwerpunkte</h3>
+            <p><strong>Fokus auf:</strong></p>
+            <ul style="margin-top: 10px;">
+                <li>TCO-Berechnung und Lebenszyklus-Management</li>
+                <li>IT-Beschaffungsprozess und Anforderungsanalyse</li>
+                <li>ERP-Systeme und deren Integration</li>
+                <li>Schweizer Arbeitsschutz-Bestimmungen (ArG, SUVA)</li>
+                <li>Ergonomische Arbeitsplatzgestaltung</li>
+                <li>Cloud Computing vs. On-Premises</li>
+                <li>VIVA-Ziele der IT-Sicherheit</li>
+                <li>Energieeffizienz und Nachhaltigkeit</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
