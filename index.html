@@ -229,9 +229,9 @@
         .hf-10::before { background: #16a085; }
         .hf-10 .hf-number { color: #16a085; }
 
-        .hf-11 { border-left-color: #c0392b; }
-        .hf-11::before { background: #c0392b; }
-        .hf-11 .hf-number { color: #c0392b; }
+        .hf-12 { border-left-color: #d35400; }
+        .hf-12::before { background: #d35400; }
+        .hf-12 .hf-number { color: #d35400; }
 
         .actions {
             background: white;
@@ -354,7 +354,7 @@
 
             <div class="progress-overview">
                 <div class="progress-text">
-                    Fortschritt: <span id="progressCount">0</span> von 11 Handlungsfeldern abgeschlossen
+                    Fortschritt: <span id="progressCount">0</span> von 12 Handlungsfeldern abgeschlossen
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
@@ -484,16 +484,16 @@
                     <a href="hf10-infrastruktur.html" class="hf-link">Zum Handlungsfeld →</a>
                 </div>
 
-                <div class="hf-card hf-11" data-hf="unterstützungsprozesse">
+                <div class="hf-card hf-12" data-hf="prüfungsmethodik">
                     <div class="hf-header">
-                        <div class="hf-number">HF11</div>
-                        <div class="hf-title">Unterstützungsprozesse</div>
-                        <input type="checkbox" class="hf-checkbox" data-hf="11">
+                        <div class="hf-number">HF12</div>
+                        <div class="hf-title">Prüfungsmethodik</div>
+                        <input type="checkbox" class="hf-checkbox" data-hf="12">
                     </div>
                     <div class="hf-description">
-                        Prozessmanagement, Qualitätsmanagement und kontinuierliche Verbesserung der Unternehmensprozesse.
+                        Prüfungsstrategien, Zeitmanagement, Lernmethoden und optimale Vorbereitung auf die eidgenössische Berufsprüfung.
                     </div>
-                    <a href="hf11-unterstuetzungsprozesse.html" class="hf-link">Zum Handlungsfeld →</a>
+                    <a href="hf12-pruefungsmethodik.html" class="hf-link">Zum Handlungsfeld →</a>
                 </div>
             </div>
         </main>
@@ -509,7 +509,7 @@
 
         <footer>
             <p><strong>Technische Kaufleute - Eidgenössische Berufsprüfung</strong></p>
-            <p>Diese Website dient als Lernhilfe und Übersicht für alle 11 Handlungsfelder der eidgenössischen Berufsprüfung.</p>
+            <p>Diese Website dient als Lernhilfe und Übersicht für alle 12 Handlungsfelder der eidgenössischen Berufsprüfung.</p>
             <p>Erstellt für die optimale Vorbereitung auf die Prüfung • Stand: 2025</p>
         </footer>
     </div>
@@ -582,10 +582,11 @@
                 'hf8-personal.html',
                 'hf9-finanzbuchhaltung.html',
                 'hf10-infrastruktur.html',
-                'hf11-unterstuetzungsprozesse.html'
+                'hf11-unterstuetzungsprozesse.html',
+                'hf12-pruefungsmethodik.html'
             ];
             
-            if (confirm('Möchten Sie alle 11 Handlungsfeld-Seiten in neuen Tabs öffnen zum Drucken?')) {
+            if (confirm('Möchten Sie alle 12 Handlungsfeld-Seiten in neuen Tabs öffnen zum Drucken?')) {
                 pages.forEach((page, index) => {
                     setTimeout(() => {
                         window.open(page, '_blank');
