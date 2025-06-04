@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technische Kaufleute - Gesamtinhaltsverzeichnis</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; font-size: 11pt; }
+            .page { page-break-after: avoid; height: auto; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 10mm; /* Reduziert von 20mm */
+            line-height: 1.2;
+            color: #333;
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            box-sizing: border-box;
+        }
+        
+        .header {
+            display: none;
+        }
+        
+        .handlungsfeld {
+            display: flex;
+            align-items: stretch;
+            margin-bottom: 3px;
+            height: 90px; /* Erhöht von 65px */
+        }
+        
+        .hf-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .hf-main {
+            flex: 1;
+        }
+        
+        .hf-title {
+            font-size: 20pt; /* Erhöht von 18pt */
+            font-weight: 400;
+            color: #333;
+            margin: 0 0 5px 0; /* Reduziert von 8px */
+        }
+        
+        .hf-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px; /* Bleibt bei 12px */
+            line-height: 1.0; /* Reduziert von 1.2 */
+        }
+        
+        .hf-detail {
+            font-size: 11pt; /* Erhöht von 10pt */
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .hf-number {
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24pt;
+            font-weight: bold;
+        }
+        
+        /* Handlungsfeld-spezifische Farben */
+        .hf1 .hf-number { background: #2196F3; }
+        .hf2 .hf-number { background: #1976D2; }
+        .hf3 .hf-number { background: #4CAF50; }
+        .hf4 .hf-number { background: #388E3C; }
+        .hf5 .hf-number { background: #FF9800; }
+        .hf6 .hf-number { background: #F57C00; }
+        .hf7 .hf-number { background: #E91E63; }
+        .hf8 .hf-number { background: #C2185B; }
+        .hf9 .hf-number { background: #9C27B0; }
+        .hf10 .hf-number { background: #673AB7; }
+        .hf11 .hf-number { background: #3F51B5; }
+        .hf12 .hf-number { background: #009688; }
+        
+        .footer {
+            display: none;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .print-btn:hover {
+            background: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <div class="header">
+        <h1>Technische Kaufleute</h1>
+        <h2>Eidgenössische Berufsprüfung - Gesamtinhaltsverzeichnis</h2>
+    </div>
+
+    <div class="handlungsfeld hf1">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Recht und Volkswirtschaft</div>
+                <div class="hf-details">
+                    <span class="hf-detail">Mikroökonomie</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Makroökonomie</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Öffentliches Recht</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Privatrecht (ZGB/OR)</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Schweizer Rechtsordnung</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">1</div>
+    </div>
+
+    <div class="handlungsfeld hf2">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Unternehmensführung und Umwelt</div>
+                <div class="hf-details">
+                    <span class="hf-detail">Strategieentwicklung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Strategieumsetzung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Veränderungsmanagement</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Projektmanagement</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Problemlösung (PEAK)</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Wissensmanagement</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">2</div>
+    </div>
+
+    <div class="handlungsfeld hf3">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Mitarbeiterführung und Kommunikation</div>
+                <div class="hf-details">
+                    <span class="hf-detail">Personalrekrutierung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Mitarbeiterbeurteilung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Teamführung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Sitzungsleitung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Kommunikation</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Selbstmanagement</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">3</div>
+    </div>
+
+    <div class="handlungsfeld hf4">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Finanzielle Führung</div>
+                <div class="hf-details">
+                    <span class="hf-detail">Finanzierung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Budgetierung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Controlling</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Investitionsrechnung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Mittelflussrechnung</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">4</div>
+    </div>
+
+    <div class="handlungsfeld hf5">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Supply Chain Management</div>
+                <div class="hf-details">
+                    <span class="hf-detail">Beschaffungslogistik</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Produktionslogistik</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Lagerlogistik</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Distributionslogistik</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Entsorgungslogistik</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Qualitätsmanagement</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">5</div>
+    </div>
+
+    <div class="handlungsfeld hf6">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Marketing und Verkauf</div>
+                <div class="hf-details">
+                    <span class="hf-detail">Marktforschung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Segmentierung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Positionierung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Produktmanagement</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Verkaufsprozess</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">CRM</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">6</div>
+    </div>
+
+    <div class="handlungsfeld hf7">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Services (Kundendienst)</div>
+                <div class="hf-details">
+                    <span class="hf-detail">Verkaufsgespräch</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Aktives Zuhören</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Reklamationsmanagement</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Einwandbehandlung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Kundenbindung</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">7</div>
+    </div>
+
+    <div class="handlungsfeld hf8">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Personal(-arbeit)</div>
+                <div class="hf-details">
+                    <span class="hf-detail">Personalplanung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Rekrutierung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Personalentwicklung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Lohn & Sozialversicherungen</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Arbeitsrecht</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Datenschutz</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">8</div>
+    </div>
+
+    <div class="handlungsfeld hf9">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Finanzbuchhaltung und Rechnungswesen</div>
+                <div class="hf-details">
+                    <span class="hf-detail">Kreditorenbuchhaltung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Debitorenbuchhaltung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Jahresabschluss</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Betriebsbuchhaltung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Kostenrechnung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Deckungsbeitragsrechnung</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">9</div>
+    </div>
+
+    <div class="handlungsfeld hf10">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Infrastruktur</div>
+                <div class="hf-details">
+                    <span class="hf-detail">IT-Beschaffung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Datensicherheit</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">TCO-Management</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Hardware/Software</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Ergonomie</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Standards</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">10</div>
+    </div>
+
+    <div class="handlungsfeld hf11">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Unterstützungsprozesse</div>
+                <div class="hf-details">
+                    <span class="hf-detail">Qualitätsmanagement</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">ISO-Standards</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Nachhaltigkeit</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Umweltmanagement</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">IT-Sicherheit</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Compliance</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">11</div>
+    </div>
+
+    <div class="handlungsfeld hf12">
+        <div class="hf-content">
+            <div class="hf-main">
+                <div class="hf-title">Prüfungsmethodik und Präsentationstechniken</div>
+                <div class="hf-details">
+                    <span class="hf-detail">Postkorb-Technik</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Selbstmanagement</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Problemlösung</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Präsentationstechniken</span>
+                    <span class="hf-detail">•</span>
+                    <span class="hf-detail">Visualisierung</span>
+                </div>
+            </div>
+        </div>
+        <div class="hf-number">12</div>
+    </div>
+
+    <div class="footer">
+        <strong>Technische Kaufleute - Eidgenössische Berufsprüfung</strong><br>
+        Gesamtübersicht aller 12 Handlungsfelder | Stand: 2025 | Basierend auf Prüfungsordnung vom 18.10.2023
+    </div>
+
+</body>
+</html>
