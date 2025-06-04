@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF12: Prüfungsmethodik und Präsentationstechniken</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; font-size: 10pt; }
+            .page { page-break-after: always; height: 100vh; }
+            .page:last-child { page-break-after: avoid; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.3;
+            color: #1a1a1a;
+            background: white;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        
+        /* Titel-Seite */
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.3em;
+            color: #7B1FA2;
+            margin-bottom: 20px;
+        }
+        
+        .title-page h2 {
+            font-size: 1.4em;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .toc h3 {
+            color: #7B1FA2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .dot1 { background: #7B1FA2; }
+        .dot2 { background: #8E24AA; }
+        .dot3 { background: #AB47BC; }
+        .dot4 { background: #BA68C8; }
+        .dot5 { background: #CE93D8; }
+        
+        .toc-left {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        /* Content-Seiten */
+        h1 {
+            color: #7B1FA2;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #7B1FA2;
+            padding-bottom: 5px;
+        }
+        
+        h2 {
+            color: #1a1a1a;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.1em;
+            margin: 15px 0 8px 0;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        /* Sektionen */
+        .section-postkorb {
+            background: white;
+            border-left: 3px solid #7B1FA2;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-postkorb h2 { color: #7B1FA2; background: white; }
+        
+        .section-selbstmanagement {
+            background: white;
+            border-left: 3px solid #8E24AA;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-selbstmanagement h2 { color: #8E24AA; background: white; }
+        
+        .section-problemloesung {
+            background: white;
+            border-left: 3px solid #AB47BC;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-problemloesung h2 { color: #AB47BC; background: white; }
+        
+        .section-praesentation {
+            background: white;
+            border-left: 3px solid #BA68C8;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-praesentation h2 { color: #BA68C8; background: white; }
+        
+        .section-flipchart {
+            background: white;
+            border-left: 3px solid #CE93D8;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-flipchart h2 { color: #CE93D8; background: white; }
+        
+        ul {
+            margin: 8px 0 15px 20px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+        
+        strong {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            padding: 12px;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .method-box {
+            background: #f3e5f5;
+            padding: 15px;
+            border-left: 4px solid #9c27b0;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .table-box {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .table-box table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .table-box th {
+            background: #7B1FA2;
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .table-box td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .table-box tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .glossar-item {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #7B1FA2;
+            font-size: 1.05em;
+        }
+        
+        .glossar-def {
+            margin-top: 3px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #7B1FA2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .print-btn:hover {
+            background: #6A1B9A;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <!-- Seite 1: Titel und Inhaltsverzeichnis -->
+    <div class="page title-page">
+        <h1>Handlungsfeld 12</h1>
+        <h2>Prüfungsmethodik und Präsentationstechniken</h2>
+        <p style="margin-bottom: 30px;">Technische Kaufleute - Eidgenössische Berufsprüfung</p>
+        
+        <div class="toc">
+            <h3>📋 Inhaltsverzeichnis</h3>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot1"></div>
+                    <span>Postkorb-Technik</span>
+                </div>
+                <span>Seite 2</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot2"></div>
+                    <span>Selbstmanagement & Zeitplanung</span>
+                </div>
+                <span>Seite 3</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot3"></div>
+                    <span>Problemlösungsmethodik</span>
+                </div>
+                <span>Seite 4</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot4"></div>
+                    <span>Präsentationstechniken</span>
+                </div>
+                <span>Seite 5</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot5"></div>
+                    <span>Flipchart & Visualisierung</span>
+                </div>
+                <span>Seite 6</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot"></div>
+                    <span>Glossar</span>
+                </div>
+                <span>Seite 7</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: Postkorb-Technik -->
+    <div class="page">
+        <h1>📋 Postkorb-Technik</h1>
+        
+        <div class="section-postkorb">
+            <h2><span class="emoji">📥</span>Systematische Postkorb-Bearbeitung</h2>
+            
+            <h3>5-Schritte-Methode</h3>
+            <ul>
+                <li><strong>1. Überblick verschaffen:</strong> Alle Dokumente kurz durchlesen (5-10 Min)</li>
+                <li><strong>2. Kategorisieren:</strong> Nach Themen und Absender gruppieren</li>
+                <li><strong>3. Priorisieren:</strong> Eisenhower-Matrix anwenden</li>
+                <li><strong>4. Zeitplanung:</strong> Realistische Bearbeitungszeiten schätzen</li>
+                <li><strong>5. Abarbeiten:</strong> Nach Prioritäten systematisch bearbeiten</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Dringend</th>
+                        <th>Nicht dringend</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Wichtig</strong></td>
+                        <td>A: Sofort bearbeiten</td>
+                        <td>B: Terminieren</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nicht wichtig</strong></td>
+                        <td>C: Delegieren</td>
+                        <td>D: Eliminieren</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section-postkorb">
+            <h2><span class="emoji">⏰</span>Zeitmanagement unter Druck</h2>
+            
+            <h3>Bearbeitungsstrategien</h3>
+            <ul>
+                <li><strong>Quick Wins:</strong> Einfache Aufgaben zuerst (Motivationsschub)</li>
+                <li><strong>Chunking:</strong> Grosse Aufgaben in Teilschritte zerlegen</li>
+                <li><strong>Timeboxing:</strong> Feste Zeitblöcke für jede Aufgabe</li>
+                <li><strong>Pufferzeit:</strong> 20% Reserve für Unvorhergesehenes einplanen</li>
+            </ul>
+            
+            <h3>Entscheidungskriterien</h3>
+            <ul>
+                <li><strong>Wichtigkeit:</strong> Strategische Relevanz für Unternehmen bewerten</li>
+                <li><strong>Dringlichkeit:</strong> Zeitdruck und Fristen analysieren</li>
+                <li><strong>Ressourcenbedarf:</strong> Verfügbare Zeit und Mittel abschätzen</li>
+                <li><strong>Konsequenzen:</strong> Auswirkungen bei Nichtbearbeitung einschätzen</li>
+            </ul>
+        </div>
+        
+        <div class="section-postkorb">
+            <h2><span class="emoji">📝</span>Dokumentation und Nachverfolgung</h2>
+            
+            <h3>Bearbeitungsnotizen</h3>
+            <ul>
+                <li><strong>Entscheidungsgrund:</strong> Warum wurde so entschieden?</li>
+                <li><strong>Nächste Schritte:</strong> Was muss noch getan werden?</li>
+                <li><strong>Verantwortlichkeiten:</strong> Wer ist zuständig?</li>
+                <li><strong>Termine:</strong> Bis wann muss was erledigt sein?</li>
+            </ul>
+            
+            <div class="method-box">
+                <strong>Praxis-Tipp Postkorb:</strong><br>
+                • Erst lesen, dann entscheiden - nicht parallel!<br>
+                • Bei Zeitmangel: Wichtige Aufgaben vollständig, unwichtige gar nicht<br>
+                • Rückfragen sammeln und am Ende stellen<br>
+                • Delegationen klar formulieren mit Terminen
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Prüfungsstrategie:</strong> Postkorb-Aufgaben teste systematisches Arbeiten unter Zeitdruck. Struktur ist wichtiger als Perfektion - zeigen Sie Ihre Denkmuster und Entscheidungswege auf!
+        </div>
+    </div>
+
+    <!-- Seite 3: Selbstmanagement -->
+    <div class="page">
+        <h1>⚡ Selbstmanagement & Zeitplanung</h1>
+        
+        <div class="section-selbstmanagement">
+            <h2><span class="emoji">🎯</span>Persönliche Arbeitsorganisation</h2>
+            
+            <h3>ALPEN-Methode</h3>
+            <ul>
+                <li><strong>A - Aufgaben sammeln:</strong> To-Do-Liste erstellen</li>
+                <li><strong>L - Länge einschätzen:</strong> Realistische Zeitschätzung</li>
+                <li><strong>P - Pufferzeit einplanen:</strong> 40% für Störungen reservieren</li>
+                <li><strong>E - Entscheidungen treffen:</strong> Prioritäten setzen</li>
+                <li><strong>N - Nachkontrolle:</strong> Erfolg messen und lernen</li>
+            </ul>
+            
+            <h3>ABC-Analyse der Aufgaben</h3>
+            <ul>
+                <li><strong>A-Aufgaben (15%):</strong> Sehr wichtig, selbst erledigen</li>
+                <li><strong>B-Aufgaben (20%):</strong> Wichtig, falls Zeit vorhanden</li>
+                <li><strong>C-Aufgaben (65%):</strong> Delegieren oder eliminieren</li>
+                <li><strong>Pareto-Prinzip:</strong> 80% Ergebnis mit 20% Aufwand erreichen</li>
+            </ul>
+        </div>
+        
+        <div class="section-selbstmanagement">
+            <h2><span class="emoji">⏱️</span>Zeitmanagement-Techniken</h2>
+            
+            <h3>Pomodoro-Technik</h3>
+            <ul>
+                <li><strong>25 Minuten:</strong> Konzentriertes Arbeiten ohne Unterbrechung</li>
+                <li><strong>5 Minuten:</strong> Kurze Pause zur Erholung</li>
+                <li><strong>Nach 4 Zyklen:</strong> Längere Pause (15-30 Minuten)</li>
+                <li><strong>Vorteil:</strong> Verbesserte Konzentration und weniger Prokrastination</li>
+            </ul>
+            
+            <h3>Zeitfallen vermeiden</h3>
+            <ul>
+                <li><strong>E-Mail-Flut:</strong> Feste Zeiten für E-Mail-Bearbeitung</li>
+                <li><strong>Meetings:</strong> Agenda, Zeitlimit, klare Ergebnisse</li>
+                <li><strong>Perfektionismus:</strong> "Good enough" als Qualitätsstandard</li>
+                <li><strong>Multitasking:</strong> Fokus auf eine Aufgabe</li>
+            </ul>
+        </div>
+        
+        <div class="section-selbstmanagement">
+            <h2><span class="emoji">🧠</span>Mentale Ressourcen managen</h2>
+            
+            <h3>Energiemanagement</h3>
+            <ul>
+                <li><strong>Biorhythmus:</strong> Schwierige Aufgaben zu Hoch-Zeiten</li>
+                <li><strong>Pausen:</strong> Regelmässige Erholung einbauen</li>
+                <li><strong>Work-Life-Balance:</strong> Grenzen zwischen Arbeit und Freizeit</li>
+                <li><strong>Stressmanagement:</strong> Entspannungstechniken anwenden</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Tageszeit</th>
+                        <th>Energielevel</th>
+                        <th>Geeignete Aufgaben</th>
+                    </tr>
+                    <tr>
+                        <td>8:00-10:00</td>
+                        <td>Hoch</td>
+                        <td>Kreative/komplexe Aufgaben</td>
+                    </tr>
+                    <tr>
+                        <td>10:00-12:00</td>
+                        <td>Sehr hoch</td>
+                        <td>Wichtigste Projekte</td>
+                    </tr>
+                    <tr>
+                        <td>13:00-15:00</td>
+                        <td>Tief</td>
+                        <td>Routine, E-Mails, Administration</td>
+                    </tr>
+                    <tr>
+                        <td>15:00-17:00</td>
+                        <td>Mittel</td>
+                        <td>Meetings, Kommunikation</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Arbeitskultur:</strong> Pünktlichkeit und Zuverlässigkeit sind zentral. Planen Sie daher immer Pufferzeiten ein und kommunizieren Sie Verzögerungen frühzeitig!
+        </div>
+    </div>
+
+    <!-- Seite 4: Problemlösungsmethodik -->
+    <div class="page">
+        <h1>🔍 Problemlösungsmethodik</h1>
+        
+        <div class="section-problemloesung">
+            <h2><span class="emoji">🎯</span>PEAK-Methode</h2>
+            
+            <h3>4-Phasen-Problemlösung</h3>
+            <ul>
+                <li><strong>P - Planen:</strong> Problem analysieren, Ziele definieren, Lösungsoptionen entwickeln</li>
+                <li><strong>E - Entscheiden:</strong> Beste Alternative auswählen, Ressourcen zuteilen</li>
+                <li><strong>A - Anordnen:</strong> Entscheidung kommunizieren, Umsetzung starten</li>
+                <li><strong>K - Kontrollieren:</strong> Fortschritt überwachen, bei Bedarf anpassen</li>
+            </ul>
+            
+            <div class="method-box">
+                <strong>PEAK-Anwendung bei Critical Incidents:</strong><br>
+                Problem: Kunde droht mit Vertragskündigung<br>
+                P: Ursachen analysieren (Qualität? Service? Preis?)<br>
+                E: Lösungsstrategie wählen (Nachbesserung? Rabatt? Kulanz?)<br>
+                A: Sofortmassnahmen einleiten, Kunde informieren<br>
+                K: Kundenzufriedenheit nachfassen, Prozesse überprüfen
+            </div>
+        </div>
+        
+        <div class="section-problemloesung">
+            <h2><span class="emoji">🧩</span>Strukturierte Problemanalyse</h2>
+            
+            <h3>5-Why-Technik</h3>
+            <ul>
+                <li><strong>1. Warum:</strong> Symptom identifizieren</li>
+                <li><strong>2. Warum:</strong> Oberflächliche Ursache finden</li>
+                <li><strong>3. Warum:</strong> Tieferliegende Ursache</li>
+                <li><strong>4. Warum:</strong> Systemische Ursache</li>
+                <li><strong>5. Warum:</strong> Grundursache (Root Cause)</li>
+            </ul>
+            
+            <h3>Ishikawa-Diagramm (Fishbone)</h3>
+            <ul>
+                <li><strong>Mensch:</strong> Qualifikation, Motivation, Fehlerverhalten</li>
+                <li><strong>Maschine:</strong> Technik, Wartung, Alter, Kapazität</li>
+                <li><strong>Material:</strong> Qualität, Verfügbarkeit, Lagerung</li>
+                <li><strong>Methode:</strong> Prozesse, Verfahren, Standards</li>
+                <li><strong>Milieu:</strong> Arbeitsumgebung, Klima, Organisation</li>
+            </ul>
+        </div>
+        
+        <div class="section-problemloesung">
+            <h2><span class="emoji">⚖️</span>Entscheidungstechniken</h2>
+            
+            <h3>Nutzwertanalyse</h3>
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Kriterium</th>
+                        <th>Gewichtung</th>
+                        <th>Option A</th>
+                        <th>Option B</th>
+                        <th>Option C</th>
+                    </tr>
+                    <tr>
+                        <td>Kosten</td>
+                        <td>40%</td>
+                        <td>7 (2.8)</td>
+                        <td>5 (2.0)</td>
+                        <td>8 (3.2)</td>
+                    </tr>
+                    <tr>
+                        <td>Qualität</td>
+                        <td>35%</td>
+                        <td>8 (2.8)</td>
+                        <td>9 (3.15)</td>
+                        <td>6 (2.1)</td>
+                    </tr>
+                    <tr>
+                        <td>Zeit</td>
+                        <td>25%</td>
+                        <td>6 (1.5)</td>
+                        <td>7 (1.75)</td>
+                        <td>9 (2.25)</td>
+                    </tr>
+                    <tr style="background: #fff3e0;">
+                        <td><strong>Total</strong></td>
+                        <td><strong>100%</strong></td>
+                        <td><strong>7.1</strong></td>
+                        <td><strong>6.9</strong></td>
+                        <td><strong>7.55</strong></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <h3>Pro-Contra-Liste Plus</h3>
+            <ul>
+                <li><strong>Klassische Pro-Contra:</strong> Argumente sammeln und gewichten</li>
+                <li><strong>Plus Bewertung:</strong> Argumente nach Wichtigkeit (1-10) bewerten</li>
+                <li><strong>Plus Wahrscheinlichkeit:</strong> Eintretenswahrscheinlichkeit einschätzen</li>
+                <li><strong>Gesamtbewertung:</strong> Gewichtung × Wahrscheinlichkeit</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Prüfungs-Tipp:</strong> Bei Fallstudien immer systematisch vorgehen: Problem definieren → Ursachen analysieren → Optionen entwickeln → Entscheidung begründen → Umsetzung planen!
+        </div>
+    </div>
+
+    <!-- Seite 5: Präsentationstechniken -->
+    <div class="page">
+        <h1>🎤 Präsentationstechniken</h1>
+        
+        <div class="section-praesentation">
+            <h2><span class="emoji">🎯</span>Präsentationsvorbereitung</h2>
+            
+            <h3>Zielgruppenanalyse</h3>
+            <ul>
+                <li><strong>Vorwissen:</strong> Welche Fachkenntnisse sind vorhanden?</li>
+                <li><strong>Erwartungen:</strong> Was will die Zielgruppe erreichen?</li>
+                <li><strong>Einstellung:</strong> Positiv, neutral oder skeptisch?</li>
+                <li><strong>Entscheidungsmacht:</strong> Wer kann was entscheiden?</li>
+            </ul>
+            
+            <h3>Dramaturgie und Struktur</h3>
+            <ul>
+                <li><strong>Einstieg (10%):</strong> Aufmerksamkeit gewinnen, Agenda vorstellen</li>
+                <li><strong>Hauptteil (80%):</strong> 3-5 Kernbotschaften mit Argumenten</li>
+                <li><strong>Schluss (10%):</strong> Zusammenfassung, Handlungsaufforderung</li>
+                <li><strong>Roter Faden:</strong> Übergänge zwischen Themen schaffen</li>
+            </ul>
+        </div>
+        
+        <div class="section-praesentation">
+            <h2><span class="emoji">💬</span>Rhetorische Techniken</h2>
+            
+            <h3>Sprache und Stimme</h3>
+            <ul>
+                <li><strong>Tempo:</strong> 120-150 Wörter pro Minute (langsamer bei komplexen Themen)</li>
+                <li><strong>Pausen:</strong> Bewusst einsetzen für Betonung und Verständnis</li>
+                <li><strong>Lautstärke:</strong> An Raumgrösse anpassen, variieren</li>
+                <li><strong>Artikulation:</strong> Deutlich sprechen, Mundart vermeiden</li>
+            </ul>
+            
+            <h3>Körpersprache</h3>
+            <ul>
+                <li><strong>Blickkontakt:</strong> 3-5 Sekunden pro Person, alle einbeziehen</li>
+                <li><strong>Gestik:</strong> Offene Handflächen, unterstützende Bewegungen</li>
+                <li><strong>Haltung:</strong> Aufrecht stehen, Gewicht auf beide Beine</li>
+                <li><strong>Bewegung:</strong> Gezielt im Raum bewegen, nicht nervös wippen</li>
+            </ul>
+        </div>
+        
+        <div class="section-praesentation">
+            <h2><span class="emoji">🖥️</span>Medien und Visualisierung</h2>
+            
+            <h3>PowerPoint-Regeln</h3>
+            <ul>
+                <li><strong>6x6-Regel:</strong> Max. 6 Zeilen mit je 6 Wörtern pro Folie</li>
+                <li><strong>Schriftgrösse:</strong> Mindestens 24pt für gute Lesbarkeit</li>
+                <li><strong>Kontrast:</strong> Dunkle Schrift auf hellem Hintergrund</li>
+                <li><strong>Animation:</strong> Sparsam einsetzen, nicht vom Inhalt ablenken</li>
+            </ul>
+            
+            <h3>Medienalternativen</h3>
+            <ul>
+                <li><strong>Flipchart:</strong> Interaktiv, spontan, persönlich</li>
+                <li><strong>Pinnwand:</strong> Für Gruppenprozesse und Ideensammlung</li>
+                <li><strong>Handouts:</strong> Detailinformationen zum Mitnehmen</li>
+                <li><strong>Demos:</strong> Produkte oder Prototypen zeigen</li>
+            </ul>
+        </div>
+        
+        <div class="section-praesentation">
+            <h2><span class="emoji">❓</span>Umgang mit Fragen und Einwänden</h2>
+            
+            <h3>Fragenmanagement</h3>
+            <ul>
+                <li><strong>Aktives Zuhören:</strong> Frage vollständig anhören und verstehen</li>
+                <li><strong>Paraphrasieren:</strong> "Wenn ich Sie richtig verstehe..."</li>
+                <li><strong>Bedenkzeit:</strong> "Das ist eine wichtige Frage, lassen Sie mich kurz überlegen"</li>
+                <li><strong>Ehrlichkeit:</strong> Bei Nichtwissen: "Das weiss ich nicht, ich kläre das ab"</li>
+            </ul>
+            
+            <h3>Schwierige Situationen</h3>
+            <ul>
+                <li><strong>Kritische Fragen:</strong> Sachlich bleiben, nicht defensiv werden</li>
+                <li><strong>Störungen:</strong> Freundlich aber bestimmt unterbrechen</li>
+                <li><strong>Zeitdruck:</strong> Prioritäten setzen, Kernbotschaften fokussieren</li>
+                <li><strong>Technikprobleme:</strong> Backup-Plan haben, Ruhe bewahren</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Prüfungs-Tipp:</strong> In mündlichen Prüfungen ist die Art der Präsentation oft wichtiger als der Inhalt. Zeigen Sie Sicherheit, Struktur und professionelle Ausstrahlung!
+        </div>
+    </div>
+
+    <!-- Seite 6: Flipchart & Visualisierung -->
+    <div class="page">
+        <h1>📊 Flipchart & Visualisierung</h1>
+        
+        <div class="section-flipchart">
+            <h2><span class="emoji">🎨</span>Flipchart-Techniken</h2>
+            
+            <h3>Grundausstattung</h3>
+            <ul>
+                <li><strong>Marker:</strong> Wasserbasis, verschiedene Strichstärken (dünn/dick)</li>
+                <li><strong>Farben:</strong> Schwarz/Blau für Text, Rot für Betonung, Grün für Positives</li>
+                <li><strong>Papier:</strong> Kariert oder mit Raster für gerade Linien</li>
+                <li><strong>Hilfsmittel:</strong> Lineal, Klebepunkte, Post-its</li>
+            </ul>
+            
+            <h3>Gestaltungsregeln</h3>
+            <ul>
+                <li><strong>Titel:</strong> Gross und zentral, ganze Blattbreite nutzen</li>
+                <li><strong>Schrift:</strong> Blockschrift, mindestens 2cm hoch für Lesbarkeit</li>
+                <li><strong>Struktur:</strong> Hierarchie durch Grösse und Farbe schaffen</li>
+                <li><strong>Weissraum:</strong> Nicht zu voll schreiben, Raum für Übersicht</li>
+            </ul>
+        </div>
+        
+        <div class="section-flipchart">
+            <h2><span class="emoji">🔍</span>Visualisierungsformen</h2>
+            
+            <h3>Mind Maps</h3>
+            <ul>
+                <li><strong>Zentrum:</strong> Hauptthema in der Mitte</li>
+                <li><strong>Äste:</strong> Hauptkategorien als dicke Linien</li>
+                <li><strong>Zweige:</strong> Unterthemen als dünnere Linien</li>
+                <li><strong>Farben:</strong> Pro Hauptast eine Farbe verwenden</li>
+            </ul>
+            
+            <h3>Prozessdarstellung</h3>
+            <ul>
+                <li><strong>Flussdiagramm:</strong> Rechtecke für Prozesse, Rauten für Entscheidungen</li>
+                <li><strong>Timeline:</strong> Chronologische Abläufe horizontal darstellen</li>
+                <li><strong>Swimlanes:</strong> Verantwortlichkeiten in Bahnen aufteilen</li>
+                <li><strong>Pfeile:</strong> Richtung und Abhängigkeiten zeigen</li>
+            </ul>
+        </div>
+        
+        <div class="section-flipchart">
+            <h2><span class="emoji">🎯</span>Praktische Moderationstechniken</h2>
+            
+            <h3>Ideensammlung</h3>
+            <ul>
+                <li><strong>Brainstorming:</strong> Alle Ideen sammeln, nicht bewerten</li>
+                <li><strong>Brainwriting:</strong> Erst schriftlich sammeln, dann vorstellen</li>
+                <li><strong>Kartenabfrage:</strong> Eine Idee pro Karte, sortieren</li>
+                <li><strong>6-3-5-Methode:</strong> 6 Personen, 3 Ideen, 5 Minuten</li>
+            </ul>
+            
+            <h3>Bewertung und Priorisierung</h3>
+            <ul>
+                <li><strong>Klebepunkte:</strong> Jeder Teilnehmer erhält 3-5 Punkte zum Vergeben</li>
+                <li><strong>Ampelkarten:</strong> Rot (contra), Gelb (neutral), Grün (pro)</li>
+                <li><strong>Aufwand-Nutzen-Matrix:</strong> Ideen nach Aufwand und Nutzen einordnen</li>
+                <li><strong>Fünf-Finger-Methode:</strong> Bewertung von 1-5 mit Handfingern</li>
+            </ul>
+        </div>
+        
+        <div class="section-flipchart">
+            <h2><span class="emoji">📝</span>Protokollierung und Dokumentation</h2>
+            
+            <h3>Live-Protokoll</h3>
+            <ul>
+                <li><strong>Mitschreiben:</strong> Kernaussagen während Diskussion festhalten</li>
+                <li><strong>Visualisieren:</strong> Struktur durch Symbole und Farben</li>
+                <li><strong>Validieren:</strong> "Habe ich das richtig verstanden?"</li>
+                <li><strong>Ergebnisse sichern:</strong> Flipcharts fotografieren oder abschreiben</li>
+            </ul>
+            
+            <h3>Action Items festhalten</h3>
+            <ul>
+                <li><strong>Was:</strong> Konkrete Aufgabe definieren</li>
+                <li><strong>Wer:</strong> Verantwortliche Person zuweisen</li>
+                <li><strong>Bis wann:</strong> Klare Termine setzen</li>
+                <li><strong>Ressourcen:</strong> Benötigte Mittel klären</li>
+            </ul>
+        </div>
+        
+        <div class="method-box">
+            <strong>Flipchart-Erfolgsformel:</strong><br>
+            1. Vorab vorbereiten (Rahmen vorzeichnen)<br>
+            2. Gross und deutlich schreiben<br>
+            3. Nur Stichworte, keine ganzen Sätze<br>
+            4. Farben gezielt einsetzen<br>
+            5. Mit dem Publikum sprechen, nicht mit der Wand<br>
+            6. Fehler überschreiben statt durchstreichen
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Standard:</strong> In der Schweiz wird grosser Wert auf saubere, strukturierte Visualisierungen gelegt. Investieren Sie Zeit in die Vorbereitung und üben Sie die Grundtechniken!
+        </div>
+    </div>
+
+    <!-- Seite 7: Glossar -->
+    <div class="page">
+        <h1>📚 Glossar</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ABC-Analyse</div>
+            <div class="glossar-def">Priorisierungsmethode: A-Aufgaben (wichtig), B-Aufgaben (nützlich), C-Aufgaben (nice-to-have)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ALPEN-Methode</div>
+            <div class="glossar-def">Tagesplanung: Aufgaben, Länge, Pufferzeit, Entscheidungen, Nachkontrolle</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Brainstorming</div>
+            <div class="glossar-def">Kreativitätstechnik: Alle Ideen sammeln ohne Bewertung, Quantität vor Qualität</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Brainwriting</div>
+            <div class="glossar-def">Stille Ideensammlung: Erst schriftlich festhalten, dann mündlich vorstellen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Chunking</div>
+            <div class="glossar-def">Grosse Aufgaben in kleinere, bearbeitbare Teilschritte zerlegen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Critical Incidents</div>
+            <div class="glossar-def">Kritische Ereignisse in der Prüfung, die schnelle Problemlösung erfordern</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Eisenhower-Matrix</div>
+            <div class="glossar-def">Priorisierung nach wichtig/unwichtig und dringend/nicht dringend</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Flipchart</div>
+            <div class="glossar-def">Visualisierungsmedium für Präsentationen und Workshops</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Ishikawa-Diagramm</div>
+            <div class="glossar-def">Ursache-Wirkungs-Diagramm (Fishbone): Mensch, Maschine, Material, Methode, Milieu</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kartenabfrage</div>
+            <div class="glossar-def">Moderationstechnik: Eine Idee pro Karte, anschliessend sortieren und clustern</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Mind Map</div>
+            <div class="glossar-def">Gedankenkarte mit zentralem Thema und verzweigten Ästen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Multitasking</div>
+            <div class="glossar-def">Gleichzeitige Bearbeitung mehrerer Aufgaben (meist ineffizient)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Nutzwertanalyse</div>
+            <div class="glossar-def">Bewertungsverfahren mit gewichteten Kriterien für objektive Entscheidungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Pareto-Prinzip</div>
+            <div class="glossar-def">80/20-Regel: 80% des Ergebnisses mit 20% des Aufwands erreichen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">PEAK-Methode</div>
+            <div class="glossar-def">Problemlösung: Planen, Entscheiden, Anordnen, Kontrollieren</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Pomodoro-Technik</div>
+            <div class="glossar-def">Zeitmanagement: 25 Min arbeiten, 5 Min Pause, nach 4 Zyklen längere Pause</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Postkorb-Technik</div>
+            <div class="glossar-def">Prüfungsformat: Systematische Bearbeitung verschiedener Aufgaben unter Zeitdruck</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Pro-Contra-Liste</div>
+            <div class="glossar-def">Entscheidungshilfe durch Gegenüberstellung von Argumenten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Prokrastination</div>
+            <div class="glossar-def">Aufschieberitis: Wichtige Aufgaben werden verzögert oder vermieden</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Quick Wins</div>
+            <div class="glossar-def">Einfache Aufgaben zuerst erledigen für schnelle Erfolgserlebnisse</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Root Cause</div>
+            <div class="glossar-def">Grundursache eines Problems (durch 5-Why-Technik ermittelt)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">6x6-Regel</div>
+            <div class="glossar-def">PowerPoint-Gestaltung: Maximal 6 Zeilen mit je 6 Wörtern pro Folie</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Swimlanes</div>
+            <div class="glossar-def">Prozessdarstellung mit getrennten Bahnen für verschiedene Verantwortlichkeiten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Timeboxing</div>
+            <div class="glossar-def">Feste Zeitblöcke für Aufgaben definieren und einhalten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Timeline</div>
+            <div class="glossar-def">Zeitstrahl zur chronologischen Darstellung von Ereignissen oder Prozessen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">5-Why-Technik</div>
+            <div class="glossar-def">Ursachenanalyse durch fünfmaliges Hinterfragen bis zur Grundursache</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">6-3-5-Methode</div>
+            <div class="glossar-def">Kreativitätstechnik: 6 Personen schreiben 3 Ideen in 5 Minuten auf</div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f3e5f5; border-radius: 10px; border-left: 4px solid #7B1FA2;">
+            <h3 style="color: #7B1FA2; margin-bottom: 15px;">🎯 Prüfungsrelevante Methoden</h3>
+            <p><strong>Besonders wichtig für die Prüfung:</strong></p>
+            <ul style="margin-top: 10px;">
+                <li><strong>Postkorb:</strong> Strukturiertes Arbeiten unter Zeitdruck zeigen</li>
+                <li><strong>PEAK-Methode:</strong> Systematische Problemlösung demonstrieren</li>
+                <li><strong>Präsentation:</strong> Professionelle Ausstrahlung und klare Struktur</li>
+                <li><strong>Eisenhower-Matrix:</strong> Prioritäten richtig setzen können</li>
+                <li><strong>Flipchart:</strong> Spontane Visualisierung beherrschen</li>
+                <li><strong>5-Why:</strong> Tiefere Ursachenanalyse durchführen</li>
+            </ul>
+            
+            <p style="margin-top: 15px;"><strong>💡 Erfolgstipp:</strong> Diese Methoden nicht nur kennen, sondern unter Prüfungsstress sicher anwenden können. Regelmässig üben und automatisieren!</p>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center; font-style: italic; color: #666;">
+            <p><strong>HF12: Prüfungsmethodik und Präsentationstechniken</strong><br>
+            Technische Kaufleute - Eidgenössische Berufsprüfung<br>
+            Methodensammlung für erfolgreiche Prüfungsabsolvierung</p>
+        </div>
+    </div>
+
+</body>
+</html>
