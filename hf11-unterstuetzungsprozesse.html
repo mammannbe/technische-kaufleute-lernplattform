@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF11: Unterstützungsprozesse - Factsheet</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; font-size: 11pt; }
+            .page { page-break-after: always; height: 100vh; }
+            .page:last-child { page-break-after: avoid; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: white;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        
+        /* Titel-Seite */
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.5em;
+            color: #7B2CBF;
+            margin-bottom: 20px;
+        }
+        
+        .title-page h2 {
+            font-size: 1.5em;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .toc h3 {
+            color: #7B2CBF;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .dot1 { background: #7B2CBF; }
+        .dot2 { background: #9D4EDD; }
+        .dot3 { background: #C77DFF; }
+        .dot4 { background: #E0AAFF; }
+        
+        .toc-left {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        /* Content-Seiten */
+        h1 {
+            color: #7B2CBF;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #7B2CBF;
+            padding-bottom: 5px;
+        }
+        
+        h2 {
+            color: #1a1a1a;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.1em;
+            margin: 15px 0 8px 0;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        /* Sektionen */
+        .section-qualitaet {
+            background: white;
+            border-left: 3px solid #7B2CBF;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-qualitaet h2 { color: #7B2CBF; background: white; }
+        
+        .section-normen {
+            background: white;
+            border-left: 3px solid #9D4EDD;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-normen h2 { color: #9D4EDD; background: white; }
+        
+        .section-nachhaltigkeit {
+            background: white;
+            border-left: 3px solid #C77DFF;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-nachhaltigkeit h2 { color: #C77DFF; background: white; }
+        
+        .section-sicherheit {
+            background: white;
+            border-left: 3px solid #E0AAFF;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-sicherheit h2 { color: #E0AAFF; background: white; }
+        
+        ul {
+            margin: 8px 0 15px 20px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+        
+        strong {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            padding: 12px;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .process-box {
+            background: #f3e5f5;
+            padding: 15px;
+            border-left: 4px solid #9c27b0;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .glossar-item {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #7B2CBF;
+            font-size: 1.05em;
+        }
+        
+        .glossar-def {
+            margin-top: 3px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #7B2CBF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .print-btn:hover {
+            background: #5A1F8B;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <!-- Seite 1: Titel und Inhaltsverzeichnis -->
+    <div class="page title-page">
+        <h1>Handlungsfeld 11</h1>
+        <h2>Unterstützungsprozesse</h2>
+        <p style="margin-bottom: 30px;">Technische Kaufleute - Eidgenössische Berufsprüfung</p>
+        
+        <div class="toc">
+            <h3>📋 Inhaltsverzeichnis</h3>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot1"></div>
+                    <span>Qualitätsmanagement & TQM</span>
+                </div>
+                <span>Seite 2</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot2"></div>
+                    <span>Normen & Standards</span>
+                </div>
+                <span>Seite 3</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot3"></div>
+                    <span>Nachhaltigkeit & Umwelt</span>
+                </div>
+                <span>Seite 4</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot4"></div>
+                    <span>IT-Sicherheit & Compliance</span>
+                </div>
+                <span>Seite 5</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot"></div>
+                    <span>Glossar</span>
+                </div>
+                <span>Seite 6</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: Qualitätsmanagement & TQM -->
+    <div class="page">
+        <h1>🏆 Qualitätsmanagement & TQM</h1>
+        
+        <div class="section-qualitaet">
+            <h2><span class="emoji">👥</span>Kundenerwartungen verstehen</h2>
+            
+            <h3>Kano-Modell der Kundenzufriedenheit</h3>
+            <ul>
+                <li><strong>Basisfaktoren:</strong> Selbstverständliche Erwartungen (müssen erfüllt sein)</li>
+                <li><strong>Leistungsfaktoren:</strong> Werden bewusst verlangt (je mehr, desto besser)</li>
+                <li><strong>Begeisterungsfaktoren:</strong> Nicht erwartet, führen zu positiven Reaktionen</li>
+                <li><strong>Praktische Anwendung:</strong> Produktentwicklung und Servicegestaltung</li>
+            </ul>
+            
+            <h3>Konfirmations-Diskonfirmations-Modell</h3>
+            <ul>
+                <li><strong>Wahrgenommene > Erwartete Leistung:</strong> Kundenzufriedenheit</li>
+                <li><strong>Wahrgenommene = Erwartete Leistung:</strong> Neutralität</li>
+                <li><strong>Wahrgenommene < Erwartete Leistung:</strong> Kundenunzufriedenheit</li>
+                <li><strong>Balance finden:</strong> Weder übertreiben noch enttäuschen</li>
+            </ul>
+        </div>
+        
+        <div class="section-qualitaet">
+            <h2><span class="emoji">⚙️</span>Qualität erzeugen</h2>
+            
+            <h3>4 Säulen des Qualitätsmanagements</h3>
+            <ul>
+                <li><strong>Qualitätsplanung:</strong> Standards und Ziele definieren</li>
+                <li><strong>Qualitätslenkung:</strong> Prozesse steuern und überwachen</li>
+                <li><strong>Qualitätssicherung:</strong> Systematische Maßnahmen implementieren</li>
+                <li><strong>Qualitätsverbesserung:</strong> Kontinuierliche Optimierung (KVP)</li>
+            </ul>
+            
+            <h3>Total Quality Management (TQM)</h3>
+            <ul>
+                <li><strong>Kundenorientierung:</strong> Alle Aktivitäten auf Kundenbedürfnisse ausrichten</li>
+                <li><strong>Mitarbeiterorientierung:</strong> Qualifikation und Motivation fördern</li>
+                <li><strong>Prozessorientierung:</strong> Abläufe systematisch optimieren</li>
+                <li><strong>Kontinuierliche Verbesserung:</strong> PDCA-Zyklus konsequent anwenden</li>
+            </ul>
+        </div>
+        
+        <div class="section-qualitaet">
+            <h2><span class="emoji">💰</span>Qualitätskosten verstehen</h2>
+            
+            <h3>Konformitäts- vs. Nichtkonformitätskosten</h3>
+            <ul>
+                <li><strong>Präventionskosten:</strong> Schulungen, Prozessdesign, Qualitätsplanung</li>
+                <li><strong>Prüfkosten:</strong> Kontrollen, Tests, Audits während der Produktion</li>
+                <li><strong>Interne Fehlerkosten:</strong> Nacharbeit, Ausschuss, Wiederbeschaffung</li>
+                <li><strong>Externe Fehlerkosten:</strong> Reklamationen, Garantieleistungen, Imageschäden</li>
+            </ul>
+            
+            <div class="process-box">
+                <strong>PDCA-Zyklus (Plan-Do-Check-Act):</strong><br>
+                Plan: Verbesserungen planen → Do: Maßnahmen umsetzen → Check: Ergebnisse messen → Act: Standardisieren oder erneut planen
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Qualitäts-Tipp:</strong> "Swiss Quality" ist ein Wettbewerbsvorteil - nutzen Sie dies in der Vermarktung und leben Sie die Qualitätsstandards konsequent vor.
+        </div>
+    </div>
+
+    <!-- Seite 3: Normen & Standards -->
+    <div class="page">
+        <h1>📜 Normen & Standards</h1>
+        
+        <div class="section-normen">
+            <h2><span class="emoji">🌐</span>ISO 9000-Familie</h2>
+            
+            <h3>Hauptnormen der ISO 9000-Serie</h3>
+            <ul>
+                <li><strong>ISO 9000:</strong> Grundlagen und Begriffe des Qualitätsmanagements</li>
+                <li><strong>ISO 9001:</strong> Anforderungen an Qualitätsmanagementsysteme (zertifizierbar)</li>
+                <li><strong>ISO 9004:</strong> Leitfaden zur Leistungsverbesserung</li>
+                <li><strong>Universell anwendbar:</strong> Für alle Branchen und Organisationsgrößen</li>
+            </ul>
+            
+            <h3>8-Stufen-Zyklus nach ISO 9001</h3>
+            <ul>
+                <li><strong>Stufe 1-2:</strong> Kundenerfordernisse ermitteln, Qualitätspolitik festlegen</li>
+                <li><strong>Stufe 3-4:</strong> Prozesse/Verantwortlichkeiten definieren, Ressourcen bereitstellen</li>
+                <li><strong>Stufe 5-6:</strong> Messmethoden festlegen und anwenden</li>
+                <li><strong>Stufe 7-8:</strong> Fehlerprävention etablieren, kontinuierliche Verbesserung einführen</li>
+            </ul>
+        </div>
+        
+        <div class="section-normen">
+            <h2><span class="emoji">🔍</span>Audits & Zertifizierung</h2>
+            
+            <h3>Audit-Arten und -Zwecke</h3>
+            <ul>
+                <li><strong>Internes Audit:</strong> Eigene Mitarbeitende prüfen interne Prozesse</li>
+                <li><strong>Lieferantenaudit:</strong> Bewertung der Lieferantenqualität</li>
+                <li><strong>Zertifizierungsaudit:</strong> Externe Stelle prüft für Zertifikat</li>
+                <li><strong>Überwachungsaudit:</strong> Jährliche Kontrolle nach Zertifizierung</li>
+            </ul>
+            
+            <h3>Zertifizierungsverfahren (4 Phasen)</h3>
+            <ul>
+                <li><strong>Vorbereitung:</strong> QMS dokumentieren und 3-6 Monate leben</li>
+                <li><strong>Stufe 1-Audit:</strong> Dokumentenprüfung durch Zertifizierer</li>
+                <li><strong>Stufe 2-Audit:</strong> Vor-Ort-Prüfung der Umsetzung</li>
+                <li><strong>Zertifikat:</strong> 3 Jahre gültig, jährliche Überwachungsaudits</li>
+            </ul>
+            
+            <h3>Stichprobenprüfung (AQL)</h3>
+            <ul>
+                <li><strong>Attributprüfung:</strong> Gut/Schlecht-Bewertung (z.B. Funktionstüchtigkeit)</li>
+                <li><strong>Variablenprüfung:</strong> Messbare Eigenschaften (z.B. Abmessungen)</li>
+                <li><strong>AQL (Acceptable Quality Level):</strong> Vereinbarte Fehlergrenze mit Lieferanten</li>
+                <li><strong>Prüfbericht:</strong> Basis für Reklamationen und Lieferantengespräche</li>
+            </ul>
+        </div>
+        
+        <div class="section-normen">
+            <h2><span class="emoji">🇨🇭</span>Schweizer Qualitätsstandards</h2>
+            
+            <h3>Nationale Normungsorganisationen</h3>
+            <ul>
+                <li><strong>SQS:</strong> Swiss Association for Quality and Management Systems</li>
+                <li><strong>SNV:</strong> Schweizerische Normen-Vereinigung</li>
+                <li><strong>SwissQuality:</strong> Schweizer Qualitätslabel für Produkte</li>
+                <li><strong>METAS:</strong> Bundesamt für Metrologie (Eichung und Kalibrierung)</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> ISO 9001-Zertifizierung dauert 6-12 Monate und kostet CHF 10'000-30'000. ROI durch verbesserte Prozesse und Marktvorteile meist nach 2-3 Jahren erreicht.
+        </div>
+    </div>
+
+    <!-- Seite 4: Nachhaltigkeit & Umwelt -->
+    <div class="page">
+        <h1>🌍 Nachhaltigkeit & Umwelt</h1>
+        
+        <div class="section-nachhaltigkeit">
+            <h2><span class="emoji">♻️</span>3 Dimensionen der Nachhaltigkeit</h2>
+            
+            <h3>Triple Bottom Line Ansatz</h3>
+            <ul>
+                <li><strong>Ökonomie:</strong> Wirtschaftlicher Erfolg und Rentabilität langfristig sichern</li>
+                <li><strong>Ökologie:</strong> Umweltressourcen schonen und Kreislaufwirtschaft fördern</li>
+                <li><strong>Soziales:</strong> Faire Arbeitsbedingungen und gesellschaftliche Verantwortung</li>
+                <li><strong>Balance:</strong> Alle drei Dimensionen gleichgewichtig berücksichtigen</li>
+            </ul>
+            
+            <h3>Kreislaufwirtschaft umsetzen</h3>
+            <ul>
+                <li><strong>Reduce:</strong> Materialverbrauch und Abfälle reduzieren</li>
+                <li><strong>Reuse:</strong> Produkte und Materialien wiederverwenden</li>
+                <li><strong>Recycle:</strong> Rohstoffe zurückgewinnen und aufbereiten</li>
+                <li><strong>Repair:</strong> Lebensdauer durch Reparaturen verlängern</li>
+            </ul>
+        </div>
+        
+        <div class="section-nachhaltigkeit">
+            <h2><span class="emoji">🗂️</span>Entsorgungskonzept entwickeln</h2>
+            
+            <h3>Analyse-Phase (4 Schritte)</h3>
+            <ul>
+                <li><strong>Entsorgungsobjekte erfassen:</strong> Was muss entsorgt werden?</li>
+                <li><strong>Bestehende Ströme erfassen:</strong> Aktuelle Entsorgungswege dokumentieren</li>
+                <li><strong>Transport & Lagersysteme:</strong> Vorhandene Infrastruktur bewerten</li>
+                <li><strong>Bereiche und Stellen:</strong> Zuständigkeiten und Verantwortungen klären</li>
+            </ul>
+            
+            <h3>Konzept-Phase (7 Elemente)</h3>
+            <ul>
+                <li><strong>Ziele festlegen:</strong> Ökologische und ökonomische Ziele definieren</li>
+                <li><strong>Entsorgungsobjekte definieren:</strong> Kategorisierung nach Stoffgruppen</li>
+                <li><strong>Sammelort bestimmen:</strong> Zentrale oder dezentrale Sammlung</li>
+                <li><strong>Bereitstellung organisieren:</strong> Behälter und Logistikkonzept</li>
+            </ul>
+        </div>
+        
+        <div class="section-nachhaltigkeit">
+            <h2><span class="emoji">🌱</span>Umweltmanagementsystem (ISO 14001)</h2>
+            
+            <h3>Umweltpolitik und Planung</h3>
+            <ul>
+                <li><strong>Umweltaspekte identifizieren:</strong> Auswirkungen auf Luft, Wasser, Boden</li>
+                <li><strong>Rechtliche Verpflichtungen:</strong> Umweltgesetze und Auflagen einhalten</li>
+                <li><strong>Umweltziele setzen:</strong> Messbare Verbesserungsziele definieren</li>
+                <li><strong>Umweltprogramm:</strong> Maßnahmenplan zur Zielerreichung</li>
+            </ul>
+            
+            <h3>Schweizer Umweltgesetze</h3>
+            <ul>
+                <li><strong>USG:</strong> Umweltschutzgesetz - Grundgesetz für Umweltschutz</li>
+                <li><strong>VVEA:</strong> Verordnung über Vermeidung und Entsorgung von Abfällen</li>
+                <li><strong>ChemG:</strong> Chemikaliengesetz - Umgang mit gefährlichen Stoffen</li>
+                <li><strong>CO₂-Gesetz:</strong> Klimaschutz und Emissionsreduktion</li>
+            </ul>
+        </div>
+        
+        <div class="section-nachhaltigkeit">
+            <h2><span class="emoji">📊</span>Nachhaltigkeits-Controlling</h2>
+            
+            <h3>ESG-Kriterien messen</h3>
+            <ul>
+                <li><strong>Environmental:</strong> CO₂-Fußabdruck, Ressourcenverbrauch, Abfallquoten</li>
+                <li><strong>Social:</strong> Mitarbeiterzufriedenheit, Diversity, Gesundheitsschutz</li>
+                <li><strong>Governance:</strong> Compliance, Transparenz, Risikomanagement</li>
+                <li><strong>Reporting:</strong> Nachhaltigkeitsbericht nach GRI-Standards</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Vorteil:</strong> Hohe Umweltstandards als Qualitätsmerkmal nutzen - "Swiss Quality" umfasst auch Nachhaltigkeit und ist ein starkes Verkaufsargument!
+        </div>
+    </div>
+
+    <!-- Seite 5: IT-Sicherheit & Compliance -->
+    <div class="page">
+        <h1>🔒 IT-Sicherheit & Compliance</h1>
+        
+        <div class="section-sicherheit">
+            <h2><span class="emoji">🛡️</span>VIVA-Ziele der IT-Sicherheit</h2>
+            
+            <h3>4 Schutzziele definieren</h3>
+            <ul>
+                <li><strong>Verfügbarkeit:</strong> Systeme sind verfügbar, wenn sie benötigt werden</li>
+                <li><strong>Integrität:</strong> Daten sind unverändert und korrekt</li>
+                <li><strong>Vertraulichkeit:</strong> Nur autorisierte Personen haben Zugriff</li>
+                <li><strong>Authentizität:</strong> Identität von Benutzern ist nachprüfbar</li>
+            </ul>
+            
+            <h3>IT-Grundschutz nach BSI</h3>
+            <ul>
+                <li><strong>Gebäude und Infrastruktur:</strong> Physische Sicherheitsmaßnahmen</li>
+                <li><strong>Hard- & Software:</strong> Technische Schutzmaßnahmen implementieren</li>
+                <li><strong>Personal & Organisation:</strong> Organisatorische Sicherheitsrichtlinien</li>
+                <li><strong>Kommunikation:</strong> Sichere Datenübertragung gewährleisten</li>
+            </ul>
+        </div>
+        
+        <div class="section-sicherheit">
+            <h2><span class="emoji">🔐</span>Datenschutz & Compliance</h2>
+            
+            <h3>Schweizer Datenschutzgesetz (DSG neu seit 1.9.2023)</h3>
+            <ul>
+                <li><strong>Personendaten:</strong> Alle Angaben über bestimmte/bestimmbare Personen</li>
+                <li><strong>Zweckbindung:</strong> Daten nur für angegebenen Zweck verwenden</li>
+                <li><strong>Verhältnismäßigkeit:</strong> Nur notwendige Daten erheben und bearbeiten</li>
+                <li><strong>Transparenz:</strong> Betroffene über Datenbearbeitung informieren</li>
+            </ul>
+            
+            <h3>Backup & Notfallvorsorge</h3>
+            <ul>
+                <li><strong>3-2-1-Regel:</strong> 3 Kopien, 2 verschiedene Medien, 1 externes Backup</li>
+                <li><strong>USV:</strong> Unterbrechungsfreie Stromversorgung für kritische Systeme</li>
+                <li><strong>RAID:</strong> Redundante Festplattensysteme gegen Ausfälle</li>
+                <li><strong>Business Continuity:</strong> Notfallpläne für Geschäftskontinuität</li>
+            </ul>
+        </div>
+        
+        <div class="section-sicherheit">
+            <h2><span class="emoji">⚖️</span>Arbeitssicherheit & SUVA</h2>
+            
+            <h3>Arbeitssicherheit umsetzen</h3>
+            <ul>
+                <li><strong>ArG (Arbeitsgesetz):</strong> Arbeitszeiten und Schutzbestimmungen</li>
+                <li><strong>UVG (Unfallversicherung):</strong> Verhütung von Berufsunfällen</li>
+                <li><strong>SUVA-Richtlinien:</strong> Branchenspezifische Sicherheitsvorschriften</li>
+                <li><strong>Sicherheitsbeauftragte:</strong> Schulung und Verantwortlichkeiten</li>
+            </ul>
+            
+            <h3>Ergonomie am Arbeitsplatz</h3>
+            <ul>
+                <li><strong>Bildschirmarbeitsplätze:</strong> Richtige Höhe, Beleuchtung, Pausen</li>
+                <li><strong>Hebe- und Tragetechniken:</strong> Rückenschonende Arbeitsweisen</li>
+                <li><strong>Lärmschutz:</strong> Grenzwerte einhalten, Gehörschutz bereitstellen</li>
+                <li><strong>Gefahrstoffe:</strong> Sichere Lagerung und Handhabung chemischer Stoffe</li>
+            </ul>
+        </div>
+        
+        <div class="section-sicherheit">
+            <h2><span class="emoji">📋</span>Compliance-Management</h2>
+            
+            <h3>Gesetzes- und Normenkonformität</h3>
+            <ul>
+                <li><strong>Legal Compliance:</strong> Einhaltung aller relevanten Gesetze</li>
+                <li><strong>Standard Compliance:</strong> Befolgung von Branchen- und ISO-Normen</li>
+                <li><strong>Interne Compliance:</strong> Einhaltung unternehmensinterner Richtlinien</li>
+                <li><strong>Monitoring:</strong> Regelmäßige Überprüfung der Einhaltung</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Besonderheit:</strong> Das neue DSG bringt verschärfte Sanktionen (bis CHF 250'000). Investieren Sie in Datenschutz-Schulungen und technische Schutzmaßnahmen!
+        </div>
+    </div>
+
+    <!-- Seite 6: Glossar -->
+    <div class="page">
+        <h1>📚 Glossar</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">AQL (Acceptable Quality Level)</div>
+            <div class="glossar-def">Vereinbarte Fehlergrenze mit Lieferanten für Stichprobenprüfungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ArG (Arbeitsgesetz)</div>
+            <div class="glossar-def">Schweizer Bundesgesetz über Arbeitszeiten und Schutzbestimmungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Attributprüfung</div>
+            <div class="glossar-def">Gut/Schlecht-Bewertung ohne Messung (z.B. Funktionstüchtigkeit)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Audit</div>
+            <div class="glossar-def">Systematische Überprüfung von Prozessen, Systemen oder Dokumenten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Authentizität</div>
+            <div class="glossar-def">IT-Sicherheitsziel: Identität von Benutzern ist eindeutig nachprüfbar</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Basisfaktoren</div>
+            <div class="glossar-def">Kano-Modell: Selbstverständliche Kundenerwartungen (müssen erfüllt sein)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Begeisterungsfaktoren</div>
+            <div class="glossar-def">Kano-Modell: Nicht erwartete Features, die positive Reaktionen auslösen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Business Continuity</div>
+            <div class="glossar-def">Geschäftskontinuität durch Notfallpläne und Backup-Systeme sicherstellen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ChemG (Chemikaliengesetz)</div>
+            <div class="glossar-def">Schweizer Gesetz für den sicheren Umgang mit chemischen Stoffen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Compliance</div>
+            <div class="glossar-def">Einhaltung von Gesetzen, Normen und internen Unternehmensrichtlinien</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">CO₂-Gesetz</div>
+            <div class="glossar-def">Schweizer Klimaschutzgesetz zur Reduktion von Treibhausgasemissionen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">DSG (Datenschutzgesetz)</div>
+            <div class="glossar-def">Schweizer Gesetz zum Schutz von Personendaten (verschärft seit 1.9.2023)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ESG-Kriterien</div>
+            <div class="glossar-def">Environmental, Social, Governance - Nachhaltigkeitsbewertung von Unternehmen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Integrität</div>
+            <div class="glossar-def">IT-Sicherheitsziel: Daten sind unverändert, vollständig und korrekt</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ISO 9000</div>
+            <div class="glossar-def">Internationale Normenreihe für Qualitätsmanagementsysteme</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ISO 9001</div>
+            <div class="glossar-def">Zertifizierbare Norm mit Anforderungen an Qualitätsmanagementsysteme</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">ISO 14001</div>
+            <div class="glossar-def">Internationale Norm für Umweltmanagementsysteme</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kano-Modell</div>
+            <div class="glossar-def">Modell zur Kategorisierung von Kundenerwartungen (Basis-, Leistungs-, Begeisterungsfaktoren)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kreislaufwirtschaft</div>
+            <div class="glossar-def">Wirtschaftsmodell: Reduce, Reuse, Recycle, Repair zur Ressourcenschonung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">KVP (Kontinuierlicher Verbesserungsprozess)</div>
+            <div class="glossar-def">Systematische, schrittweise Optimierung von Prozessen und Produkten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Leistungsfaktoren</div>
+            <div class="glossar-def">Kano-Modell: Bewusst verlangte Eigenschaften (je mehr, desto besser)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">METAS</div>
+            <div class="glossar-def">Eidgenössisches Institut für Metrologie (Eichung und Kalibrierung)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">PDCA-Zyklus</div>
+            <div class="glossar-def">Plan-Do-Check-Act: Systematischer Verbesserungskreislauf</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Qualitätslenkung</div>
+            <div class="glossar-def">Operative Tätigkeiten zur Erfüllung von Qualitätsanforderungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Qualitätsplanung</div>
+            <div class="glossar-def">Festlegung von Qualitätszielen und Spezifikationen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Qualitätssicherung</div>
+            <div class="glossar-def">Systematische Maßnahmen zur Sicherstellung der Qualitätsanforderungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">RAID</div>
+            <div class="glossar-def">Redundant Array of Independent Disks - Ausfallsichere Festplattensysteme</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SQS</div>
+            <div class="glossar-def">Swiss Association for Quality and Management Systems - Schweizer Zertifizierungsstelle</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SUVA</div>
+            <div class="glossar-def">Schweizerische Unfallversicherungsanstalt - Arbeitssicherheit und Gesundheitsschutz</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Swiss Quality</div>
+            <div class="glossar-def">Schweizer Qualitätslabel und Wettbewerbsvorteil für Produkte "Made in Switzerland"</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">TQM (Total Quality Management)</div>
+            <div class="glossar-def">Umfassendes Qualitätsmanagement-Konzept mit Fokus auf Kunden-, Mitarbeiter- und Prozessorientierung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Triple Bottom Line</div>
+            <div class="glossar-def">3 Dimensionen der Nachhaltigkeit: Ökonomie, Ökologie, Soziales</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">USG (Umweltschutzgesetz)</div>
+            <div class="glossar-def">Schweizer Grundgesetz für den Umweltschutz</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">USV</div>
+            <div class="glossar-def">Unterbrechungsfreie Stromversorgung zum Schutz vor Stromausfällen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">UVG (Unfallversicherungsgesetz)</div>
+            <div class="glossar-def">Schweizer Gesetz zur Verhütung von Berufs- und Nichtberufsunfällen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Variablenprüfung</div>
+            <div class="glossar-def">Messung quantitativer Merkmale (z.B. Länge, Gewicht, Temperatur)</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Verfügbarkeit</div>
+            <div class="glossar-def">IT-Sicherheitsziel: Systeme sind verfügbar, wenn sie benötigt werden</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Vertraulichkeit</div>
+            <div class="glossar-def">IT-Sicherheitsziel: Nur autorisierte Personen haben Zugriff auf Daten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">VIVA-Ziele</div>
+            <div class="glossar-def">IT-Sicherheitsziele: Verfügbarkeit, Integrität, Vertraulichkeit, Authentizität</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">VVEA</div>
+            <div class="glossar-def">Schweizer Verordnung über die Vermeidung und die Entsorgung von Abfällen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">3-2-1-Regel</div>
+            <div class="glossar-def">Backup-Strategie: 3 Kopien, 2 verschiedene Medien, 1 externes Backup</div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f8f4ff; border-radius: 10px; border-left: 4px solid #7B2CBF;">
+            <h3 style="color: #7B2CBF; margin-bottom: 15px;">📋 Prüfungsrelevante Schwerpunkte</h3>
+            <p><strong>Fokus auf:</strong></p>
+            <ul style="margin-top: 10px;">
+                <li>Kano-Modell und Kundenerwartungen praktisch anwenden</li>
+                <li>ISO 9001-Zertifizierungsverfahren und PDCA-Zyklus</li>
+                <li>TQM-Grundpfeiler und Qualitätskosten verstehen</li>
+                <li>Schweizer Umweltgesetze (USG, VVEA, ChemG, DSG neu)</li>
+                <li>VIVA-Ziele der IT-Sicherheit und Backup-Strategien</li>
+                <li>Entsorgungskonzept entwickeln und Kreislaufwirtschaft</li>
+                <li>SUVA-Richtlinien und Arbeitssicherheit am Arbeitsplatz</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
+        
