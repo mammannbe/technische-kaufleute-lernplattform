@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF14: Prozessmanagement - Factsheet</title>
+    <style>
+        /* ====================================
+           UNIVERSELLER DRUCK-CSS BLOCK
+           Einfach am Anfang jedes Factsheets einfügen
+           ==================================== */
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            body { 
+                margin: 0 !important; 
+                padding: 0 !important; 
+                font-size: 10pt !important;
+                line-height: 1.2 !important;
+            }
+            
+            .page { 
+                width: 210mm !important;
+                min-height: auto !important;
+                max-height: none !important;
+                padding: 20mm 15mm !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+                page-break-after: always !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            
+            .page:last-child { 
+                page-break-after: avoid !important; 
+            }
+            
+            /* Verhindert ungünstige Umbrüche */
+            .section, .section-* {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            .table-box, .highlight, .process-box, .method-box {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            .glossar-item {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            /* Schriftgrößen anpassen */
+            h1 { font-size: 16pt !important; margin-bottom: 15px !important; }
+            h2 { font-size: 13pt !important; margin: 15px 0 10px 0 !important; }
+            h3 { font-size: 11pt !important; margin: 10px 0 8px 0 !important; }
+            
+            ul, li { 
+                font-size: 9pt !important; 
+                line-height: 1.3 !important;
+                margin-bottom: 4px !important;
+            }
+            
+            /* Tabellen druckfreundlich */
+            .table-box table {
+                font-size: 8pt !important;
+                width: 100% !important;
+            }
+            
+            .table-box th, .table-box td {
+                padding: 4px 6px !important;
+                border: 1px solid #333 !important;
+            }
+            
+            /* Verstecke Print-Button */
+            .print-btn, .no-print {
+                display: none !important;
+            }
+            
+            /* Hintergrundfarben für Drucker erzwingen */
+            .highlight {
+                background: white !important;
+                border: 1px solid #ff9800 !important;
+                box-shadow: none !important;
+            }
+            
+            /* Erzwinge wichtige Textfarben */
+            .glossar-term, .section h2, h1 {
+                color: #333 !important; /* Fallback für problematische Drucker */
+            }
+            
+            /* Bessere Zeilenumbrüche */
+            .toc-item, .glossar-item {
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+            
+            /* Kompakteres Layout für mehr Inhalt */
+            .section {
+                margin-bottom: 15px !important;
+                padding-left: 10px !important;
+            }
+            
+            .emoji {
+                display: none !important; /* Emojis können Probleme verursachen */
+            }
+        }
+
+        /* Zusätzliche Screen-Optimierungen */
+        @media screen {
+            .page {
+                width: 210mm;
+                margin: 0 auto 20px;
+                padding: 20mm;
+                background: white;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                box-sizing: border-box;
+            }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: white;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        
+        /* Titel-Seite */
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.5em;
+            color: #D32F2F;
+            margin-bottom: 20px;
+        }
+        
+        .title-page h2 {
+            font-size: 1.5em;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .toc h3 {
+            color: #D32F2F;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .dot1 { background: #D32F2F; }
+        .dot2 { background: #F44336; }
+        .dot3 { background: #FF5722; }
+        .dot4 { background: #FF9800; }
+        .dot5 { background: #FFC107; }
+        
+        .toc-left {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        /* Content-Seiten */
+        h1 {
+            color: #D32F2F;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #D32F2F;
+            padding-bottom: 5px;
+        }
+        
+        h2 {
+            color: #1a1a1a;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.1em;
+            margin: 15px 0 8px 0;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        /* Sektionen */
+        .section-grundlagen {
+            background: white;
+            border-left: 3px solid #D32F2F;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-grundlagen h2 { color: #D32F2F; background: white; }
+        
+        .section-modellierung {
+            background: white;
+            border-left: 3px solid #F44336;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-modellierung h2 { color: #F44336; background: white; }
+        
+        .section-optimierung {
+            background: white;
+            border-left: 3px solid #FF5722;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-optimierung h2 { color: #FF5722; background: white; }
+        
+        .section-implementierung {
+            background: white;
+            border-left: 3px solid #FF9800;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-implementierung h2 { color: #FF9800; background: white; }
+        
+        .section-digitalisierung {
+            background: white;
+            border-left: 3px solid #FFC107;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-digitalisierung h2 { color: #F57C00; background: white; }
+        
+        ul {
+            margin: 8px 0 15px 20px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+        
+        strong {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            padding: 12px;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .method-box {
+            background: #f3e5f5;
+            padding: 15px;
+            border-left: 4px solid #9c27b0;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .table-box {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .table-box table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .table-box th {
+            background: #D32F2F;
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .table-box td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .table-box tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .glossar-item {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #D32F2F;
+            font-size: 1.05em;
+        }
+        
+        .glossar-def {
+            margin-top: 3px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #D32F2F;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .print-btn:hover {
+            background: #B71C1C;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <!-- Seite 1: Titel und Inhaltsverzeichnis -->
+    <div class="page title-page">
+        <h1>Handlungsfeld 14</h1>
+        <h2>Prozessmanagement</h2>
+        <p style="margin-bottom: 30px;">Technische Kaufleute - Erweiterte Kompetenzen</p>
+        
+        <div class="toc">
+            <h3>📋 Inhaltsverzeichnis</h3>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot1"></div>
+                    <span>Prozessmanagement Grundlagen</span>
+                </div>
+                <span>Seite 2</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot2"></div>
+                    <span>Prozessmodellierung & -design</span>
+                </div>
+                <span>Seite 3</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot3"></div>
+                    <span>Prozessoptimierung & KVP</span>
+                </div>
+                <span>Seite 4</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot4"></div>
+                    <span>Change Management & Implementierung</span>
+                </div>
+                <span>Seite 5</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot5"></div>
+                    <span>Digitalisierung & Automatisierung</span>
+                </div>
+                <span>Seite 6</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot"></div>
+                    <span>Glossar</span>
+                </div>
+                <span>Seite 7</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: Prozessmanagement Grundlagen -->
+    <div class="page">
+        <h1>⚙️ Prozessmanagement Grundlagen</h1>
+        
+        <div class="section-grundlagen">
+            <h2><span class="emoji">🎯</span>Prozessdefinition & -arten</h2>
+            
+            <h3>Was ist ein Prozess?</h3>
+            <ul>
+                <li><strong>Definition:</strong> Aufeinanderfolgende Aktivitäten zur Wertsteigerung</li>
+                <li><strong>Input-Transformation-Output:</strong> Eingaben werden zu definierten Ergebnissen</li>
+                <li><strong>Wiederholbarkeit:</strong> Standardisierte Abläufe mit messbaren Resultaten</li>
+                <li><strong>Kundenorientierung:</strong> Jeder Prozess hat interne oder externe Kunden</li>
+            </ul>
+            
+            <h3>Prozesstypen</h3>
+            <ul>
+                <li><strong>Kernprozesse:</strong> Wertschöpfende Hauptaktivitäten (Produktion, Verkauf)</li>
+                <li><strong>Unterstützungsprozesse:</strong> Ermöglichen Kernprozesse (HR, IT, Beschaffung)</li>
+                <li><strong>Führungsprozesse:</strong> Steuerung und Kontrolle (Strategieentwicklung, Controlling)</li>
+                <li><strong>Operative vs. strategische Prozesse:</strong> Tagesgeschäft vs. langfristige Ausrichtung</li>
+            </ul>
+        </div>
+        
+        <div class="section-grundlagen">
+            <h2><span class="emoji">📊</span>Prozesslandkarte entwickeln</h2>
+            
+            <h3>Hierarchie-Ebenen</h3>
+            <ul>
+                <li><strong>Makroprozesse:</strong> End-to-End Prozesse (Order-to-Cash, Procure-to-Pay)</li>
+                <li><strong>Prozesse:</strong> Funktionsübergreifende Abläufe</li>
+                <li><strong>Subprozesse:</strong> Teilprozesse innerhalb einer Funktion</li>
+                <li><strong>Aktivitäten:</strong> Einzelne Arbeitsschritte</li>
+            </ul>
+            
+            <h3>Prozesslandkarte erstellen</h3>
+            <ul>
+                <li><strong>Horizontale Darstellung:</strong> Prozessfluss von links nach rechts</li>
+                <li><strong>Vertikale Struktur:</strong> Führungs-, Kern- und Unterstützungsprozesse</li>
+                <li><strong>Schnittstellen:</strong> Übergabepunkte zwischen Prozessen markieren</li>
+                <li><strong>Prozesseigner:</strong> Verantwortlichkeiten klar zuordnen</li>
+            </ul>
+        </div>
+        
+        <div class="section-grundlagen">
+            <h2><span class="emoji">📏</span>Prozess-KPIs & Messgrößen</h2>
+            
+            <h3>Leistungsdimensionen</h3>
+            <ul>
+                <li><strong>Zeit:</strong> Durchlaufzeit, Zykluszeit, Wartezeiten</li>
+                <li><strong>Qualität:</strong> Fehlerrate, First-Pass-Yield, Kundenzufriedenheit</li>
+                <li><strong>Kosten:</strong> Prozesskosten, Stückkosten, Ressourcenverbrauch</li>
+                <li><strong>Flexibilität:</strong> Anpassungsfähigkeit, Skalierbarkeit</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>KPI-Kategorie</th>
+                        <th>Beispiel-Kennzahl</th>
+                        <th>Zielwert-Beispiel</th>
+                    </tr>
+                    <tr>
+                        <td>Durchlaufzeit</td>
+                        <td>Order-to-Delivery</td>
+                        <td>< 5 Arbeitstage</td>
+                    </tr>
+                    <tr>
+                        <td>Qualität</td>
+                        <td>Reklamationsquote</td>
+                        <td>< 2%</td>
+                    </tr>
+                    <tr>
+                        <td>Kosten</td>
+                        <td>Prozesskosten/Auftrag</td>
+                        <td>< CHF 50</td>
+                    </tr>
+                    <tr>
+                        <td>Produktivität</td>
+                        <td>Aufträge/Mitarbeiter/Tag</td>
+                        <td>> 15</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Besonderheit:</strong> In der Schweiz ist Prozessqualität oft wichtiger als reine Geschwindigkeit - "Gründlichkeit vor Schnelligkeit" prägt die Unternehmenskultur.
+        </div>
+    </div>
+
+    <!-- Seite 3: Prozessmodellierung & -design -->
+    <div class="page">
+        <h1>📐 Prozessmodellierung & -design</h1>
+        
+        <div class="section-modellierung">
+            <h2><span class="emoji">🔄</span>Modellierungsnotationen</h2>
+            
+            <h3>BPMN (Business Process Model and Notation)</h3>
+            <ul>
+                <li><strong>Ereignisse:</strong> Kreise für Start, Zwischen und End-Events</li>
+                <li><strong>Aktivitäten:</strong> Rechtecke für Aufgaben und Subprozesse</li>
+                <li><strong>Gateways:</strong> Rauten für Entscheidungen und Parallelisierung</li>
+                <li><strong>Sequenzfluss:</strong> Pfeile zeigen Reihenfolge der Aktivitäten</li>
+            </ul>
+            
+            <h3>Einfache Flussdiagramme</h3>
+            <ul>
+                <li><strong>Rechtecke:</strong> Prozessschritte und Aktivitäten</li>
+                <li><strong>Rauten:</strong> Entscheidungspunkte mit Ja/Nein-Ausgängen</li>
+                <li><strong>Ovale:</strong> Start- und Endpunkte des Prozesses</li>
+                <li><strong>Pfeile:</strong> Prozessfluss und Reihenfolge</li>
+            </ul>
+        </div>
+        
+        <div class="section-modellierung">
+            <h2><span class="emoji">👥</span>Rollen & Verantwortlichkeiten</h2>
+            
+            <h3>RACI-Matrix anwenden</h3>
+            <ul>
+                <li><strong>Responsible:</strong> Führt die Aktivität aus</li>
+                <li><strong>Accountable:</strong> Rechenschaftspflichtig für Ergebnis</li>
+                <li><strong>Consulted:</strong> Wird vor Entscheidung konsultiert</li>
+                <li><strong>Informed:</strong> Wird über Ergebnis informiert</li>
+            </ul>
+            
+            <h3>Swimlane-Diagramme</h3>
+            <ul>
+                <li><strong>Horizontale Bahnen:</strong> Verschiedene Rollen oder Abteilungen</li>
+                <li><strong>Vertikaler Prozessfluss:</strong> Chronologische Abfolge</li>
+                <li><strong>Übergabepunkte:</strong> Schnittstellen zwischen Bahnen markieren</li>
+                <li><strong>Verantwortungsbereiche:</strong> Klarstellung wer was macht</li>
+            </ul>
+        </div>
+        
+        <div class="section-modellierung">
+            <h2><span class="emoji">🔍</span>Ist-Prozess-Analyse</h2>
+            
+            <h3>Analysemethoden</h3>
+            <ul>
+                <li><strong>Beobachtung:</strong> Direkte Prozessbeobachtung vor Ort</li>
+                <li><strong>Interviews:</strong> Gespräche mit Prozessbeteiligten</li>
+                <li><strong>Workshops:</strong> Gemeinsame Prozessmodellierung</li>
+                <li><strong>Dokumentenanalyse:</strong> Arbeitsanweisungen und Checklisten</li>
+            </ul>
+            
+            <h3>Schwachstellenidentifikation</h3>
+            <ul>
+                <li><strong>Wartezeiten:</strong> Leerlauf zwischen Aktivitäten</li>
+                <li><strong>Medienbrüche:</strong> Wechsel zwischen digital und analog</li>
+                <li><strong>Doppelarbeiten:</strong> Redundante Prüfungen oder Eingaben</li>
+                <li><strong>Bottlenecks:</strong> Kapazitätsengpässe im Prozessfluss</li>
+            </ul>
+        </div>
+        
+        <div class="section-modellierung">
+            <h2><span class="emoji">🎨</span>Soll-Prozess-Design</h2>
+            
+            <h3>Design-Prinzipien</h3>
+            <ul>
+                <li><strong>Kundenorientierung:</strong> Prozess aus Kundensicht gestalten</li>
+                <li><strong>Verschlankung:</strong> Überflüssige Schritte eliminieren</li>
+                <li><strong>Parallelisierung:</strong> Sequenzielle durch parallele Abläufe ersetzen</li>
+                <li><strong>Automatisierung:</strong> Manuelle durch automatische Schritte ersetzen</li>
+            </ul>
+            
+            <div class="method-box">
+                <strong>SIPOC-Analyse für Prozessdesign:</strong><br>
+                Suppliers: Wer liefert Input?<br>
+                Inputs: Was wird benötigt?<br>
+                Process: Wie wird transformiert?<br>
+                Outputs: Was wird produziert?<br>
+                Customers: Wer erhält Output?
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Beginnen Sie mit der Modellierung einfacher Kernprozesse. Zu detaillierte Modelle werden oft nicht aktuell gehalten und verlieren schnell an Wert.
+        </div>
+    </div>
+
+    <!-- Seite 4: Prozessoptimierung & KVP -->
+    <div class="page">
+        <h1>🚀 Prozessoptimierung & KVP</h1>
+        
+        <div class="section-optimierung">
+            <h2><span class="emoji">📈</span>Kontinuierlicher Verbesserungsprozess</h2>
+            
+            <h3>PDCA-Zyklus</h3>
+            <ul>
+                <li><strong>Plan:</strong> Problem analysieren, Lösungen entwickeln</li>
+                <li><strong>Do:</strong> Pilottest oder kleine Umsetzung</li>
+                <li><strong>Check:</strong> Ergebnisse messen und bewerten</li>
+                <li><strong>Act:</strong> Standards anpassen oder erneut planen</li>
+            </ul>
+            
+            <h3>Kaizen-Philosophie</h3>
+            <ul>
+                <li><strong>Kleine Schritte:</strong> Viele kleine Verbesserungen statt Revolutionen</li>
+                <li><strong>Mitarbeitereinbezug:</strong> Jeder kann und soll Verbesserungen vorschlagen</li>
+                <li><strong>Kontinuität:</strong> Regelmäßige, systematische Optimierung</li>
+                <li><strong>Gemba-Walk:</strong> Führungskräfte gehen dorthin wo Arbeit passiert</li>
+            </ul>
+        </div>
+        
+        <div class="section-optimierung">
+            <h2><span class="emoji">🔍</span>Lean Management Werkzeuge</h2>
+            
+            <h3>7 Arten der Verschwendung (Muda)</h3>
+            <ul>
+                <li><strong>Überproduktion:</strong> Mehr produzieren als benötigt</li>
+                <li><strong>Warten:</strong> Leerlauf von Personal oder Material</li>
+                <li><strong>Transport:</strong> Unnötige Bewegung von Material</li>
+                <li><strong>Überbearbeitung:</strong> Mehr Qualität als vom Kunden verlangt</li>
+            </ul>
+            
+            <h3>5S-Methode</h3>
+            <ul>
+                <li><strong>Seiri (Sortieren):</strong> Überflüssiges entfernen</li>
+                <li><strong>Seiton (Systematisieren):</strong> Ordnung schaffen</li>
+                <li><strong>Seiso (Sauberkeit):</strong> Arbeitsplatz reinigen</li>
+                <li><strong>Seiketsu (Standardisieren):</strong> Standards etablieren</li>
+            </ul>
+        </div>
+        
+        <div class="section-optimierung">
+            <h2><span class="emoji">📊</span>Wertstromanalyse</h2>
+            
+            <h3>Value Stream Mapping</h3>
+            <ul>
+                <li><strong>Ist-Zustand kartieren:</strong> Aktueller Materialfluss dokumentieren</li>
+                <li><strong>Wertschöpfung identifizieren:</strong> Was zahlt der Kunde wirklich?</li>
+                <li><strong>Soll-Zustand entwickeln:</strong> Verschwendung eliminieren</li>
+                <li><strong>Umsetzungsplan:</strong> Schritte zur Zielerreichung definieren</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Prozessschritt</th>
+                        <th>Bearbeitungszeit</th>
+                        <th>Wartezeit</th>
+                        <th>Wertschöpfend?</th>
+                    </tr>
+                    <tr>
+                        <td>Auftragseingang</td>
+                        <td>5 Min</td>
+                        <td>2 Stunden</td>
+                        <td>Ja</td>
+                    </tr>
+                    <tr>
+                        <td>Kreditprüfung</td>
+                        <td>10 Min</td>
+                        <td>1 Tag</td>
+                        <td>Ja</td>
+                    </tr>
+                    <tr>
+                        <td>Doppelprüfung</td>
+                        <td>5 Min</td>
+                        <td>4 Stunden</td>
+                        <td>Nein</td>
+                    </tr>
+                    <tr>
+                        <td>Produktion</td>
+                        <td>2 Stunden</td>
+                        <td>30 Min</td>
+                        <td>Ja</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section-optimierung">
+            <h2><span class="emoji">⚡</span>Quick Wins identifizieren</h2>
+            
+            <h3>Aufwand-Nutzen-Matrix</h3>
+            <ul>
+                <li><strong>Quick Wins:</strong> Hoher Nutzen, geringer Aufwand</li>
+                <li><strong>Projekte:</strong> Hoher Nutzen, hoher Aufwand</li>
+                <li><strong>Fill-ins:</strong> Geringer Nutzen, geringer Aufwand</li>
+                <li><strong>Zeitfresser:</strong> Geringer Nutzen, hoher Aufwand (vermeiden)</li>
+            </ul>
+            
+            <h3>Sofortmaßnahmen</h3>
+            <ul>
+                <li><strong>Digitale Formulare:</strong> Papierformulare durch Online-Formulare ersetzen</li>
+                <li><strong>Checklisten:</strong> Standardisierte Abläufe dokumentieren</li>
+                <li><strong>Vorlagen:</strong> Wiederverwendbare Dokumente erstellen</li>
+                <li><strong>Automatische Benachrichtigungen:</strong> Statusupdates automatisieren</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Erfolgsrezept:</strong> Schweizer Unternehmen setzen oft auf evolutionäre statt revolutionäre Veränderungen. Kleine, aber nachhaltige Verbesserungen haben langfristig mehr Erfolg.
+        </div>
+    </div>
+
+    <!-- Seite 5: Change Management & Implementierung -->
+    <div class="page">
+        <h1>🔄 Change Management & Implementierung</h1>
+        
+        <div class="section-implementierung">
+            <h2><span class="emoji">👥</span>Stakeholder-Management</h2>
+            
+            <h3>Stakeholder identifizieren</h3>
+            <ul>
+                <li><strong>Prozesseigner:</strong> Verantwortliche für den Gesamtprozess</li>
+                <li><strong>Prozessnutzer:</strong> Mitarbeitende die täglich im Prozess arbeiten</li>
+                <li><strong>Prozesskunden:</strong> Interne und externe Empfänger der Leistung</li>
+                <li><strong>IT-Support:</strong> Technische Umsetzung und Systemintegration</li>
+            </ul>
+            
+            <h3>Einfluss-Interesse-Matrix</h3>
+            <ul>
+                <li><strong>Champions:</strong> Hoher Einfluss, hohes Interesse (aktiv einbinden)</li>
+                <li><strong>Blocker:</strong> Hoher Einfluss, geringes Interesse (überzeugen)</li>
+                <li><strong>Supporter:</strong> Geringer Einfluss, hohes Interesse (informieren)</li>
+                <li><strong>Beobachter:</strong> Geringer Einfluss, geringes Interesse (monitoren)</li>
+            </ul>
+        </div>
+        
+        <div class="section-implementierung">
+            <h2><span class="emoji">📚</span>Schulung & Kompetenzaufbau</h2>
+            
+            <h3>Lernformate</h3>
+            <ul>
+                <li><strong>Job Aids:</strong> Kurze Anleitungen am Arbeitsplatz</li>
+                <li><strong>Peer Learning:</strong> Erfahrungsaustausch zwischen Kollegen</li>
+                <li><strong>Train-the-Trainer:</strong> Multiplikatoren ausbilden</li>
+                <li><strong>Learning by Doing:</strong> Praxisnahes Lernen im echten Prozess</li>
+            </ul>
+            
+            <h3>Kompetenzmatrix erstellen</h3>
+            <ul>
+                <li><strong>IST-Skills:</strong> Aktuelle Fähigkeiten der Mitarb

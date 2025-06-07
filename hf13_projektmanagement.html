@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF13: Projektmanagement - Factsheet</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; font-size: 11pt; }
+            .page { page-break-after: always; height: 100vh; }
+            .page:last-child { page-break-after: avoid; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: white;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        
+        /* Titel-Seite */
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-page h1 {
+            font-size: 2.5em;
+            color: #1976D2;
+            margin-bottom: 20px;
+        }
+        
+        .title-page h2 {
+            font-size: 1.5em;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+        
+        .toc {
+            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .toc h3 {
+            color: #1976D2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .dot1 { background: #1976D2; }
+        .dot2 { background: #2196F3; }
+        .dot3 { background: #42A5F5; }
+        .dot4 { background: #64B5F6; }
+        .dot5 { background: #90CAF9; }
+        
+        .toc-left {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        /* Content-Seiten */
+        h1 {
+            color: #1976D2;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1976D2;
+            padding-bottom: 5px;
+        }
+        
+        h2 {
+            color: #1a1a1a;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 {
+            color: #2c2c2c;
+            font-size: 1.1em;
+            margin: 15px 0 8px 0;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        /* Sektionen */
+        .section-grundlagen {
+            background: white;
+            border-left: 3px solid #1976D2;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-grundlagen h2 { color: #1976D2; background: white; }
+        
+        .section-initialisierung {
+            background: white;
+            border-left: 3px solid #2196F3;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-initialisierung h2 { color: #2196F3; background: white; }
+        
+        .section-planung {
+            background: white;
+            border-left: 3px solid #42A5F5;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-planung h2 { color: #42A5F5; background: white; }
+        
+        .section-durchfuehrung {
+            background: white;
+            border-left: 3px solid #64B5F6;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-durchfuehrung h2 { color: #64B5F6; background: white; }
+        
+        .section-abschluss {
+            background: white;
+            border-left: 3px solid #90CAF9;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .section-abschluss h2 { color: #90CAF9; background: white; }
+        
+        ul {
+            margin: 8px 0 15px 20px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+        
+        strong {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            padding: 12px;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .method-box {
+            background: #f3e5f5;
+            padding: 15px;
+            border-left: 4px solid #9c27b0;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .table-box {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .table-box table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .table-box th {
+            background: #1976D2;
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .table-box td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .table-box tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .glossar-item {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossar-term {
+            font-weight: bold;
+            color: #1976D2;
+            font-size: 1.05em;
+        }
+        
+        .glossar-def {
+            margin-top: 3px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1976D2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .print-btn:hover {
+            background: #1565C0;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+    <!-- Seite 1: Titel und Inhaltsverzeichnis -->
+    <div class="page title-page">
+        <h1>Handlungsfeld 13</h1>
+        <h2>Projektmanagement</h2>
+        <p style="margin-bottom: 30px;">Technische Kaufleute - Eidgenössische Berufsprüfung</p>
+        
+        <div class="toc">
+            <h3>📋 Inhaltsverzeichnis</h3>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot1"></div>
+                    <span>Projektmanagement-Grundlagen</span>
+                </div>
+                <span>Seite 2</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot2"></div>
+                    <span>Projektinitialisierung</span>
+                </div>
+                <span>Seite 3</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot3"></div>
+                    <span>Projektplanung</span>
+                </div>
+                <span>Seite 4</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot4"></div>
+                    <span>Projektdurchführung & Controlling</span>
+                </div>
+                <span>Seite 5</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot dot5"></div>
+                    <span>Projektabschluss & Risikomanagement</span>
+                </div>
+                <span>Seite 6</span>
+            </div>
+            
+            <div class="toc-item">
+                <div class="toc-left">
+                    <div class="toc-dot"></div>
+                    <span>Glossar</span>
+                </div>
+                <span>Seite 7</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: Projektmanagement-Grundlagen -->
+    <div class="page">
+        <h1>📊 Projektmanagement-Grundlagen</h1>
+        
+        <div class="section-grundlagen">
+            <h2><span class="emoji">🎯</span>Projektdefinition & Merkmale</h2>
+            
+            <h3>Was ist ein Projekt?</h3>
+            <ul>
+                <li><strong>Einmaligkeit:</strong> Neuartiges Vorhaben, kein Routineprozess</li>
+                <li><strong>Zeitliche Begrenzung:</strong> Definierter Anfang und Ende</li>
+                <li><strong>Komplexität:</strong> Interdisziplinäre Zusammenarbeit erforderlich</li>
+                <li><strong>Zielorientierung:</strong> Klare, messbare Ergebnisse</li>
+                <li><strong>Ressourcenbeschränkung:</strong> Begrenzte Zeit, Kosten, Personal</li>
+            </ul>
+            
+            <h3>Projektarten nach Komplexität</h3>
+            <ul>
+                <li><strong>Komplizierte Projekte:</strong> Viele Teile, aber berechenbare Zusammenhänge</li>
+                <li><strong>Komplexe Projekte:</strong> Unvorhersagbare Wechselwirkungen und Dynamiken</li>
+                <li><strong>Einfache Projekte:</strong> Überschaubare Aufgaben mit klaren Lösungswegen</li>
+                <li><strong>Chaotische Projekte:</strong> Unklar definierte Probleme und Lösungsansätze</li>
+            </ul>
+        </div>
+        
+        <div class="section-grundlagen">
+            <h2><span class="emoji">⚖️</span>Magisches Dreieck</h2>
+            
+            <h3>Drei Dimensionen im Gleichgewicht</h3>
+            <ul>
+                <li><strong>Zeit:</strong> Projektdauer, Termine, Meilensteine</li>
+                <li><strong>Kosten:</strong> Budget, Ressourcenaufwand, Finanzrahmen</li>
+                <li><strong>Qualität:</strong> Anforderungen, Leistungsumfang, Standards</li>
+                <li><strong>Zielkonflikt:</strong> Änderung einer Dimension beeinflusst die anderen</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Zielkonflikt</th>
+                        <th>Auswirkung</th>
+                        <th>Lösungsansatz</th>
+                    </tr>
+                    <tr>
+                        <td>Schneller + günstiger</td>
+                        <td>Qualität leidet</td>
+                        <td>Scope reduzieren</td>
+                    </tr>
+                    <tr>
+                        <td>Höhere Qualität</td>
+                        <td>Mehr Zeit oder Kosten</td>
+                        <td>Budget/Termine anpassen</td>
+                    </tr>
+                    <tr>
+                        <td>Fester Termin + Budget</td>
+                        <td>Qualität/Umfang flexibel</td>
+                        <td>Phasenweise Umsetzung</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section-grundlagen">
+            <h2><span class="emoji">🏗️</span>Projektorganisationsformen</h2>
+            
+            <h3>Reine Projektorganisation</h3>
+            <ul>
+                <li><strong>Vollzeit-Projektteam:</strong> Alle Mitarbeitende arbeiten 100% im Projekt</li>
+                <li><strong>Hohe Autorität:</strong> Projektleiter hat Weisungsbefugnis</li>
+                <li><strong>Klare Verantwortung:</strong> Eindeutige Zuständigkeiten</li>
+                <li><strong>Anwendung:</strong> Große, strategisch wichtige Projekte</li>
+            </ul>
+            
+            <h3>Matrix-Projektorganisation</h3>
+            <ul>
+                <li><strong>Geteilte Führung:</strong> Projektleiter und Linienvorgesetzte</li>
+                <li><strong>Teilzeit-Mitarbeit:</strong> Teammitglieder arbeiten parallel in Linie</li>
+                <li><strong>Koordinationsaufwand:</strong> Abstimmung zwischen Projekt und Linie</li>
+                <li><strong>Häufigste Form:</strong> In mittleren und großen Unternehmen</li>
+            </ul>
+            
+            <h3>Einfluss-Projektorganisation</h3>
+            <ul>
+                <li><strong>Koordinator-Rolle:</strong> Projektleiter ohne Weisungsbefugnis</li>
+                <li><strong>Informelle Autorität:</strong> Führung durch Fachwissen und Überzeugung</li>
+                <li><strong>Geringe Kosten:</strong> Minimaler organisatorischer Aufwand</li>
+                <li><strong>Anwendung:</strong> Kleine Projekte oder Projektmanagement-Einführung</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Praxis-Tipp:</strong> Die Wahl der Projektorganisation hängt von Projektgröße, strategischer Bedeutung und Unternehmenskultur ab. Matrix-Organisation ist oft der beste Kompromiss zwischen Effizienz und Ressourcennutzung.
+        </div>
+    </div>
+
+    <!-- Seite 3: Projektinitialisierung -->
+    <div class="page">
+        <h1>🚀 Projektinitialisierung</h1>
+        
+        <div class="section-initialisierung">
+            <h2><span class="emoji">💡</span>Projektidee & Machbarkeitsprüfung</h2>
+            
+            <h3>Ideenentwicklung</h3>
+            <ul>
+                <li><strong>Strategische Ableitung:</strong> Aus Unternehmensstrategie entwickeln</li>
+                <li><strong>Problemlösung:</strong> Konkrete Herausforderungen angehen</li>
+                <li><strong>Innovationstreiber:</strong> Neue Technologien oder Marktchancen nutzen</li>
+                <li><strong>Stakeholder-Bedürfnisse:</strong> Kundenwünsche oder gesetzliche Anforderungen</li>
+            </ul>
+            
+            <h3>Machbarkeitsstudie</h3>
+            <ul>
+                <li><strong>Technische Machbarkeit:</strong> Können wir es technisch umsetzen?</li>
+                <li><strong>Wirtschaftliche Machbarkeit:</strong> Ist es rentabel und finanzierbar?</li>
+                <li><strong>Zeitliche Machbarkeit:</strong> Sind die Termine realistisch?</li>
+                <li><strong>Ressourcen-Verfügbarkeit:</strong> Haben wir die nötigen Kompetenzen?</li>
+            </ul>
+        </div>
+        
+        <div class="section-initialisierung">
+            <h2><span class="emoji">📋</span>Projektauftrag erstellen</h2>
+            
+            <h3>Ausgangslage & Ziele</h3>
+            <ul>
+                <li><strong>Problemstellung:</strong> Warum wird das Projekt durchgeführt?</li>
+                <li><strong>SMART-Ziele:</strong> Spezifisch, Messbar, Akzeptiert, Realistisch, Terminiert</li>
+                <li><strong>Nutzen & Mehrwert:</strong> Welchen Wert schafft das Projekt?</li>
+                <li><strong>Erfolgskriterien:</strong> Woran wird der Projekterfolg gemessen?</li>
+            </ul>
+            
+            <h3>Lieferobjekte & Abgrenzung</h3>
+            <ul>
+                <li><strong>Deliverables:</strong> Konkrete, messbare Projektergebnisse</li>
+                <li><strong>Scope:</strong> Was gehört zum Projekt, was nicht?</li>
+                <li><strong>Qualitätsanforderungen:</strong> Standards und Akzeptanzkriterien</li>
+                <li><strong>Schnittstellen:</strong> Verbindungen zu anderen Projekten/Bereichen</li>
+            </ul>
+            
+            <div class="method-box">
+                <strong>Projektauftrag-Template:</strong><br>
+                1. Ausgangslage (Warum?)<br>
+                2. Ziele (Was soll erreicht werden?)<br>
+                3. Lieferobjekte (Was wird geliefert?)<br>
+                4. Termine & Meilensteine (Bis wann?)<br>
+                5. Budget & Ressourcen (Womit?)<br>
+                6. Organisation & Rollen (Wer ist verantwortlich?)
+            </div>
+        </div>
+        
+        <div class="section-initialisierung">
+            <h2><span class="emoji">👥</span>Projektorganisation & Rollen</h2>
+            
+            <h3>Kernrollen im Projekt</h3>
+            <ul>
+                <li><strong>Projektauftraggeber:</strong> Strategische Verantwortung, Budget, Entscheidungen</li>
+                <li><strong>Projektleiter:</strong> Operative Führung, Koordination, Ergebnisverantwortung</li>
+                <li><strong>Projektteam:</strong> Fachexperten für die Umsetzung</li>
+                <li><strong>Projektcontroller:</strong> Überwachung Zeit, Kosten, Qualität</li>
+            </ul>
+            
+            <h3>Erweiterte Stakeholder</h3>
+            <ul>
+                <li><strong>Lenkungsausschuss:</strong> Strategische Entscheidungen und Eskalation</li>
+                <li><strong>Anwender:</strong> Spätere Nutzer der Projektergebnisse</li>
+                <li><strong>Betroffene:</strong> Von Projektauswirkungen betroffene Personen</li>
+                <li><strong>Experten:</strong> Fachliche Berater ohne operative Verantwortung</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Rolle</th>
+                        <th>Hauptaufgaben</th>
+                        <th>Kompetenzen</th>
+                    </tr>
+                    <tr>
+                        <td>Projektauftraggeber</td>
+                        <td>Ziele definieren, Budget freigeben</td>
+                        <td>Strategische Entscheidungen</td>
+                    </tr>
+                    <tr>
+                        <td>Projektleiter</td>
+                        <td>Planen, steuern, koordinieren</td>
+                        <td>Weisungsbefugnis im Projekt</td>
+                    </tr>
+                    <tr>
+                        <td>Projektteam</td>
+                        <td>Arbeitspakete umsetzen</td>
+                        <td>Fachliche Expertise</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Besonderheit:</strong> In der Schweizer Projektkultur ist Konsensbildung wichtig. Planen Sie genügend Zeit für Abstimmungen ein und achten Sie auf klare, schriftliche Vereinbarungen.
+        </div>
+    </div>
+
+    <!-- Seite 4: Projektplanung -->
+    <div class="page">
+        <h1>📅 Projektplanung</h1>
+        
+        <div class="section-planung">
+            <h2><span class="emoji">📦</span>Arbeitspaket-Struktur (WBS)</h2>
+            
+            <h3>Work Breakdown Structure</h3>
+            <ul>
+                <li><strong>Hierarchische Gliederung:</strong> Projekt in überschaubare Teilaufgaben zerlegen</li>
+                <li><strong>100%-Regel:</strong> Alle Arbeitspakete zusammen ergeben 100% des Projekts</li>
+                <li><strong>Eindeutige Zuordnung:</strong> Jedes Arbeitspaket hat einen Verantwortlichen</li>
+                <li><strong>Messbare Ergebnisse:</strong> Klare Definition von Lieferobjekten</li>
+            </ul>
+            
+            <h3>Arbeitspaket-Definition</h3>
+            <ul>
+                <li><strong>Beschreibung:</strong> Was soll getan werden?</li>
+                <li><strong>Ergebnis:</strong> Was ist das konkrete Lieferobjekt?</li>
+                <li><strong>Aufwand:</strong> Wie viele Personentage sind nötig?</li>
+                <li><strong>Verantwortlicher:</strong> Wer ist zuständig für die Umsetzung?</li>
+            </ul>
+        </div>
+        
+        <div class="section-planung">
+            <h2><span class="emoji">⏰</span>Zeitplanung & Terminierung</h2>
+            
+            <h3>Terminplanungsmethoden</h3>
+            <ul>
+                <li><strong>Vorwärtsterminierung:</strong> Vom frühesten Starttermin aus planen</li>
+                <li><strong>Rückwärtsterminierung:</strong> Vom gewünschten Endtermin zurückrechnen</li>
+                <li><strong>Mittelpunktterminierung:</strong> Um fixen Meilenstein herum planen</li>
+                <li><strong>Netzplantechnik:</strong> Abhängigkeiten zwischen Arbeitspaketen darstellen</li>
+            </ul>
+            
+            <h3>Kritischer Pfad</h3>
+            <ul>
+                <li><strong>Definition:</strong> Längste Kette von abhängigen Aktivitäten</li>
+                <li><strong>Bedeutung:</strong> Bestimmt die minimale Projektdauer</li>
+                <li><strong>Pufferzeit:</strong> Aktivitäten außerhalb haben zeitliche Reserven</li>
+                <li><strong>Risikomanagement:</strong> Kritischer Pfad muss prioritär überwacht werden</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Planungsinstrument</th>
+                        <th>Anwendung</th>
+                        <th>Vorteile</th>
+                    </tr>
+                    <tr>
+                        <td>Gantt-Diagramm</td>
+                        <td>Terminplanung visualisieren</td>
+                        <td>Übersichtlich, einfach verständlich</td>
+                    </tr>
+                    <tr>
+                        <td>Netzplan</td>
+                        <td>Abhängigkeiten darstellen</td>
+                        <td>Kritischer Pfad erkennbar</td>
+                    </tr>
+                    <tr>
+                        <td>Meilensteinplan</td>
+                        <td>Wichtige Termine kommunizieren</td>
+                        <td>Fokus auf Entscheidungspunkte</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section-planung">
+            <h2><span class="emoji">💰</span>Kosten- & Ressourcenplanung</h2>
+            
+            <h3>Kostenschätzung</h3>
+            <ul>
+                <li><strong>Bottom-up:</strong> Detailschätzung aller Arbeitspakete</li>
+                <li><strong>Top-down:</strong> Gesamtschätzung basierend auf Erfahrungswerten</li>
+                <li><strong>Analogieschätzung:</strong> Vergleich mit ähnlichen Projekten</li>
+                <li><strong>Drei-Punkt-Schätzung:</strong> Optimistisch, wahrscheinlich, pessimistisch</li>
+            </ul>
+            
+            <h3>Ressourcenplanung</h3>
+            <ul>
+                <li><strong>Personalressourcen:</strong> Verfügbarkeit und Kompetenzen prüfen</li>
+                <li><strong>Sachressourcen:</strong> Material, Ausrüstung, Infrastruktur</li>
+                <li><strong>Externe Ressourcen:</strong> Lieferanten, Berater, Dienstleister</li>
+                <li><strong>Kapazitätsabgleich:</strong> Ressourcenkonflikte identifizieren und lösen</li>
+            </ul>
+        </div>
+        
+        <div class="section-planung">
+            <h2><span class="emoji">🎯</span>Qualitätsplanung</h2>
+            
+            <h3>Qualitätsziele definieren</h3>
+            <ul>
+                <li><strong>Leistungsanforderungen:</strong> Funktionale und nicht-funktionale Anforderungen</li>
+                <li><strong>Qualitätsstandards:</strong> Normen, Richtlinien, Best Practices</li>
+                <li><strong>Akzeptanzkriterien:</strong> Messbare Kriterien für Lieferobjekte</li>
+                <li><strong>Testkriterien:</strong> Wie wird Qualität überprüft?</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Planungs-Tipp:</strong> Planen Sie iterativ! Starten Sie mit einer groben Planung und verfeinern Sie diese in jeder Projektphase. 15-20% Pufferzeit für Unvorhergesehenes einkalkulieren.
+        </div>
+    </div>
+
+    <!-- Seite 5: Projektdurchführung & Controlling -->
+    <div class="page">
+        <h1>⚙️ Projektdurchführung & Controlling</h1>
+        
+        <div class="section-durchfuehrung">
+            <h2><span class="emoji">👥</span>Projektteam führen</h2>
+            
+            <h3>Teamentwicklung nach Tuckman</h3>
+            <ul>
+                <li><strong>Forming:</strong> Teammitglieder lernen sich kennen, Orientierung</li>
+                <li><strong>Storming:</strong> Konflikte um Rollen und Arbeitsweisen</li>
+                <li><strong>Norming:</strong> Regeln werden etabliert, Zusammengehörigkeitsgefühl</li>
+                <li><strong>Performing:</strong> Hochleistungsteam arbeitet effizient zusammen</li>
+            </ul>
+            
+            <h3>Führungsaufgaben im Projekt</h3>
+            <ul>
+                <li><strong>Motivation:</strong> Team für Projektziele begeistern</li>
+                <li><strong>Delegation:</strong> Aufgaben kompetenzgerecht zuteilen</li>
+                <li><strong>Koordination:</strong> Schnittstellen zwischen Arbeitspaketen managen</li>
+                <li><strong>Konfliktlösung:</strong> Spannungen frühzeitig erkennen und lösen</li>
+            </ul>
+        </div>
+        
+        <div class="section-durchfuehrung">
+            <h2><span class="emoji">📊</span>Projektcontrolling</h2>
+            
+            <h3>Controlling-Instrumente</h3>
+            <ul>
+                <li><strong>Meilenstein-Trend-Analyse:</strong> Terminentwicklung verfolgen</li>
+                <li><strong>Earned Value Analysis:</strong> Leistungsfortschritt messen</li>
+                <li><strong>Soll-Ist-Vergleich:</strong> Plan vs. Realität kontinuierlich abgleichen</li>
+                <li><strong>Ampel-Status:</strong> Rot/Gelb/Grün für schnelle Übersicht</li>
+            </ul>
+            
+            <h3>Projekt-Kennzahlen</h3>
+            <ul>
+                <li><strong>Terminabweichung:</strong> Verzögerung in Tagen oder Prozent</li>
+                <li><strong>Kostenabweichung:</strong> Budget-Über-/Unterschreitung</li>
+                <li><strong>Qualitätsgrad:</strong> Erfüllungsgrad der Anforderungen</li>
+                <li><strong>Ressourcenauslastung:</strong> Kapazitätsnutzung der Teammitglieder</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Controlling-Art</th>
+                        <th>Häufigkeit</th>
+                        <th>Fokus</th>
+                    </tr>
+                    <tr>
+                        <td>Tagescontrolling</td>
+                        <td>Täglich</td>
+                        <td>Arbeitsfortschritt, Probleme</td>
+                    </tr>
+                    <tr>
+                        <td>Wochencontrolling</td>
+                        <td>Wöchentlich</td>
+                        <td>Meilensteine, Ressourcen</td>
+                    </tr>
+                    <tr>
+                        <td>Phasencontrolling</td>
+                        <td>Phasenende</td>
+                        <td>Gesamtprojekt-Status</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section-durchfuehrung">
+            <h2><span class="emoji">🔄</span>Änderungsmanagement</h2>
+            
+            <h3>Change Request Prozess</h3>
+            <ul>
+                <li><strong>Änderungsantrag:</strong> Formale Einreichung mit Begründung</li>
+                <li><strong>Auswirkungsanalyse:</strong> Impact auf Zeit, Kosten, Qualität prüfen</li>
+                <li><strong>Entscheidung:</strong> Änderung genehmigen, ablehnen oder verschieben</li>
+                <li><strong>Umsetzung:</strong> Projektpläne anpassen und kommunizieren</li>
+            </ul>
+            
+            <h3>Kommunikation & Berichtswesen</h3>
+            <ul>
+                <li><strong>Projektstatusberichte:</strong> Regelmäßige Information an Stakeholder</li>
+                <li><strong>Dashboard:</strong> Visuelle Darstellung wichtiger Kennzahlen</li>
+                <li><strong>Stakeholder-Updates:</strong> Zielgruppenspezifische Kommunikation</li>
+                <li><strong>Eskalation:</strong> Probleme rechtzeitig an Auftraggeber melden</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Controlling-Tipp:</strong> Etablieren Sie einen wöchentlichen Rhythmus für Controlling und Kommunikation. Regelmäßigkeit schafft Vertrauen und ermöglicht frühzeitige Korrekturen.
+        </div>
+    </div>
+
+    <!-- Seite 6: Projektabschluss & Risikomanagement -->
+    <div class="page">
+        <h1>🏁 Projektabschluss & Risikomanagement</h1>
+        
+        <div class="section-abschluss">
+            <h2><span class="emoji">✅</span>Projektabschluss gestalten</h2>
+            
+            <h3>Ergebnisübergabe</h3>
+            <ul>
+                <li><strong>Lieferobjekte prüfen:</strong> Vollständigkeit und Qualität sicherstellen</li>
+                <li><strong>Abnahme organisieren:</strong> Formale Akzeptanz durch Auftraggeber</li>
+                <li><strong>Dokumentation übergeben:</strong> Handbücher, Spezifikationen, Wartungsunterlagen</li>
+                <li><strong>Know-how Transfer:</strong> Wissen an operative Teams weitergeben</li>
+            </ul>
+            
+            <h3>Lessons Learned</h3>
+            <ul>
+                <li><strong>Retrospektive:</strong> Was lief gut? Was könnte verbessert werden?</li>
+                <li><strong>Erfolgsfaktoren:</strong> Positive Erkenntnisse für zukünftige Projekte</li>
+                <li><strong>Verbesserungsvorschläge:</strong> Konkrete Maßnahmen ableiten</li>
+                <li><strong>Wissensmanagement:</strong> Erfahrungen in Projekt-Datenbank speichern</li>
+            </ul>
+            
+            <h3>Projektabschluss-Aktivitäten</h3>
+            <ul>
+                <li><strong>Ressourcen freigeben:</strong> Teammitglieder in Linie zurückführen</li>
+                <li><strong>Verträge beenden:</strong> Externe Dienstleister ordnungsgemäß abschließen</li>
+                <li><strong>Archivierung:</strong> Projektdokumentation strukturiert ablegen</li>
+                <li><strong>Projektabschlussbericht:</strong> Zusammenfassung der Projektergebnisse</li>
+            </ul>
+        </div>
+        
+        <div class="section-abschluss">
+            <h2><span class="emoji">⚠️</span>Risikomanagement</h2>
+            
+            <h3>4-Stufen-Risikomanagement</h3>
+            <ul>
+                <li><strong>Risikoidentifikation:</strong> Potentielle Gefahren systematisch sammeln</li>
+                <li><strong>Risikobewertung:</strong> Eintretenswahrscheinlichkeit und Auswirkung schätzen</li>
+                <li><strong>Risikobehandlung:</strong> Maßnahmen zur Risikominimierung definieren</li>
+                <li><strong>Risikoüberwachung:</strong> Kontinuierliche Kontrolle und Anpassung</li>
+            </ul>
+            
+            <h3>Risikokategorien</h3>
+            <ul>
+                <li><strong>Technische Risiken:</strong> Machbarkeit, Qualität, Performance</li>
+                <li><strong>Organisatorische Risiken:</strong> Ressourcen, Kompetenzen, Kommunikation</li>
+                <li><strong>Externe Risiken:</strong> Marktveränderungen, Lieferanten, rechtliche Änderungen</li>
+                <li><strong>Projektrisiken:</strong> Terminverzug, Budgetüberschreitung, Scope Creep</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Risikostrategie</th>
+                        <th>Anwendung</th>
+                        <th>Beispiel</th>
+                    </tr>
+                    <tr>
+                        <td>Risikovermeidung</td>
+                        <td>Risiko ganz ausschließen</td>
+                        <td>Bewährte Technologie wählen</td>
+                    </tr>
+                    <tr>
+                        <td>Risikominderung</td>
+                        <td>Auswirkung reduzieren</td>
+                        <td>Prototyping, Tests</td>
+                    </tr>
+                    <tr>
+                        <td>Risikoübertragung</td>
+                        <td>Risiko an Dritte abgeben</td>
+                        <td>Versicherung, Outsourcing</td>
+                    </tr>
+                    <tr>
+                        <td>Risikoakzeptanz</td>
+                        <td>Bewusst in Kauf nehmen</td>
+                        <td>Notfallplan bereithalten</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section-abschluss">
+            <h2><span class="emoji">🔧</span>Agile vs. Klassisches Projektmanagement</h2>
+            
+            <h3>Klassisches Projektmanagement (Wasserfall)</h3>
+            <ul>
+                <li><strong>Sequenzielle Phasen:</strong> Eine Phase nach der anderen</li>
+                <li><strong>Detailplanung:</strong> Alle Anforderungen zu Beginn definiert</li>
+                <li><strong>Dokumentation:</strong> Umfassende schriftliche Unterlagen</li>
+                <li><strong>Anwendung:</strong> Gut planbare Projekte mit stabilen Anforderungen</li>
+            </ul>
+            
+            <h3>Agiles Projektmanagement (Scrum/Kanban)</h3>
+            <ul>
+                <li><strong>Iterative Entwicklung:</strong> Kurze Entwicklungszyklen (Sprints)</li>
+                <li><strong>Flexibilität:</strong> Anforderungen können sich ändern</li>
+                <li><strong>Kundennähe:</strong> Regelmäßiges Feedback und Anpassungen</li>
+                <li><strong>Anwendung:</strong> Innovative Projekte mit unklaren Anforderungen</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Projektkultur:</strong> Kombination aus Gründlichkeit (klassisch) und Flexibilität (agil) ist oft optimal. Hybrid-Ansätze gewinnen an Bedeutung - je nach Projektcharakter die passende Methode wählen.
+        </div>
+    </div>
+
+    <!-- Seite 7: Glossar -->
+    <div class="page">
+        <h1>📚 Glossar</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Agiles Projektmanagement</div>
+            <div class="glossar-def">Iterative Entwicklungsansatz mit kurzen Zyklen und flexiblen Anforderungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Change Request</div>
+            <div class="glossar-def">Formaler Antrag zur Änderung von Projektumfang, -termine oder -budget</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Critical Path Method (CPM)</div>
+            <div class="glossar-def">Netzplantechnik zur Ermittlung des kritischen Pfads im Projekt</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Deliverable</div>
+            <div class="glossar-def">Konkretes, messbares Projektergebnis oder Lieferobjekt</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Earned Value Analysis (EVA)</div>
+            <div class="glossar-def">Methode zur Messung des Projektfortschritts anhand erbrachter Leistung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Gantt-Diagramm</div>
+            <div class="glossar-def">Balkendiagramm zur visuellen Darstellung des Projektzeitplans</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Komplexität vs. Kompliziertheit</div>
+            <div class="glossar-def">Komplex: unvorhersagbare Wechselwirkungen. Kompliziert: viele, aber berechenbare Teile</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kritischer Pfad</div>
+            <div class="glossar-def">Längste Kette abhängiger Aktivitäten, die die Projektdauer bestimmt</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Lessons Learned</div>
+            <div class="glossar-def">Systematische Erfassung von Erfahrungen für zukünftige Projekte</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Magisches Dreieck</div>
+            <div class="glossar-def">Spannungsfeld zwischen Zeit, Kosten und Qualität im Projektmanagement</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Matrix-Organisation</div>
+            <div class="glossar-def">Projektorganisationsform mit geteilter Führung zwischen Projekt und Linie</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Meilenstein</div>
+            <div class="glossar-def">Wichtiger Kontrollpunkt im Projekt ohne zeitlichen Verbrauch</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Meilenstein-Trend-Analyse</div>
+            <div class="glossar-def">Controlling-Instrument zur Verfolgung der Terminentwicklung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Netzplantechnik</div>
+            <div class="glossar-def">Grafische Darstellung von Abhängigkeiten zwischen Projektaktivitäten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Projektauftrag</div>
+            <div class="glossar-def">Formelles Dokument zur Autorisierung und Definition eines Projekts</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Projektorganisation</div>
+            <div class="glossar-def">Strukturelle Eingliederung des Projekts in die Unternehmensorganisation</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Pufferzeit</div>
+            <div class="glossar-def">Zeitliche Reserve bei Aktivitäten außerhalb des kritischen Pfads</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Risikomanagement</div>
+            <div class="glossar-def">4-Stufen-Prozess: Identifikation, Bewertung, Behandlung, Überwachung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Rückwärtsterminierung</div>
+            <div class="glossar-def">Terminplanung vom gewünschten Endtermin rückwärts zum Starttermin</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Scope</div>
+            <div class="glossar-def">Projektumfang: Was gehört zum Projekt und was nicht</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Scope Creep</div>
+            <div class="glossar-def">Unkontrollierte Ausweitung des Projektumfangs ohne entsprechende Anpassungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SMART-Ziele</div>
+            <div class="glossar-def">Spezifisch, Messbar, Akzeptiert, Realistisch, Terminiert</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Stakeholder</div>
+            <div class="glossar-def">Alle Personen oder Gruppen, die vom Projekt betroffen sind oder es beeinflussen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Tuckman-Modell</div>
+            <div class="glossar-def">Teamentwicklungsphasen: Forming, Storming, Norming, Performing</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Vorwärtsterminierung</div>
+            <div class="glossar-def">Terminplanung vom frühestmöglichen Starttermin vorwärts zum Endtermin</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">WBS (Work Breakdown Structure)</div>
+            <div class="glossar-def">Hierarchische Gliederung des Projekts in manageable Arbeitspakete</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Wasserfall-Modell</div>
+            <div class="glossar-def">Klassisches Projektmanagement mit sequenziellen, aufeinander aufbauenden Phasen</div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #e3f2fd; border-radius: 10px; border-left: 4px solid #1976D2;">
+            <h3 style="color: #1976D2; margin-bottom: 15px;">🎯 Prüfungsrelevante Schwerpunkte</h3>
+            <p><strong>Fokus auf:</strong></p>
+            <ul style="margin-top: 10px;">
+                <li>Projektorganisationsformen und deren Anwendung</li>
+                <li>Projektauftrag-Erstellung und SMART-Ziele</li>
+                <li>Work Breakdown Structure (WBS) und Arbeitspakete</li>
+                <li>Magisches Dreieck und Zielkonflikte</li>
+                <li>Kritischer Pfad und Netzplantechnik</li>
+                <li>Projektcontrolling und Earned Value Analysis</li>
+                <li>Risikomanagement-Prozess (4 Stufen)</li>
+                <li>Agile vs. klassische Projektmanagement-Ansätze</li>
+                <li>Stakeholder-Management und Kommunikation</li>
+                <li>Projektabschluss und Lessons Learned</li>
+            </ul>
+            
+            <p style="margin-top: 15px;"><strong>💡 Erfolgstipp:</strong> Verstehen Sie die Unterschiede zwischen komplexen und komplizierten Projekten - dies bestimmt die Wahl der Projektmanagement-Methode!</p>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center; font-style: italic; color: #666;">
+            <p><strong>HF13: Projektmanagement</strong><br>
+            Technische Kaufleute - Eidgenössische Berufsprüfung<br>
+            Systematische Projektführung von der Idee bis zum Abschluss</p>
+        </div>
+    </div>
+
+</body>
+</html>
+
+    <!-- Seite 6: Projektabschluss & Risikomanagement -->
+    <div class="page">
+        <h1>🏁 Projektabschluss & Risikomanagement</h1>
+        
+        <div class="section-abschluss">
+            <h2><span class="emoji">✅</span>Projektabschluss gestalten</h2>
+            
+            <h3>Ergebnisübergabe</h3>
+            <ul>
+                <li><strong>Lieferobjekte prüfen:</strong> Vollständigkeit und Qualität sicherstellen</li>
+                <li><strong>Abnahme organisieren:</strong> Formale Akzeptanz durch Auftraggeber</li>
+                <li><strong>Dokumentation übergeben:</strong> Handbücher, Spezifikationen, Wartungsunterlagen</li>
+                <li><strong>Know-how Transfer:</strong> Wissen an operative Teams weitergeben</li>
+            </ul>
+            
+            <h3>Lessons Learned</h3>
+            <ul>
+                <li><strong>Retrospektive:</strong> Was lief gut? Was könnte verbessert werden?</li>
+                <li><strong>Erfolgsfaktoren:</strong> Positive Erkenntnisse für zukünftige Projekte</li>
+                <li><strong>Verbesserungsvorschläge:</strong> Konkrete Maßnahmen ableiten</li>
+                <li><strong>Wissensmanagement:</strong> Erfahrungen in Projekt-Datenbank speichern</li>
+            </ul>
+            
+            <h3>Projektabschluss-Aktivitäten</h3>
+            <ul>
+                <li><strong>Ressourcen freigeben:</strong> Teammitglieder in Linie zurückführen</li>
+                <li><strong>Verträge beenden:</strong> Externe Dienstleister ordnungsgemäß abschließen</li>
+                <li><strong>Archivierung:</strong> Projektdokumentation strukturiert ablegen</li>
+                <li><strong>Projektabschlussbericht:</strong> Zusammenfassung der Projektergebnisse</li>
+            </ul>
+        </div>
+        
+        <div class="section-abschluss">
+            <h2><span class="emoji">⚠️</span>Risikomanagement</h2>
+            
+            <h3>4-Stufen-Risikomanagement</h3>
+            <ul>
+                <li><strong>Risikoidentifikation:</strong> Potentielle Gefahren systematisch sammeln</li>
+                <li><strong>Risikobewertung:</strong> Eintretenswahrscheinlichkeit und Auswirkung schätzen</li>
+                <li><strong>Risikobehandlung:</strong> Maßnahmen zur Risikominimierung definieren</li>
+                <li><strong>Risikoüberwachung:</strong> Kontinuierliche Kontrolle und Anpassung</li>
+            </ul>
+            
+            <h3>Risikokategorien</h3>
+            <ul>
+                <li><strong>Technische Risiken:</strong> Machbarkeit, Qualität, Performance</li>
+                <li><strong>Organisatorische Risiken:</strong> Ressourcen, Kompetenzen, Kommunikation</li>
+                <li><strong>Externe Risiken:</strong> Marktveränderungen, Lieferanten, rechtliche Änderungen</li>
+                <li><strong>Projektrisiken:</strong> Terminverzug, Budgetüberschreitung, Scope Creep</li>
+            </ul>
+            
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Risikostrategie</th>
+                        <th>Anwendung</th>
+                        <th>Beispiel</th>
+                    </tr>
+                    <tr>
+                        <td>Risikovermeidung</td>
+                        <td>Risiko ganz ausschließen</td>
+                        <td>Bewährte Technologie wählen</td>
+                    </tr>
+                    <tr>
+                        <td>Risikominderung</td>
+                        <td>Auswirkung reduzieren</td>
+                        <td>Prototyping, Tests</td>
+                    </tr>
+                    <tr>
+                        <td>Risikoübertragung</td>
+                        <td>Risiko an Dritte abgeben</td>
+                        <td>Versicherung, Outsourcing</td>
+                    </tr>
+                    <tr>
+                        <td>Risikoakzeptanz</td>
+                        <td>Bewusst in Kauf nehmen</td>
+                        <td>Notfallplan bereithalten</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section-abschluss">
+            <h2><span class="emoji">🔧</span>Agile vs. Klassisches Projektmanagement</h2>
+            
+            <h3>Klassisches Projektmanagement (Wasserfall)</h3>
+            <ul>
+                <li><strong>Sequenzielle Phasen:</strong> Eine Phase nach der anderen</li>
+                <li><strong>Detailplanung:</strong> Alle Anforderungen zu Beginn definiert</li>
+                <li><strong>Dokumentation:</strong> Umfassende schriftliche Unterlagen</li>
+                <li><strong>Anwendung:</strong> Gut planbare Projekte mit stabilen Anforderungen</li>
+            </ul>
+            
+            <h3>Agiles Projektmanagement (Scrum/Kanban)</h3>
+            <ul>
+                <li><strong>Iterative Entwicklung:</strong> Kurze Entwicklungszyklen (Sprints)</li>
+                <li><strong>Flexibilität:</strong> Anforderungen können sich ändern</li>
+                <li><strong>Kundennähe:</strong> Regelmäßiges Feedback und Anpassungen</li>
+                <li><strong>Anwendung:</strong> Innovative Projekte mit unklaren Anforderungen</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>💡 Schweizer Projektkultur:</strong> Kombination aus Gründlichkeit (klassisch) und Flexibilität (agil) ist oft optimal. Hybrid-Ansätze gewinnen an Bedeutung - je nach Projektcharakter die passende Methode wählen.
+        </div>
+    </div>
+
+    <!-- Seite 7: Glossar -->
+    <div class="page">
+        <h1>📚 Glossar</h1>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Agiles Projektmanagement</div>
+            <div class="glossar-def">Iterative Entwicklungsansatz mit kurzen Zyklen und flexiblen Anforderungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Change Request</div>
+            <div class="glossar-def">Formaler Antrag zur Änderung von Projektumfang, -termine oder -budget</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Critical Path Method (CPM)</div>
+            <div class="glossar-def">Netzplantechnik zur Ermittlung des kritischen Pfads im Projekt</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Deliverable</div>
+            <div class="glossar-def">Konkretes, messbares Projektergebnis oder Lieferobjekt</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Earned Value Analysis (EVA)</div>
+            <div class="glossar-def">Methode zur Messung des Projektfortschritts anhand erbrachter Leistung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Gantt-Diagramm</div>
+            <div class="glossar-def">Balkendiagramm zur visuellen Darstellung des Projektzeitplans</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Komplexität vs. Kompliziertheit</div>
+            <div class="glossar-def">Komplex: unvorhersagbare Wechselwirkungen. Kompliziert: viele, aber berechenbare Teile</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Kritischer Pfad</div>
+            <div class="glossar-def">Längste Kette abhängiger Aktivitäten, die die Projektdauer bestimmt</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Lessons Learned</div>
+            <div class="glossar-def">Systematische Erfassung von Erfahrungen für zukünftige Projekte</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Magisches Dreieck</div>
+            <div class="glossar-def">Spannungsfeld zwischen Zeit, Kosten und Qualität im Projektmanagement</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Matrix-Organisation</div>
+            <div class="glossar-def">Projektorganisationsform mit geteilter Führung zwischen Projekt und Linie</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Meilenstein</div>
+            <div class="glossar-def">Wichtiger Kontrollpunkt im Projekt ohne zeitlichen Verbrauch</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Meilenstein-Trend-Analyse</div>
+            <div class="glossar-def">Controlling-Instrument zur Verfolgung der Terminentwicklung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Netzplantechnik</div>
+            <div class="glossar-def">Grafische Darstellung von Abhängigkeiten zwischen Projektaktivitäten</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Projektauftrag</div>
+            <div class="glossar-def">Formelles Dokument zur Autorisierung und Definition eines Projekts</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Projektorganisation</div>
+            <div class="glossar-def">Strukturelle Eingliederung des Projekts in die Unternehmensorganisation</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Pufferzeit</div>
+            <div class="glossar-def">Zeitliche Reserve bei Aktivitäten außerhalb des kritischen Pfads</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Risikomanagement</div>
+            <div class="glossar-def">4-Stufen-Prozess: Identifikation, Bewertung, Behandlung, Überwachung</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Rückwärtsterminierung</div>
+            <div class="glossar-def">Terminplanung vom gewünschten Endtermin rückwärts zum Starttermin</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Scope</div>
+            <div class="glossar-def">Projektumfang: Was gehört zum Projekt und was nicht</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Scope Creep</div>
+            <div class="glossar-def">Unkontrollierte Ausweitung des Projektumfangs ohne entsprechende Anpassungen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">SMART-Ziele</div>
+            <div class="glossar-def">Spezifisch, Messbar, Akzeptiert, Realistisch, Terminiert</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Stakeholder</div>
+            <div class="glossar-def">Alle Personen oder Gruppen, die vom Projekt betroffen sind oder es beeinflussen</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Tuckman-Modell</div>
+            <div class="glossar-def">Teamentwicklungsphasen: Forming, Storming, Norming, Performing</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Vorwärtsterminierung</div>
+            <div class="glossar-def">Terminplanung vom frühestmöglichen Starttermin vorwärts zum Endtermin</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">WBS (Work Breakdown Structure)</div>
+            <div class="glossar-def">Hierarchische Gliederung des Projekts in manageable Arbeitspakete</div>
+        </div>
+        
+        <div class="glossar-item">
+            <div class="glossar-term">Wasserfall-Modell</div>
+            <div class="glossar-def">Klassisches Projektmanagement mit sequenziellen, aufeinander aufbauenden Phasen</div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #e3f2fd; border-radius: 10px; border-left: 4px solid #1976D2;">
+            <h3 style="color: #1976D2; margin-bottom: 15px;">🎯 Prüfungsrelevante Schwerpunkte</h3>
+            <p><strong>Fokus auf:</strong></p>
+            <ul style="margin-top: 10px;">
+                <li>Projektorganisationsformen und deren Anwendung</li>
+                <li>Projektauftrag-Erstellung und SMART-Ziele</li>
+                <li>Work Breakdown Structure (WBS) und Arbeitspakete</li>
+                <li>Magisches Dreieck und Zielkonflikte</li>
+                <li>Kritischer Pfad und Netzplantechnik</li>
+                <li>Projektcontrolling und Earned Value Analysis</li>
+                <li>Risikomanagement-Prozess (4 Stufen)</li>
+                <li>Agile vs. klassische Projektmanagement-Ansätze</li>
+                <li>Stakeholder-Management und Kommunikation</li>
+                <li>Projektabschluss und Lessons Learned</li>
+            </ul>
+            
+            <p style="margin-top: 15px;"><strong>💡 Erfolgstipp:</strong> Verstehen Sie die Unterschiede zwischen komplexen und komplizierten Projekten - dies bestimmt die Wahl der Projektmanagement-Methode!</p>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center; font-style: italic; color: #666;">
+            <p><strong>HF13: Projektmanagement</strong><br>
+            Technische Kaufleute - Eidgenössische Berufsprüfung<br>
+            Systematische Projektführung von der Idee bis zum Abschluss</p>
+        </div>
+    </div>
+
+</body>
+</html>
