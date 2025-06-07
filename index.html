@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Technische Kaufleute - Eidgenössische Berufsprüfung - Übersicht aller 11 Handlungsfelder">
+    <meta name="description" content="Technische Kaufleute - Eidgenössische Berufsprüfung - Übersicht aller 14 Handlungsfelder plus Stichwortverzeichnis">
     <title>Technische Kaufleute - Eidgenössische Berufsprüfung</title>
     <style>
         * {
@@ -328,9 +328,25 @@
         .hf-10::before { background: #16a085; }
         .hf-10 .hf-number { color: #16a085; }
 
+        .hf-11 { border-left-color: #27ae60; }
+        .hf-11::before { background: #27ae60; }
+        .hf-11 .hf-number { color: #27ae60; }
+
         .hf-12 { border-left-color: #d35400; }
         .hf-12::before { background: #d35400; }
         .hf-12 .hf-number { color: #d35400; }
+
+        .hf-13 { border-left-color: #1976D2; }
+        .hf-13::before { background: #1976D2; }
+        .hf-13 .hf-number { color: #1976D2; }
+
+        .hf-14 { border-left-color: #D32F2F; }
+        .hf-14::before { background: #D32F2F; }
+        .hf-14 .hf-number { color: #D32F2F; }
+
+        .stichwort { border-left-color: #795548; }
+        .stichwort::before { background: #795548; }
+        .stichwort .hf-number { color: #795548; }
 
         .actions {
             background: white;
@@ -445,7 +461,7 @@
     <div class="container">
         <header>
             <h1>Technische Kaufleute</h1>
-            <div class="subtitle">Eidgenössische Berufsprüfung - Übersicht aller Handlungsfelder</div>
+            <div class="subtitle">Eidgenössische Berufsprüfung - Vollständige Übersicht aller 14 Handlungsfelder</div>
             
             <div class="search-container">
                 <div class="search-toggle">
@@ -461,7 +477,7 @@
 
             <div class="progress-overview">
                 <div class="progress-text">
-                    Fortschritt: <span id="progressCount">0</span> von 12 Handlungsfeldern abgeschlossen
+                    Fortschritt: <span id="progressCount">0</span> von 14 Handlungsfeldern abgeschlossen
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
@@ -591,6 +607,18 @@
                     <a href="hf10-infrastruktur.html" class="hf-link">Zum Handlungsfeld →</a>
                 </div>
 
+                <div class="hf-card hf-11" data-hf="unterstützungsprozesse">
+                    <div class="hf-header">
+                        <div class="hf-number">HF11</div>
+                        <div class="hf-title">Unterstützungsprozesse</div>
+                        <input type="checkbox" class="hf-checkbox" data-hf="11">
+                    </div>
+                    <div class="hf-description">
+                        Qualitätsmanagement, Prozessoptimierung und kontinuierliche Verbesserung der Geschäftsprozesse.
+                    </div>
+                    <a href="hf11-unterstuetzungsprozesse.html" class="hf-link">Zum Handlungsfeld →</a>
+                </div>
+
                 <div class="hf-card hf-12" data-hf="prüfungsmethodik">
                     <div class="hf-header">
                         <div class="hf-number">HF12</div>
@@ -602,6 +630,41 @@
                     </div>
                     <a href="hf12-pruefungsmethodik.html" class="hf-link">Zum Handlungsfeld →</a>
                 </div>
+
+                <div class="hf-card hf-13" data-hf="projektmanagement">
+                    <div class="hf-header">
+                        <div class="hf-number">HF13</div>
+                        <div class="hf-title">Projektmanagement</div>
+                        <input type="checkbox" class="hf-checkbox" data-hf="13">
+                    </div>
+                    <div class="hf-description">
+                        Projektinitialisierung, -planung, -durchführung und -abschluss. Systematische Projektführung von der Idee bis zur erfolgreichen Umsetzung.
+                    </div>
+                    <a href="hf13-projektmanagement.html" class="hf-link">Zum Handlungsfeld →</a>
+                </div>
+
+                <div class="hf-card hf-14" data-hf="prozessmanagement">
+                    <div class="hf-header">
+                        <div class="hf-number">HF14</div>
+                        <div class="hf-title">Prozessmanagement</div>
+                        <input type="checkbox" class="hf-checkbox" data-hf="14">
+                    </div>
+                    <div class="hf-description">
+                        Prozessmodellierung, -optimierung und -digitalisierung. Kontinuierliche Verbesserung und Automatisierung von Geschäftsprozessen.
+                    </div>
+                    <a href="hf14-prozessmanagement.html" class="hf-link">Zum Handlungsfeld →</a>
+                </div>
+
+                <div class="hf-card stichwort" data-hf="stichwortverzeichnis glossar">
+                    <div class="hf-header">
+                        <div class="hf-number">📚</div>
+                        <div class="hf-title">Stichwortverzeichnis</div>
+                    </div>
+                    <div class="hf-description">
+                        Alphabetisches Verzeichnis aller wichtigen Begriffe, Methoden und Konzepte aus allen 14 Handlungsfeldern - Ihr schneller Referenzguide.
+                    </div>
+                    <a href="stichwortverzeichnis-tk.html" class="hf-link">Zum Stichwortverzeichnis →</a>
+                </div>
             </div>
         </main>
 
@@ -609,15 +672,15 @@
             <h3 style="margin-bottom: 20px; color: #2c3e50;">Aktionen</h3>
             <div class="btn-group">
                 <a href="technische-kaufleute-inhaltsverzeichnis.html" class="btn btn-primary">📋 Inhaltsverzeichnis</a>
-                <button class="btn btn-primary" onclick="printAllPages()">Alle Seiten drucken</button>
-                <button class="btn btn-secondary" onclick="resetProgress()">Fortschritt zurücksetzen</button>
-                <button class="btn btn-secondary" onclick="exportProgress()">Fortschritt exportieren</button>
+                <button class="btn btn-primary" onclick="printAllPages()">📄 Alle Seiten drucken</button>
+                <button class="btn btn-secondary" onclick="resetProgress()">🔄 Fortschritt zurücksetzen</button>
+                <button class="btn btn-secondary" onclick="exportProgress()">💾 Fortschritt exportieren</button>
             </div>
         </div>
 
         <footer>
             <p><strong>Technische Kaufleute - Eidgenössische Berufsprüfung</strong></p>
-            <p>Diese Website dient als Lernhilfe und Übersicht für alle 12 Handlungsfelder der eidgenössischen Berufsprüfung.</p>
+            <p>Vollständige Lernplattform mit allen 14 Handlungsfeldern und Stichwortverzeichnis</p>
             <p>Erstellt für die optimale Vorbereitung auf die Prüfung • Stand: 2025</p>
         </footer>
     </div>
@@ -628,22 +691,12 @@
         let documentContents = {};
         let isSearching = false;
 
-        // Document metadata for search
+        // Document metadata for search (erweitert um HF13, HF14 und Stichwortverzeichnis)
         const documents = [
             {
                 file: 'technische-kaufleute-inhaltsverzeichnis.html',
                 title: 'Inhaltsverzeichnis',
                 description: 'Vollständige Übersicht aller Themen und Inhalte'
-            },
-            {
-                file: 'hf1-recht-volkswirtschaft.html',
-                title: 'HF1: Recht und Volkswirtschaft',
-                description: 'Grundlagen des Rechts, Vertragsrecht, Gesellschaftsrecht und volkswirtschaftliche Zusammenhänge'
-            },
-            {
-                file: 'hf2-unternehmensfuehrung.html',
-                title: 'HF2: Unternehmensführung',
-                description: 'Strategische Planung, Organisationsentwicklung und Führungsinstrumente'
             },
             {
                 file: 'hf3-mitarbeiterfuehrung.html',
@@ -694,6 +747,21 @@
                 file: 'hf12-pruefungsmethodik.html',
                 title: 'HF12: Prüfungsmethodik',
                 description: 'Prüfungsstrategien, Zeitmanagement, Lernmethoden und optimale Vorbereitung'
+            },
+            {
+                file: 'hf13-projektmanagement.html',
+                title: 'HF13: Projektmanagement',
+                description: 'Projektinitialisierung, -planung, -durchführung und -abschluss. Systematische Projektführung von der Idee bis zur erfolgreichen Umsetzung'
+            },
+            {
+                file: 'hf14-prozessmanagement.html',
+                title: 'HF14: Prozessmanagement',
+                description: 'Prozessmodellierung, -optimierung und -digitalisierung. Kontinuierliche Verbesserung und Automatisierung von Geschäftsprozessen'
+            },
+            {
+                file: 'stichwortverzeichnis-tk.html',
+                title: 'Stichwortverzeichnis A-Z',
+                description: 'Alphabetisches Verzeichnis aller wichtigen Begriffe, Methoden und Konzepte aus allen 14 Handlungsfeldern'
             }
         ];
 
@@ -867,6 +935,7 @@
                 });
             });
         }
+
         function updateProgress() {
             const checkboxes = document.querySelectorAll('.hf-checkbox');
             const checked = document.querySelectorAll('.hf-checkbox:checked').length;
@@ -955,7 +1024,7 @@
             hideSearchResults();
         }
 
-        // Print all pages
+        // Print all pages (erweitert um HF13, HF14 und Stichwortverzeichnis)
         function printAllPages() {
             const pages = [
                 'technische-kaufleute-inhaltsverzeichnis.html',
@@ -970,10 +1039,13 @@
                 'hf9-finanzbuchhaltung.html',
                 'hf10-infrastruktur.html',
                 'hf11-unterstuetzungsprozesse.html',
-                'hf12-pruefungsmethodik.html'
+                'hf12-pruefungsmethodik.html',
+                'hf13-projektmanagement.html',
+                'hf14-prozessmanagement.html',
+                'stichwortverzeichnis-tk.html'
             ];
             
-            if (confirm('Möchten Sie das Inhaltsverzeichnis und alle 12 Handlungsfeld-Seiten in neuen Tabs öffnen zum Drucken?')) {
+            if (confirm('Möchten Sie das Inhaltsverzeichnis, alle 14 Handlungsfelder und das Stichwortverzeichnis in neuen Tabs öffnen zum Drucken?')) {
                 pages.forEach((page, index) => {
                     setTimeout(() => {
                         window.open(page, '_blank');
@@ -1072,4 +1144,14 @@
         document.addEventListener('DOMContentLoaded', animateOnScroll);
     </script>
 </body>
-</html>
+</html>f1-recht-volkswirtschaft.html',
+                title: 'HF1: Recht und Volkswirtschaft',
+                description: 'Grundlagen des Rechts, Vertragsrecht, Gesellschaftsrecht und volkswirtschaftliche Zusammenhänge'
+            },
+            {
+                file: 'hf2-unternehmensfuehrung.html',
+                title: 'HF2: Unternehmensführung',
+                description: 'Strategische Planung, Organisationsentwicklung und Führungsinstrumente'
+            },
+            {
+                file: 'h
