@@ -40,29 +40,23 @@
     }
     
     /* Verhindert ungünstige Umbrüche */
-    .section, .section-* {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-    }
-    
-    .table-box, .highlight, .process-box, .method-box {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-    }
-    
     .letter-group {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
     }
     
     /* Schriftgrößen anpassen */
-    h1 { font-size: 16pt !important; margin-bottom: 15px !important; }
-    h2 { font-size: 13pt !important; margin: 15px 0 10px 0 !important; }
-    h3 { font-size: 11pt !important; margin: 10px 0 8px 0 !important; }
+    h1 { font-size: 16pt !important; margin-bottom: 10px !important; }
+    h2 { font-size: 12pt !important; margin: 10px 0 8px 0 !important; }
     
     .entry { 
-        font-size: 9pt !important; 
-        line-height: 1.2 !important;
+        font-size: 8pt !important; 
+        line-height: 1.1 !important;
+        margin-bottom: 1px !important;
+    }
+    
+    .letter-header {
+        font-size: 10pt !important;
         margin-bottom: 2px !important;
     }
     
@@ -72,14 +66,18 @@
     }
     
     .emoji {
-        display: none !important; /* Emojis können Probleme verursachen */
+        display: none !important;
     }
     
     /* Bessere Spalten für Druck */
     .columns {
         columns: 3 !important;
-        column-gap: 12px !important;
+        column-gap: 10px !important;
         column-fill: balance !important;
+    }
+    
+    .header {
+        margin-bottom: 10px !important;
     }
 }
 
@@ -125,7 +123,7 @@
         .columns {
             columns: 3;
             column-gap: 15px;
-            column-fill: auto;
+            column-fill: balance;
         }
         
         .entry {
@@ -186,11 +184,11 @@
 <body>
     <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
     
-    <!-- Seite 1: A-M -->
+    <!-- Seite 1: A-P -->
     <div class="page">
         <div class="header">
             <h1>Technische Kaufleute</h1>
-            <h2>Stichwortverzeichnis A-Z</h2>
+            <h2>Stichwortverzeichnis A-P</h2>
         </div>
         
         <div class="columns">
@@ -362,7 +360,17 @@
                 <div class="entry"><span class="term">Prokrastination</span><span class="hf">HF12</span></div>
                 <div class="entry"><span class="term">Prozessoptimierung</span><span class="hf">HF14</span></div>
             </div>
-            
+        </div>
+    </div>
+    
+    <!-- Seite 2: Q-Z -->
+    <div class="page">
+        <div class="header">
+            <h1>Technische Kaufleute</h1>
+            <h2>Stichwortverzeichnis Q-Z</h2>
+        </div>
+        
+        <div class="columns">
             <div class="letter-group">
                 <div class="letter-header">Q-R</div>
                 <div class="entry"><span class="term">Qualitätslenkung</span><span class="hf">HF11</span></div>
