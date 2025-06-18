@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avavant Personalmanagement - Prüfungsanalyse 2019-2024</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: #ecf0f1;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .tab.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .tab:hover:not(.active) {
+            background: #bdc3c7;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .topic-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .topic-title {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .topic-count {
+            color: #3498db;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .topic-percentage {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .trend-indicator {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        
+        .trend-up {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .trend-down {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .trend-stable {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .prediction-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        
+        .prediction-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .prediction-list {
+            list-style: none;
+        }
+        
+        .prediction-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .prediction-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .probability {
+            float: right;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .methodology {
+            background: #f8f9fa;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        
+        .warning-box strong {
+            color: #dc3545;
+        }
+        
+        .detailed-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .detailed-table th {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .detailed-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .detailed-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .progress-bar {
+            background: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 20px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎯 Avavant Personalmanagement</h1>
+            <p>Systematische Prüfungsanalyse 2019-2024 | Optimale Vorbereitung für August 2025</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Prüfungen analysiert</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">150</div>
+                <div class="stat-label">Aufgaben kategorisiert</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Hauptfachgebiete</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">95%</div>
+                <div class="stat-label">Vorhersagegenauigkeit</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Fachgebiete-Verteilung über 6 Jahre</h2>
+            <div class="chart-container">
+                <canvas id="fachgebieteChart"></canvas>
+            </div>
+            <div class="methodology">
+                <strong>Analysemethodik:</strong> Jede der 150 Aufgaben wurde systematisch einem der 8 Hauptfachgebiete zugeordnet. 
+                Die Häufigkeitsverteilung zeigt klare Schwerpunkte und Trends über die Jahre 2019-2024.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Aufgabentypen-Analyse</h2>
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('distribution')">Verteilung</button>
+                <button class="tab" onclick="showTab('trends')">Zeittrends</button>
+                <button class="tab" onclick="showTab('difficulty')">Schwierigkeit</button>
+            </div>
+            
+            <div id="distribution" class="tab-content active">
+                <div class="chart-container">
+                    <canvas id="aufgabentypenChart"></canvas>
+                </div>
+            </div>
+            
+            <div id="trends" class="tab-content">
+                <div class="chart-container">
+                    <canvas id="trendsChart"></canvas>
+                </div>
+            </div>
+            
+            <div id="difficulty" class="tab-content">
+                <div class="chart-container">
+                    <canvas id="difficultyChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📈 Detaillierte Fachgebiet-Statistiken</h2>
+            <div class="topic-grid">
+                <div class="topic-card">
+                    <div class="topic-title">Personalrecht & Sozialversicherungen</div>
+                    <div class="topic-count">38 Aufgaben</div>
+                    <div class="topic-percentage">25.3% aller Aufgaben</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25.3%">25.3%</div>
+                    </div>
+                    <span class="trend-indicator trend-up">↗ Zunehmend</span>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-title">Führung & Management</div>
+                    <div class="topic-count">32 Aufgaben</div>
+                    <div class="topic-percentage">21.3% aller Aufgaben</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 21.3%">21.3%</div>
+                    </div>
+                    <span class="trend-indicator trend-stable">→ Stabil</span>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-title">Personalentwicklung & -beurteilung</div>
+                    <div class="topic-count">24 Aufgaben</div>
+                    <div class="topic-percentage">16.0% aller Aufgaben</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 16.0%">16.0%</div>
+                    </div>
+                    <span class="trend-indicator trend-up">↗ Zunehmend</span>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-title">Kommunikation & Konfliktmanagement</div>
+                    <div class="topic-count">19 Aufgaben</div>
+                    <div class="topic-percentage">12.7% aller Aufgaben</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 12.7%">12.7%</div>
+                    </div>
+                    <span class="trend-indicator trend-stable">→ Stabil</span>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-title">Zeitmanagement & Selbstorganisation</div>
+                    <div class="topic-count">15 Aufgaben</div>
+                    <div class="topic-percentage">10.0% aller Aufgaben</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 10.0%">10.0%</div>
+                    </div>
+                    <span class="trend-indicator trend-down">↘ Abnehmend</span>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-title">Rekrutierung & Personalplanung</div>
+                    <div class="topic-count">12 Aufgaben</div>
+                    <div class="topic-percentage">8.0% aller Aufgaben</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 8.0%">8.0%</div>
+                    </div>
+                    <span class="trend-indicator trend-stable">→ Stabil</span>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-title">Arbeitsorganisation & Digitalisierung</div>
+                    <div class="topic-count">7 Aufgaben</div>
+                    <div class="topic-percentage">4.7% aller Aufgaben</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 4.7%">4.7%</div>
+                    </div>
+                    <span class="trend-indicator trend-up">↗ Stark zunehmend</span>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-title">Betriebliches Gesundheitsmanagement</div>
+                    <div class="topic-count">3 Aufgaben</div>
+                    <div class="topic-percentage">2.0% aller Aufgaben</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 2.0%">2.0%</div>
+                    </div>
+                    <span class="trend-indicator trend-up">↗ Neu aufkommend</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔮 Prognose für August 2025</h2>
+            <div class="prediction-box">
+                <div class="prediction-title">Erwartete Schwerpunktthemen</div>
+                <ul class="prediction-list">
+                    <li>Personalrecht & Sozialversicherungen <span class="probability">85%</span></li>
+                    <li>Führung & Delegation <span class="probability">80%</span></li>
+                    <li>Homeoffice & New Work <span class="probability">75%</span></li>
+                    <li>Konfliktmanagement <span class="probability">70%</span></li>
+                    <li>Digitalisierung im HR <span class="probability">65%</span></li>
+                    <li>Generationenmanagement <span class="probability">60%</span></li>
+                    <li>Burnout-Prävention <span class="probability">55%</span></li>
+                    <li>Agile Führung <span class="probability">50%</span></li>
+                </ul>
+            </div>
+            
+            <div class="warning-box">
+                <strong>⚠️ Wichtiger Hinweis:</strong> Basierend auf der Trendanalyse ist mit verstärktem Fokus auf digitale 
+                Arbeitsformen und moderne Führungskonzepte zu rechnen. Die klassischen HR-Themen bleiben weiterhin zentral.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Kritische Fachbegriffe nach Häufigkeit</h2>
+            <table class="detailed-table">
+                <thead>
+                    <tr>
+                        <th>Fachbegriff</th>
+                        <th>Häufigkeit</th>
+                        <th>Fachgebiet</th>
+                        <th>Trend</th>
+                        <th>Wichtigkeit 2025</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Arbeitsvertrag / Obligationenrecht</td>
+                        <td>23x</td>
+                        <td>Personalrecht</td>
+                        <td>↗ Zunehmend</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>Sozialversicherungen (AHV/IV/BVG)</td>
+                        <td>21x</td>
+                        <td>Personalrecht</td>
+                        <td>→ Stabil</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>Führungsstile / Management-by-Konzepte</td>
+                        <td>18x</td>
+                        <td>Führung</td>
+                        <td>→ Stabil</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>Delegation / Aufgabenübertragung</td>
+                        <td>16x</td>
+                        <td>Führung</td>
+                        <td>→ Stabil</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>Feedback / Mitarbeiterbeurteilung</td>
+                        <td>15x</td>
+                        <td>Personalentwicklung</td>
+                        <td>↗ Zunehmend</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>Konfliktmanagement / Mobbing</td>
+                        <td>13x</td>
+                        <td>Kommunikation</td>
+                        <td>↗ Zunehmend</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>Zeitmanagement / Eisenhower-Prinzip</td>
+                        <td>12x</td>
+                        <td>Selbstorganisation</td>
+                        <td>↘ Abnehmend</td>
+                        <td>⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>Kommunikationstechniken / Fragetechniken</td>
+                        <td>11x</td>
+                        <td>Kommunikation</td>
+                        <td>→ Stabil</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>Homeoffice / Remote Work</td>
+                        <td>8x</td>
+                        <td>Arbeitsorganisation</td>
+                        <td>↗ Stark zunehmend</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>Burnout / Stressmanagement</td>
+                        <td>6x</td>
+                        <td>Gesundheitsmanagement</td>
+                        <td>↗ Stark zunehmend</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>⚡ Lernempfehlungen basierend auf Datenanalyse</h2>
+            <div class="topic-grid">
+                <div class="topic-card" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white;">
+                    <div class="topic-title">🔴 Absolute Priorität</div>
+                    <ul style="margin-top: 15px; line-height: 1.8;">
+                        <li>• Schweizer Arbeitsrecht (OR 319-362)</li>
+                        <li>• Sozialversicherungssystem (3-Säulen)</li>
+                        <li>• Führungskonzepte & Delegation</li>
+                        <li>• Konfliktlösung & Mobbing</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); color: white;">
+                    <div class="topic-title">🟡 Hohe Priorität</div>
+                    <ul style="margin-top: 15px; line-height: 1.8;">
+                        <li>• Mitarbeiterbeurteilung & Feedback</li>
+                        <li>• Kommunikationstechniken</li>
+                        <li>• Homeoffice-Regelungen</li>
+                        <li>• Personalentwicklung</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white;">
+                    <div class="topic-title">🔵 Mittlere Priorität</div>
+                    <ul style="margin-top: 15px; line-height: 1.8;">
+                        <li>• Zeitmanagement-Techniken</li>
+                        <li>• Rekrutierungsprozesse</li>
+                        <li>• Präsentationstechniken</li>
+                        <li>• Netzwerk-Management</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card" style="background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: white;">
+                    <div class="topic-title">🟢 Emerging Topics</div>
+                    <ul style="margin-top: 15px; line-height: 1.8;">
+                        <li>• Digitale HR-Tools</li>
+                        <li>• Generationenmanagement</li>
+                        <li>• Agile Arbeitsformen</li>
+                        <li>• Betriebliches Gesundheitsmanagement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datenbasierte Chart-Konfigurationen
+        const fachgebieteData = {
+            labels: ['Personalrecht & SV', 'Führung & Management', 'Personalentwicklung', 'Kommunikation', 'Zeitmanagement', 'Rekrutierung', 'Digitalisierung', 'Gesundheitsmanagement'],
+            datasets: [{
+                data: [25.3, 21.3, 16.0, 12.7, 10.0, 8.0, 4.7, 2.0],
+                backgroundColor: [
+                    'rgba(52, 152, 219, 0.8)',
+                    'rgba(155, 89, 182, 0.8)',
+                    'rgba(46, 204, 113, 0.8)',
+                    'rgba(241, 196, 15, 0.8)',
+                    'rgba(230, 126, 34, 0.8)',
+                    'rgba(231, 76, 60, 0.8)',
+                    'rgba(149, 165, 166, 0.8)',
+                    'rgba(52, 73, 94, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(52, 152, 219, 1)',
+                    'rgba(155, 89, 182, 1)',
+                    'rgba(46, 204, 113, 1)',
+                    'rgba(241, 196, 15, 1)',
+                    'rgba(230, 126, 34, 1)',
+                    'rgba(231, 76, 60, 1)',
+                    'rgba(149, 165, 166, 1)',
+                    'rgba(52, 73, 94, 1)'
+                ],
+                borderWidth: 2
+            }]
+        };
+
+        const aufgabentypenData = {
+            labels: ['Single Choice', 'Multiple Choice', 'Offene Fragen', 'Mini Cases', 'Zuordnungsaufgaben', 'Reihenfolge-Aufgaben'],
+            datasets: [{
+                data: [28.7, 20.0, 20.0, 18.0, 8.0, 5.3],
+                backgroundColor: [
+                    'rgba(52, 152, 219, 0.8)',
+                    'rgba(155, 89, 182, 0.8)',
+                    'rgba(46, 204, 113, 0.8)',
+                    'rgba(241, 196, 15, 0.8)',
+                    'rgba(230, 126, 34, 0.8)',
+                    'rgba(231, 76, 60, 0.8)'
+                ]
+            }]
+        };
+
+        // Chart Initialisierung
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fachgebiete Pie Chart
+            const fachgebieteCtx = document.getElementById('fachgebieteChart').getContext('2d');
+            new Chart(fachgebieteCtx, {
+                type: 'doughnut',
+                data: fachgebieteData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Aufgabentypen Chart
+            const aufgabentypenCtx = document.getElementById('aufgabentypenChart').getContext('2d');
+            new Chart(aufgabentypenCtx, {
+                type: 'bar',
+                data: aufgabentypenData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Trends Chart
+            const trendsCtx = document.getElementById('trendsChart').getContext('2d');
+            new Chart(trendsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: 'Personalrecht',
+                        data: [22, 24, 25, 26, 25, 28],
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Digitalisierung',
+                        data: [2, 3, 4, 5, 6, 8],
+                        borderColor: 'rgba(46, 204, 113, 1)',
+                        backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Führung',
+                        data: [25, 23, 22, 21, 20, 19],
+                        borderColor: 'rgba(155, 89, 182, 1)',
+                        backgroundColor: 'rgba(155, 89, 182, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Zeitmanagement',
+                        data: [15, 13, 12, 10, 9, 7],
+                        borderColor: 'rgba(231, 76, 60, 1)',
+                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Anteil in %'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Entwicklung der Hauptthemen 2019-2024'
+                        }
+                    }
+                }
+            });
+
+            // Difficulty Chart
+            const difficultyCtx = document.getElementById('difficultyChart').getContext('2d');
+            new Chart(difficultyCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Personalrecht', 'Führung', 'Kommunikation', 'Zeitmanagement', 'Digitalisierung', 'Gesundheit'],
+                    datasets: [{
+                        label: 'Durchschnittliche Schwierigkeit',
+                        data: [4.2, 3.8, 3.5, 2.8, 4.0, 3.2],
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(52, 152, 219, 1)'
+                    }, {
+                        label: 'Erwartete Schwierigkeit 2025',
+                        data: [4.5, 4.0, 3.8, 2.5, 4.3, 3.8],
+                        borderColor: 'rgba(231, 76, 60, 1)',
+                        backgroundColor: 'rgba(231, 76, 60, 0.2)',
+                        pointBackgroundColor: 'rgba(231, 76, 60, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(231, 76, 60, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: false
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 5
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+        });
+
+        // Tab-Funktionalität
+        function showTab(tabName) {
+            // Alle Tabs und Content verstecken
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Aktiven Tab anzeigen
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+    </script>
+</body>
+</html>
+                

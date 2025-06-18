@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avavant Prüfungsanalyse: Problemlösungs- und Entscheidungsmethodik</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .chart-title {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .priority-matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 1rem;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        .matrix-quadrant {
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quadrant-a {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .quadrant-b {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .quadrant-c {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .quadrant-d {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+        }
+
+        .quadrant-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quadrant-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .trend-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .trend-up {
+            background: rgba(39, 174, 96, 0.2);
+            color: #27ae60;
+        }
+
+        .trend-stable {
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+        }
+
+        .trend-down {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            transition: width 2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .method-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .method-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid;
+            transition: transform 0.3s ease;
+        }
+
+        .method-card:hover {
+            transform: translateX(5px);
+        }
+
+        .method-high {
+            border-left-color: #e74c3c;
+        }
+
+        .method-medium {
+            border-left-color: #f39c12;
+        }
+
+        .method-low {
+            border-left-color: #95a5a6;
+        }
+
+        .method-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .method-probability {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 0.5rem;
+        }
+
+        .roadmap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .phase-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .phase-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .phase-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .phase-duration {
+            color: #7f8c8d;
+            margin-bottom: 1rem;
+        }
+
+        .animated-counter {
+            animation: countUp 2s ease-out;
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .priority-matrix {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 Avavant Prüfungsanalyse 2025</h1>
+        <p>Problemlösungs- und Entscheidungsmethodik • Datenbasierte Erfolgsstrategie</p>
+    </div>
+
+    <div class="container">
+        <!-- Key Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card pulse">
+                <div class="stat-number animated-counter">100%</div>
+                <div class="stat-label">Postkorbaufgaben Wahrscheinlichkeit</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number animated-counter">48</div>
+                <div class="stat-label">Maximale Punktzahl</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number animated-counter">24</div>
+                <div class="stat-label">Punkte Postkorbaufgabe</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number animated-counter">85%</div>
+                <div class="stat-label">Nutzwertanalyse Trend</div>
+            </div>
+        </div>
+
+        <!-- Eisenhower Matrix -->
+        <div class="section">
+            <h2>🎯 Eisenhower-Matrix (100% Prüfungsrelevanz)</h2>
+            <div class="priority-matrix">
+                <div class="matrix-quadrant quadrant-a">
+                    <div class="quadrant-title">A - KRITISCH</div>
+                    <div class="quadrant-desc">Wichtig & Dringend<br>Sofort selbst erledigen</div>
+                </div>
+                <div class="matrix-quadrant quadrant-b">
+                    <div class="quadrant-title">B - WICHTIG</div>
+                    <div class="quadrant-desc">Wichtig & Nicht dringend<br>Planen & Terminieren</div>
+                </div>
+                <div class="matrix-quadrant quadrant-c">
+                    <div class="quadrant-title">C - DRINGEND</div>
+                    <div class="quadrant-desc">Nicht wichtig & Dringend<br>Delegieren</div>
+                </div>
+                <div class="matrix-quadrant quadrant-d">
+                    <div class="quadrant-title">D - ELIMINIEREN</div>
+                    <div class="quadrant-desc">Nicht wichtig & Nicht dringend<br>Ignorieren</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method Probability Analysis -->
+        <div class="section">
+            <h2>📊 Methoden-Wahrscheinlichkeitsanalyse 2025</h2>
+            <div class="method-list">
+                <div class="method-card method-high">
+                    <div class="method-name">Postkorbaufgaben</div>
+                    <div class="method-probability">100%</div>
+                    <div class="trend-indicator trend-up">↗️ Jährlich konstant</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;">24 Punkte</div>
+                    </div>
+                </div>
+                <div class="method-card method-high">
+                    <div class="method-name">Eisenhower-Matrix</div>
+                    <div class="method-probability">100%</div>
+                    <div class="trend-indicator trend-up">↗️ Kern-Methode</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;">Zentral</div>
+                    </div>
+                </div>
+                <div class="method-card method-high">
+                    <div class="method-name">Nutzwertanalyse</div>
+                    <div class="method-probability">85%</div>
+                    <div class="trend-indicator trend-up">↗️ Steigend</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%;">6-12 Punkte</div>
+                    </div>
+                </div>
+                <div class="method-card method-high">
+                    <div class="method-name">Projektmanagement</div>
+                    <div class="method-probability">80%</div>
+                    <div class="trend-indicator trend-up">↗️↗️ Stark steigend</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%;">6-12 Punkte</div>
+                    </div>
+                </div>
+                <div class="method-card method-medium">
+                    <div class="method-name">Problemlösungsprozess</div>
+                    <div class="method-probability">70%</div>
+                    <div class="trend-indicator trend-up">↗️ Wachsend</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 70%;">6 Punkte</div>
+                    </div>
+                </div>
+                <div class="method-card method-medium">
+                    <div class="method-name">Risikomanagement</div>
+                    <div class="method-probability">65%</div>
+                    <div class="trend-indicator trend-up">↗️ Relevant</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 65%;">6-12 Punkte</div>
+                    </div>
+                </div>
+                <div class="method-card method-medium">
+                    <div class="method-name">SWOT-Analyse</div>
+                    <div class="method-probability">60%</div>
+                    <div class="trend-indicator trend-stable">↔️ Stabil</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%;">6 Punkte</div>
+                    </div>
+                </div>
+                <div class="method-card method-medium">
+                    <div class="method-name">ABC-Analyse</div>
+                    <div class="method-probability">60%</div>
+                    <div class="trend-indicator trend-stable">↔️ Stabil</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%;">6 Punkte</div>
+                    </div>
+                </div>
+                <div class="method-card method-low">
+                    <div class="method-name">Kreativitätstechniken</div>
+                    <div class="method-probability">55%</div>
+                    <div class="trend-indicator trend-stable">↔️ Wiederkehrend</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 55%;">3-6 Punkte</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="section">
+            <h2>📈 Häufigkeitsanalyse & Trends</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Methoden-Häufigkeit 2019-2024</div>
+                    <canvas id="methodFrequencyChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Punkteverteilung</div>
+                    <canvas id="pointsDistributionChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Branchen-Trends</div>
+                    <canvas id="industryTrendsChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Schwierigkeitsgrad-Verteilung</div>
+                    <canvas id="difficultyChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learning Roadmap -->
+        <div class="section">
+            <h2>🗓️ 12-Wochen Lernstrategie-Roadmap</h2>
+            <div class="roadmap">
+                <div class="phase-card">
+                    <div class="phase-number">1</div>
+                    <div class="phase-title">FUNDAMENT</div>
+                    <div class="phase-duration">Wochen 1-4</div>
+                    <p>✅ Postkorbaufgaben-Mastery<br>
+                    ✅ Eisenhower-Matrix automatisieren<br>
+                    ✅ Nutzwertanalyse-Expertise</p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-number">2</div>
+                    <div class="phase-title">AUFBAU</div>
+                    <div class="phase-duration">Wochen 5-8</div>
+                    <p>✅ Projektmanagement-Skills<br>
+                    ✅ Analyse-Methoden<br>
+                    ✅ SWOT & ABC-Analyse</p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-number">3</div>
+                    <div class="phase-title">VERTIEFUNG</div>
+                    <div class="phase-duration">Wochen 9-12</div>
+                    <p>✅ Kreativitätstechniken<br>
+                    ✅ Integration & Simulation<br>
+                    ✅ Prüfungsoptimierung</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Formula -->
+        <div class="section">
+            <h2>🏆 Die 3-2-1 Erfolgsformel</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 2rem; border-radius: 15px; text-align: center;">
+                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">3 MUST-HAVES</h3>
+                    <p>• Postkorbaufgaben (24P)<br>
+                    • Nutzwertanalyse (12P)<br>
+                    • Projektmanagement (12P)</p>
+                </div>
+                <div style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white; padding: 2rem; border-radius: 15px; text-align: center;">
+                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">2 SHOULD-HAVES</h3>
+                    <p>• SWOT/ABC-Analyse<br>
+                    • Problemlösungsprozess</p>
+                </div>
+                <div style="background: linear-gradient(135deg, #3498db, #2980b9); color: white; padding: 2rem; border-radius: 15px; text-align: center;">
+                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">1 WILD-CARD</h3>
+                    <p>• Kreativitätstechniken<br>
+                    für Vollständigkeit</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Timeline Analysis -->
+        <div class="section">
+            <h2>📅 Historische Entwicklung 2019-2024</h2>
+            <div class="chart-container">
+                <div class="chart-title">Methoden-Entwicklung über die Jahre</div>
+                <canvas id="timelineChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Simulation Calculator -->
+        <div class="section">
+            <h2>🧮 Interaktiver Punktezähler</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+                <div>
+                    <h3>Ihre erwartete Leistung:</h3>
+                    <div style="margin: 1rem 0;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Postkorbaufgabe (max. 24 Punkte):</label>
+                        <input type="range" id="postkorbPoints" min="0" max="24" value="18" style="width: 100%;">
+                        <span id="postkorbValue">18</span> Punkte
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Wissensfragen (max. 12 Punkte):</label>
+                        <input type="range" id="wissenPoints" min="0" max="12" value="9" style="width: 100%;">
+                        <span id="wissenValue">9</span> Punkte
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Mini-Case (max. 12 Punkte):</label>
+                        <input type="range" id="casePoints" min="0" max="12" value="9" style="width: 100%;">
+                        <span id="caseValue">9</span> Punkte
+                    </div>
+                </div>
+                <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-radius: 15px;">
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;" id="totalPoints">36</div>
+                    <div style="font-size: 1.2rem; margin-bottom: 1rem;">von 48 Punkten</div>
+                    <div style="font-size: 2rem; font-weight: bold;" id="percentage">75%</div>
+                    <div style="margin-top: 1rem; font-size: 1.1rem;" id="grade">Note: 4.5</div>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.2); border-radius: 10px;" id="assessment">Bestanden! Gute Leistung</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenario Analysis -->
+        <div class="section">
+            <h2>🎭 Postkorbaufgaben-Szenarien Prognose</h2>
+            <div class="method-list">
+                <div class="method-card method-high">
+                    <div class="method-name">🏭 Nachhaltigkeit/CleanTech</div>
+                    <div class="method-probability">90%</div>
+                    <div class="trend-indicator trend-up">↗️ Solar, Wind, E-Mobilität</div>
+                    <p style="margin-top: 1rem; color: #7f8c8d;">Mögliche Unternehmen: Solar AG, WindTech, GreenEnergy Solutions</p>
+                </div>
+                <div class="method-card method-high">
+                    <div class="method-name">💻 Digitalisierung/IT</div>
+                    <div class="method-probability">85%</div>
+                    <div class="trend-indicator trend-up">↗️ KI, Cloud, Software</div>
+                    <p style="margin-top: 1rem; color: #7f8c8d;">Mögliche Unternehmen: DataTech AG, CloudSolutions, AI-Innovations</p>
+                </div>
+                <div class="method-card method-medium">
+                    <div class="method-name">🏥 Gesundheitswesen</div>
+                    <div class="method-probability">70%</div>
+                    <div class="trend-indicator trend-up">↗️ MedTech, Pharma, Digital Health</div>
+                    <p style="margin-top: 1rem; color: #7f8c8d;">Mögliche Unternehmen: MedDevice AG, HealthTech, PharmaSwiss</p>
+                </div>
+                <div class="method-card method-medium">
+                    <div class="method-name">🏗️ Bau/Architektur</div>
+                    <div class="method-probability">65%</div>
+                    <div class="trend-indicator trend-stable">↔️ Smart Building, Nachhaltigkeit</div>
+                    <p style="margin-top: 1rem; color: #7f8c8d;">Mögliche Unternehmen: SmartBuild AG, EcoBau, ModernArch</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crisis Scenarios -->
+        <div class="section">
+            <h2>🚨 Typische Krisensituationen in Postkorbaufgaben</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 1.5rem; border-radius: 15px;">
+                    <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">🔥 Akute Krisen</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>• Feueralarm/Sicherheitsvorfall</li>
+                        <li>• IT-Systemausfall</li>
+                        <li>• Lieferengpass kurz vor Deadline</li>
+                        <li>• Personalausfall bei wichtigem Event</li>
+                    </ul>
+                </div>
+                <div style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white; padding: 1.5rem; border-radius: 15px;">
+                    <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">⏰ Zeitdruck-Situationen</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>• Produktlancierung</li>
+                        <li>• Messeaufbau</li>
+                        <li>• Flugreise mit Komplikationen</li>
+                        <li>• Regulatorische Deadlines</li>
+                    </ul>
+                </div>
+                <div style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; padding: 1.5rem; border-radius: 15px;">
+                    <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">🤝 Stakeholder-Konflikte</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>• Investoren vs. Operatives Team</li>
+                        <li>• Kunde vs. interne Prioritäten</li>
+                        <li>• Regulatoren vs. Business</li>
+                        <li>• Medien vs. Diskretion</li>
+                    </ul>
+                </div>
+                <div style="background: linear-gradient(135deg, #3498db, #2980b9); color: white; padding: 1.5rem; border-radius: 15px;">
+                    <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">🔧 Technische Probleme</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>• Maschinenausfall in Produktion</li>
+                        <li>• Software-Bugs vor Go-Live</li>
+                        <li>• Stromausfall/Infrastruktur</li>
+                        <li>• Qualitätsprobleme</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Materials -->
+        <div class="section">
+            <h2>📚 Übungsmaterialien & Checklisten</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-left: 5px solid #e74c3c;">
+                    <h3 style="color: #e74c3c; margin-bottom: 1rem;">✅ Postkorbaufgaben-Checklist</h3>
+                    <ul style="color: #7f8c8d; line-height: 1.8;">
+                        <li>□ Alle Dokumente schnell durchlesen (5 Min)</li>
+                        <li>□ Stakeholder und Rollen identifizieren</li>
+                        <li>□ Zeitrahmen und Deadlines notieren</li>
+                        <li>□ Eisenhower-Matrix anwenden</li>
+                        <li>□ Delegation klar begründen</li>
+                        <li>□ Realistische Zeitschätzungen</li>
+                        <li>□ Vollständigkeit prüfen</li>
+                        <li>□ Konsistenz Aktions-/Zeitplan</li>
+                    </ul>
+                </div>
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-left: 5px solid #f39c12;">
+                    <h3 style="color: #f39c12; margin-bottom: 1rem;">📊 Nutzwertanalyse 6 Schritte</h3>
+                    <ol style="color: #7f8c8d; line-height: 1.8;">
+                        <li>Kriterien definieren</li>
+                        <li>Gewichtung festlegen (∑=100%)</li>
+                        <li>Bewertungsskala bestimmen</li>
+                        <li>Alternativen bewerten</li>
+                        <li>Nutzwerte berechnen</li>
+                        <li>Ergebnis interpretieren</li>
+                    </ol>
+                </div>
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-left: 5px solid #3498db;">
+                    <h3 style="color: #3498db; margin-bottom: 1rem;">🎯 Projektauftrag Template</h3>
+                    <ul style="color: #7f8c8d; line-height: 1.8;">
+                        <li>• Projektbeschreibung & Ziele</li>
+                        <li>• Stakeholder & Rollen</li>
+                        <li>• Termine & Meilensteine</li>
+                        <li>• Budget & Ressourcen</li>
+                        <li>• Risiken & Maßnahmen</li>
+                        <li>• Erfolgs-/Abbruchkriterien</li>
+                    </ul>
+                </div>
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-left: 5px solid #9b59b6;">
+                    <h3 style="color: #9b59b6; margin-bottom: 1rem;">🧠 Problemlösungsprozess</h3>
+                    <ol style="color: #7f8c8d; line-height: 1.8;">
+                        <li>Zieldefinition</li>
+                        <li>Analyse (Ist-Zustand)</li>
+                        <li>Planung (Lösungssuche)</li>
+                        <li>Entscheidung</li>
+                        <li>Realisierung</li>
+                        <li>Kontrolle</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Tips -->
+        <div class="section">
+            <h2>💡 Prüfungstipps & Taktiken</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div style="background: linear-gradient(45deg, #667eea, #764ba2); color: white; padding: 2rem; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">⏱️</div>
+                    <h4>Zeitmanagement</h4>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">30 Min Postkorb<br>15 Min Wissen<br>15 Min Case</p>
+                </div>
+                <div style="background: linear-gradient(45deg, #f093fb, #f5576c); color: white; padding: 2rem; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🎯</div>
+                    <h4>Prioritätenstrategie</h4>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">A-Aufgaben zuerst<br>Keine D-Aufgaben<br>Delegation begründen</p>
+                </div>
+                <div style="background: linear-gradient(45deg, #4facfe, #00f2fe); color: white; padding: 2rem; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">📝</div>
+                    <h4>Vollständigkeit</h4>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Alle Nummern erfassen<br>Begründungen notieren<br>Konsistenz prüfen</p>
+                </div>
+                <div style="background: linear-gradient(45deg, #fa709a, #fee140); color: white; padding: 2rem; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🧘</div>
+                    <h4>Stressresistenz</h4>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Ruhe bewahren<br>Systematisch arbeiten<br>Atmung kontrollieren</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Method Frequency Chart
+        const ctx1 = document.getElementById('methodFrequencyChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Postkorbaufgaben', 'Eisenhower-Matrix', 'Nutzwertanalyse', 'Projektmanagement', 'SWOT-Analyse', 'ABC-Analyse', 'Kreativitätstechniken'],
+                datasets: [{
+                    label: 'Häufigkeit (%)',
+                    data: [100, 100, 50, 33, 17, 17, 33],
+                    backgroundColor: [
+                        '#e74c3c',
+                        '#e74c3c', 
+                        '#f39c12',
+                        '#f39c12',
+                        '#3498db',
+                        '#3498db',
+                        '#95a5a6'
+                    ],
+                    borderColor: [
+                        '#c0392b',
+                        '#c0392b',
+                        '#e67e22',
+                        '#e67e22',
+                        '#2980b9',
+                        '#2980b9',
+                        '#7f8c8d'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Points Distribution Chart
+        const ctx2 = document.getElementById('pointsDistributionChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Postkorbaufgaben', 'Wissensfragen', 'Mini-Cases'],
+                datasets: [{
+                    data: [24, 12, 12],
+                    backgroundColor: ['#e74c3c', '#f39c12', '#3498db'],
+                    borderColor: ['#c0392b', '#e67e22', '#2980b9'],
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Industry Trends Chart
+        const ctx3 = document.getElementById('industryTrendsChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'polarArea',
+            data: {
+                labels: ['Nachhaltigkeit', 'Digitalisierung', 'Gesundheitswesen', 'Bau/Architektur'],
+                datasets: [{
+                    data: [90, 85, 70, 65],
+                    backgroundColor: [
+                        'rgba(46, 204, 113, 0.7)',
+                        'rgba(52, 152, 219, 0.7)',
+                        'rgba(155, 89, 182, 0.7)',
+                        'rgba(241, 196, 15, 0.7)'
+                    ],
+                    borderColor: [
+                        '#2ecc71',
+                        '#3498db',
+                        '#9b59b6',
+                        '#f1c40f'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Difficulty Chart
+        const ctx4 = document.getElementById('difficultyChart').getContext('2d');
+        new Chart(ctx4, {
+            type: 'pie',
+            data: {
+                labels: ['Leicht (Grundwissen)', 'Mittel (Anwendung)', 'Schwer (Synthese)'],
+                datasets: [{
+                    data: [33, 50, 17],
+                    backgroundColor: ['#2ecc71', '#f39c12', '#e74c3c'],
+                    borderColor: ['#27ae60', '#e67e22', '#c0392b'],
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Animate progress bars on load
+        window.addEventListener('load', function() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        });
+
+        // Animate counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('.animated-counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.innerText);
+                const increment = target / 50;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.innerText = Math.floor(current) + (counter.innerText.includes('%') ? '%' : '');
+                }, 30);
+            });
+        }
+
+        // Trigger animations when page loads
+        window.addEventListener('load', () => {
+            setTimeout(animateCounters, 500);
+        });
+
+        // Timeline Chart
+        const ctx5 = document.getElementById('timelineChart').getContext('2d');
+        new Chart(ctx5, {
+            type: 'line',
+            data: {
+                labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Postkorbaufgaben',
+                    data: [100, 100, 100, 100, 100, 100],
+                    borderColor: '#e74c3c',
+                    backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Nutzwertanalyse',
+                    data: [100, 100, 0, 0, 100, 0],
+                    borderColor: '#f39c12',
+                    backgroundColor: 'rgba(243, 156, 18, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Projektmanagement',
+                    data: [0, 0, 0, 100, 0, 100],
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'SWOT-Analyse',
+                    data: [0, 100, 0, 0, 0, 0],
+                    borderColor: '#9b59b6',
+                    backgroundColor: 'rgba(155, 89, 182, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            }
+        });
+
+        // Interactive Point Calculator
+        function updateCalculator() {
+            const postkorbSlider = document.getElementById('postkorbPoints');
+            const wissenSlider = document.getElementById('wissenPoints');
+            const caseSlider = document.getElementById('casePoints');
+            
+            const postkorbValue = document.getElementById('postkorbValue');
+            const wissenValue = document.getElementById('wissenValue');
+            const caseValue = document.getElementById('caseValue');
+            
+            const totalPoints = document.getElementById('totalPoints');
+            const percentage = document.getElementById('percentage');
+            const grade = document.getElementById('grade');
+            const assessment = document.getElementById('assessment');
+
+            function calculate() {
+                const postkorb = parseInt(postkorbSlider.value);
+                const wissen = parseInt(wissenSlider.value);
+                const cases = parseInt(caseSlider.value);
+                
+                postkorbValue.textContent = postkorb;
+                wissenValue.textContent = wissen;
+                caseValue.textContent = cases;
+                
+                const total = postkorb + wissen + cases;
+                const percent = Math.round((total / 48) * 100);
+                
+                totalPoints.textContent = total;
+                percentage.textContent = percent + '%';
+                
+                // Calculate Swiss grade (6 = best, 1 = worst)
+                let gradeValue;
+                if (percent >= 95) gradeValue = 6.0;
+                else if (percent >= 90) gradeValue = 5.5;
+                else if (percent >= 85) gradeValue = 5.0;
+                else if (percent >= 80) gradeValue = 4.5;
+                else if (percent >= 75) gradeValue = 4.0;
+                else if (percent >= 70) gradeValue = 3.5;
+                else if (percent >= 65) gradeValue = 3.0;
+                else if (percent >= 60) gradeValue = 2.5;
+                else gradeValue = 2.0;
+                
+                grade.textContent = `Note: ${gradeValue}`;
+                
+                // Assessment
+                let assessmentText;
+                if (percent >= 90) {
+                    assessmentText = "Ausgezeichnet! 🏆";
+                } else if (percent >= 80) {
+                    assessmentText = "Sehr gut! 🌟";
+                } else if (percent >= 75) {
+                    assessmentText = "Bestanden! Gute Leistung ✅";
+                } else if (percent >= 60) {
+                    assessmentText = "Knapp bestanden ⚠️";
+                } else {
+                    assessmentText = "Nicht bestanden ❌";
+                }
+                
+                assessment.textContent = assessmentText;
+                
+                // Color coding
+                if (percent >= 75) {
+                    assessment.style.background = 'rgba(46, 204, 113, 0.3)';
+                } else if (percent >= 60) {
+                    assessment.style.background = 'rgba(243, 156, 18, 0.3)';
+                } else {
+                    assessment.style.background = 'rgba(231, 76, 60, 0.3)';
+                }
+            }
+
+            postkorbSlider.addEventListener('input', calculate);
+            wissenSlider.addEventListener('input', calculate);
+            caseSlider.addEventListener('input', calculate);
+            
+            calculate(); // Initial calculation
+        }
+
+        // Initialize calculator when page loads
+        window.addEventListener('load', updateCalculator);
+    </script>
+</body>
+</html>

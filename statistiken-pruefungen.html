@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avavant Prüfungsanalyse - Statistiken</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(116, 185, 255, 0.3);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(116, 185, 255, 0.4);
+        }
+
+        .nav-button:nth-child(1) { background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%); }
+        .nav-button:nth-child(2) { background: linear-gradient(135deg, #00b894 0%, #00a085 100%); }
+        .nav-button:nth-child(3) { background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%); }
+        .nav-button:nth-child(4) { background: linear-gradient(135deg, #6c5ce7 0%, #5f3dc4 100%); }
+        .nav-button:nth-child(5) { background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%); }
+        .nav-button:nth-child(6) { background: linear-gradient(135deg, #ff7675 0%, #d63031 100%); }
+        .nav-button:nth-child(7) { background: linear-gradient(135deg, #55a3ff 0%, #003d82 100%); }
+        .nav-button:nth-child(8) { background: linear-gradient(135deg, #00cec9 0%, #00b894 100%); }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Prüfungsanalyse - Statistiken</h1>
+            <p>Navigation zu den 8 Prüfungsfeldern</p>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2>📚 Prüfungsfelder</h2>
+                <div class="button-grid">
+                    <a href="supply-chain-management.html" class="nav-button">
+                        <strong>1 - Supply Chain Management</strong><br>
+                        Logistik, Beschaffung, Produktion
+                    </a>
+                    <a href="marketing-verkauf.html" class="nav-button">
+                        <strong>2 - Marketing und Verkauf</strong><br>
+                        Marktanalyse, Vertrieb, Kommunikation
+                    </a>
+                    <a href="personalmanagement.html" class="nav-button">
+                        <strong>3 - Personalmanagement</strong><br>
+                        HR, Führung, Organisationsentwicklung
+                    </a>
+                    <a href="finanzwirtschaft.html" class="nav-button">
+                        <strong>4 - Finanzwirtschaft</strong><br>
+                        Controlling, Investition, Finanzierung
+                    </a>
+                    <a href="unternehmensfuehrung.html" class="nav-button">
+                        <strong>5 - Unternehmensführung</strong><br>
+                        Strategie, Governance, Management
+                    </a>
+                    <a href="recht-volkswirtschaft.html" class="nav-button">
+                        <strong>6 - Recht und Volkswirtschaft</strong><br>
+                        Wirtschaftsrecht, VWL, Compliance
+                    </a>
+                    <a href="integrierte-fallstudie.html" class="nav-button">
+                        <strong>7 - Integrierte Fallstudie</strong><br>
+                        Komplexe Fallbeispiele, Synthese
+                    </a>
+                    <a href="problemloesungs-entscheidungsmethodik.html" class="nav-button">
+                        <strong>8 - Problemlösungs- und Entscheidungsmethodik</strong><br>
+                        Methoden, Tools, Analyseverfahren
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Avavant Prüfungsanalyse - Diplomprüfung 2025
+        </div>
+    </div>
+</body>
+</html>

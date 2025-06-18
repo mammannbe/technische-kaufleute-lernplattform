@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVAVANT Prüfungsanalyse 2019-2024</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #2196F3, #21CBF3);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .section {
+            background: white;
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h2 {
+            color: #2196F3;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #2196F3;
+            padding-bottom: 10px;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2196F3;
+            text-align: center;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        th {
+            background: linear-gradient(135deg, #2196F3, #21CBF3);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #FFA726, #FF7043);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 2px;
+            display: inline-block;
+        }
+        
+        .fachbegriff {
+            background: linear-gradient(135deg, #66BB6A, #4CAF50);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+            margin: 1px;
+            display: inline-block;
+        }
+        
+        .prognose-box {
+            background: linear-gradient(135deg, #FF6B6B, #EE5A24);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+        
+        .prognose-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .wahrscheinlichkeit {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        
+        .wahrscheinlichkeit-bar {
+            width: 200px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+        
+        .wahrscheinlichkeit-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .canvas-container {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+        
+        .tips-box {
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .tips-box h3 {
+            margin-bottom: 15px;
+        }
+        
+        .tips-box ul {
+            list-style: none;
+        }
+        
+        .tips-box li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .tips-box li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .stat-number {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 AVAVANT Prüfungsanalyse 2019-2024</h1>
+            <p>Systematische Analyse für optimale Prüfungsvorbereitung August 2025</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Analysierte Prüfungen</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">504</div>
+                <div class="stat-label">Total Punkte</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">32</div>
+                <div class="stat-label">Hauptaufgaben</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Fachgebiete</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">150+</div>
+                <div class="stat-label">Identifizierte Fachbegriffe</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📊 Fachgebiete-Verteilung</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Punkte nach Fachgebieten (2019-2024)</div>
+                    <div class="canvas-container">
+                        <canvas id="fachgebieteChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Aufgabentypen-Verteilung</div>
+                    <div class="canvas-container">
+                        <canvas id="aufgabentypenChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📈 Zeitliche Entwicklung</h2>
+            <div class="chart-container">
+                <div class="chart-title">Fachgebiete-Trends über die Jahre</div>
+                <div class="canvas-container">
+                    <canvas id="trendsChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🎯 Top-Fachbegriffe nach Häufigkeit</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Fachbegriff</th>
+                            <th>Fachgebiet</th>
+                            <th>Häufigkeit</th>
+                            <th>Letzte Prüfung</th>
+                            <th>Priorität 2025</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><span class="fachbegriff">Kalkulation</span></td>
+                            <td>Rechnungswesen & Controlling</td>
+                            <td>6x</td>
+                            <td>2024</td>
+                            <td><span class="highlight">SEHR HOCH</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><span class="fachbegriff">SWOT-Analyse</span></td>
+                            <td>Strategisches Management</td>
+                            <td>5x</td>
+                            <td>2024</td>
+                            <td><span class="highlight">SEHR HOCH</span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><span class="fachbegriff">Personalrekrutierung</span></td>
+                            <td>Personalwesen & Organisation</td>
+                            <td>5x</td>
+                            <td>2024</td>
+                            <td><span class="highlight">SEHR HOCH</span></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><span class="fachbegriff">Break-Even-Analyse</span></td>
+                            <td>Rechnungswesen & Controlling</td>
+                            <td>4x</td>
+                            <td>2024</td>
+                            <td><span class="highlight">HOCH</span></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><span class="fachbegriff">AIDA</span></td>
+                            <td>Marketing & Vertrieb</td>
+                            <td>4x</td>
+                            <td>2024</td>
+                            <td><span class="highlight">HOCH</span></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td><span class="fachbegriff">Investitionsrechnung</span></td>
+                            <td>Finanzierung & Investition</td>
+                            <td>4x</td>
+                            <td>2022</td>
+                            <td><span class="highlight">HOCH</span></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td><span class="fachbegriff">Lagerkennzahlen</span></td>
+                            <td>Rechnungswesen & Controlling</td>
+                            <td>3x</td>
+                            <td>2023</td>
+                            <td><span class="highlight">MITTEL</span></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td><span class="fachbegriff">Supply Chain</span></td>
+                            <td>Produktion & Logistik</td>
+                            <td>3x</td>
+                            <td>2022</td>
+                            <td><span class="highlight">MITTEL</span></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td><span class="fachbegriff">Positionierung</span></td>
+                            <td>Marketing & Vertrieb</td>
+                            <td>3x</td>
+                            <td>2022</td>
+                            <td><span class="highlight">MITTEL</span></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td><span class="fachbegriff">Projektmanagement</span></td>
+                            <td>Personalwesen & Organisation</td>
+                            <td>2x</td>
+                            <td>2021</td>
+                            <td><span class="highlight">MITTEL</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🔮 Prognose für August 2025</h2>
+            <div class="prognose-box">
+                <h3>🎯 Sehr wahrscheinliche Themen (>70%)</h3>
+                
+                <div class="wahrscheinlichkeit">
+                    <strong>Kalkulation & Kostenrechnung</strong>
+                    <div class="wahrscheinlichkeit-bar">
+                        <div class="wahrscheinlichkeit-fill" style="width: 85%"></div>
+                    </div>
+                    <span>85%</span>
+                </div>
+                
+                <div class="wahrscheinlichkeit">
+                    <strong>SWOT-Analyse</strong>
+                    <div class="wahrscheinlichkeit-bar">
+                        <div class="wahrscheinlichkeit-fill" style="width: 80%"></div>
+                    </div>
+                    <span>80%</span>
+                </div>
+                
+                <div class="wahrscheinlichkeit">
+                    <strong>Personalmanagement</strong>
+                    <div class="wahrscheinlichkeit-bar">
+                        <div class="wahrscheinlichkeit-fill" style="width: 75%"></div>
+                    </div>
+                    <span>75%</span>
+                </div>
+                
+                <div class="wahrscheinlichkeit">
+                    <strong>Marketing (AIDA, Zielgruppen)</strong>
+                    <div class="wahrscheinlichkeit-bar">
+                        <div class="wahrscheinlichkeit-fill" style="width: 75%"></div>
+                    </div>
+                    <span>75%</span>
+                </div>
+                
+                <div class="wahrscheinlichkeit">
+                    <strong>Break-Even & Deckungsbeitrag</strong>
+                    <div class="wahrscheinlichkeit-bar">
+                        <div class="wahrscheinlichkeit-fill" style="width: 70%"></div>
+                    </div>
+                    <span>70%</span>
+                </div>
+            </div>
+            
+            <div class="prognose-box" style="background: linear-gradient(135deg, #FFA726, #FF7043);">
+                <h3>⚡ Wahrscheinliche Themen (50-70%)</h3>
+                
+                <div class="wahrscheinlichkeit">
+                    <strong>Investitionsrechnung</strong>
+                    <div class="wahrscheinlichkeit-bar">
+                        <div class="wahrscheinlichkeit-fill" style="width: 65%"></div>
+                    </div>
+                    <span>65%</span>
+                </div>
+                
+                <div class="wahrscheinlichkeit">
+                    <strong>Lagermanagement</strong>
+                    <div class="wahrscheinlichkeit-bar">
+                        <div class="wahrscheinlichkeit-fill" style="width: 60%"></div>
+                    </div>
+                    <span>60%</span>
+                </div>
+                
+                <div class="wahrscheinlichkeit">
+                    <strong>Supply Chain Management</strong>
+                    <div class="wahrscheinlichkeit-bar">
+                        <div class="wahrscheinlichkeit-fill" style="width: 55%"></div>
+                    </div>
+                    <span>55%</span>
+                </div>
+                
+                <div class="wahrscheinlichkeit">
+                    <strong>Bilanzanalyse</strong>
+                    <div class="wahrscheinlichkeit-bar">
+                        <div class="wahrscheinlichkeit-fill" style="width: 50%"></div>
+                    </div>
+                    <span>50%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📚 Detaillierte Fachgebiete-Analyse</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fachgebiet</th>
+                            <th>Anteil 2019-2024</th>
+                            <th>Trend</th>
+                            <th>Top-Begriffe</th>
+                            <th>Empfohlene Lernzeit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Rechnungswesen & Controlling</strong></td>
+                            <td>32% (162 Punkte)</td>
+                            <td>📈 Steigend</td>
+                            <td><span class="fachbegriff">Kalkulation</span> <span class="fachbegriff">Break-Even</span> <span class="fachbegriff">Deckungsbeitrag</span></td>
+                            <td><span class="highlight">40%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Marketing & Vertrieb</strong></td>
+                            <td>22% (111 Punkte)</td>
+                            <td>📈 Steigend</td>
+                            <td><span class="fachbegriff">AIDA</span> <span class="fachbegriff">Positionierung</span> <span class="fachbegriff">Zielgruppen</span></td>
+                            <td><span class="highlight">25%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Personalwesen & Organisation</strong></td>
+                            <td>18% (91 Punkte)</td>
+                            <td>📊 Stabil</td>
+                            <td><span class="fachbegriff">Rekrutierung</span> <span class="fachbegriff">Projektmanagement</span> <span class="fachbegriff">Schulung</span></td>
+                            <td><span class="highlight">20%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Strategisches Management</strong></td>
+                            <td>12% (60 Punkte)</td>
+                            <td>📈 Steigend</td>
+                            <td><span class="fachbegriff">SWOT</span> <span class="fachbegriff">Porter</span> <span class="fachbegriff">Risikomanagement</span></td>
+                            <td><span class="highlight">15%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Finanzierung & Investition</strong></td>
+                            <td>8% (40 Punkte)</td>
+                            <td>📊 Stabil</td>
+                            <td><span class="fachbegriff">NPV</span> <span class="fachbegriff">Amortisation</span> <span class="fachbegriff">Liquidität</span></td>
+                            <td><span class="highlight">10%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Produktion & Logistik</strong></td>
+                            <td>6% (30 Punkte)</td>
+                            <td>📉 Abnehmend</td>
+                            <td><span class="fachbegriff">Supply Chain</span> <span class="fachbegriff">Lager</span> <span class="fachbegriff">Materialfluss</span></td>
+                            <td><span class="highlight">8%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wirtschaftsrecht</strong></td>
+                            <td>2% (10 Punkte)</td>
+                            <td>📊 Stabil</td>
+                            <td><span class="fachbegriff">Compliance</span> <span class="fachbegriff">Datenschutz</span></td>
+                            <td><span class="highlight">2%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>💡 Lernempfehlungen für 2025</h2>
+            <div class="tips-box">
+                <h3>🎯 Prioritäten-Matrix</h3>
+                <ul>
+                    <li><strong>Erste Priorität (40% Lernzeit):</strong> Rechnungswesen & Controlling - Fokus auf Kalkulation, Break-Even, Deckungsbeitrag</li>
+                    <li><strong>Zweite Priorität (25% Lernzeit):</strong> Marketing & Vertrieb - AIDA-Modell, Positionierung, Zielgruppenanalyse perfektionieren</li>
+                    <li><strong>Dritte Priorität (20% Lernzeit):</strong> Personalwesen - Rekrutierung, Schulungskonzepte, Projektmanagement</li>
+                    <li><strong>Vierte Priorität (15% Lernzeit):</strong> Strategisches Management - SWOT-Analyse, Porter-Strategien, Risikomanagement</li>
+                </ul>
+            </div>
+            
+            <div class="tips-box" style="background: linear-gradient(135deg, #9C27B0, #673AB7);">
+                <h3>⚡ Kritische Erfolgsfaktoren</h3>
+                <ul>
+                    <li><strong>Rechenaufgaben:</strong> Machen 40% aller Punkte aus - übe täglich 30 Minuten Kalkulationen</li>
+                    <li><strong>Anwendungsaufgaben:</strong> 47% aller Punkte - fokussiere auf praktische Umsetzung</li>
+                    <li><strong>Fallstudien-Typ:</strong> Meist KMU mit 50-250 Mitarbeitenden aus verschiedenen Branchen</li>
+                    <li><strong>Interdisziplinäre Aufgaben:</strong> Zunehmend wichtiger - verknüpfe Fachgebiete</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📊 Aufgabentypen im Detail</h2>
+            <div class="chart-container">
+                <div class="chart-title">Verteilung Aufgabentypen über alle Jahre</div>
+                <div class="canvas-container">
+                    <canvas id="aufgabenDetailChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🏆 Fallstudien-Themen Analyse</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Jahr</th>
+                            <th>Firma</th>
+                            <th>Branche</th>
+                            <th>Hauptthemen</th>
+                            <th>Besonderheiten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024</td>
+                            <td>SAFE AG</td>
+                            <td>Arbeitsschutzkleidung</td>
+                            <td>Logistik, Personal, Marketing</td>
+                            <td>Forschungsprojekt, Make-or-Buy</td>
+                        </tr>
+                        <tr>
+                            <td>2023</td>
+                            <td>Beutler AG</td>
+                            <td>Reinigungsdienstleistungen</td>
+                            <td>Produktumstellung, Lager, Personal</td>
+                            <td>Schaum-Methode, Change Management</td>
+                        </tr>
+                        <tr>
+                            <td>2022</td>
+                            <td>Speed AG</td>
+                            <td>E-Mountainbikes</td>
+                            <td>Start-up, Kalkulation, Supply Chain</td>
+                            <td>Patentierte Technologie, Liquidität</td>
+                        </tr>
+                        <tr>
+                            <td>2021</td>
+                            <td>Effizient Fit und G'sund</td>
+                            <td>Fitnesscenter</td>
+                            <td>Projektmanagement, Beschaffung</td>
+                            <td>EMS-Training, Social Media</td>
+                        </tr>
+                        <tr>
+                            <td>2020</td>
+                            <td>Swissshrimp AG</td>
+                            <td>Aquakultur</td>
+                            <td>Marketing, Personal, Risiko</td>
+                            <td>Bio-Zertifizierung, Nebenerträge</td>
+                        </tr>
+                        <tr>
+                            <td>2019</td>
+                            <td>Robotik AG</td>
+                            <td>Robotertechnik</td>
+                            <td>SWOT, Messe, Personal</td>
+                            <td>Mobile Roboter, Industrie 4.0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🎯 Muster und Trends</h2>
+            <div class="chart-container">
+                <div class="chart-title">Punkteverteilung nach Jahren</div>
+                <div class="canvas-container">
+                    <canvas id="jahresvergleichChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>⏰ Optimaler Lernplan</h2>
+            <div class="tips-box" style="background: linear-gradient(135deg, #FF5722, #F44336);">
+                <h3>📅 8-Wochen Intensivplan bis August 2025</h3>
+                <ul>
+                    <li><strong>Woche 1-2:</strong> Rechnungswesen Grundlagen - Kalkulation, Break-Even, Deckungsbeitrag</li>
+                    <li><strong>Woche 3-4:</strong> Marketing Intensiv - AIDA, Positionierung, Zielgruppenanalyse</li>
+                    <li><strong>Woche 5:</strong> Personalwesen - Rekrutierung, Schulungskonzepte</li>
+                    <li><strong>Woche 6:</strong> Strategisches Management - SWOT, Porter-Strategien</li>
+                    <li><strong>Woche 7:</strong> Integration und Fallstudien-Training</li>
+                    <li><strong>Woche 8:</strong> Repetition Top-Themen und Prüfungssimulation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Warte bis Chart.js geladen ist
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chart.js Konfiguration mit Fehlerbehandlung
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js nicht geladen');
+                return;
+            }
+            
+            // Setze Chart.js Defaults falls verfügbar
+            if (Chart.defaults) {
+                Chart.defaults.font = Chart.defaults.font || {};
+                Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+                Chart.defaults.font.size = 12;
+            }
+            
+            try {
+                // Fachgebiete Doughnut Chart
+                const fachgebieteCtx = document.getElementById('fachgebieteChart')?.getContext('2d');
+                if (fachgebieteCtx) {
+                    new Chart(fachgebieteCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: [
+                                'Rechnungswesen & Controlling',
+                                'Marketing & Vertrieb',
+                                'Personalwesen & Organisation',
+                                'Strategisches Management',
+                                'Finanzierung & Investition',
+                                'Produktion & Logistik',
+                                'Wirtschaftsrecht'
+                            ],
+                            datasets: [{
+                                data: [32, 22, 18, 12, 8, 6, 2],
+                                backgroundColor: [
+                                    '#FF6384',
+                                    '#36A2EB',
+                                    '#FFCE56',
+                                    '#4BC0C0',
+                                    '#9966FF',
+                                    '#FF9F40',
+                                    '#C9CBCF'
+                                ],
+                                borderWidth: 3,
+                                borderColor: '#fff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        padding: 15,
+                                        usePointStyle: true
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                // Aufgabentypen Bar Chart
+                const aufgabentypenCtx = document.getElementById('aufgabentypenChart')?.getContext('2d');
+                if (aufgabentypenCtx) {
+                    new Chart(aufgabentypenCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Rechenaufgaben', 'Anwendungsaufgaben', 'Analysaufgaben', 'Theoretische Erklärungen', 'Grafische Darstellungen'],
+                            datasets: [{
+                                label: 'Anteil in %',
+                                data: [40, 47, 10, 3, 5],
+                                backgroundColor: [
+                                    '#FF6384',
+                                    '#36A2EB',
+                                    '#FFCE56',
+                                    '#4BC0C0',
+                                    '#9966FF'
+                                ],
+                                borderWidth: 2,
+                                borderColor: '#fff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 50,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                // Trends Line Chart
+                const trendsCtx = document.getElementById('trendsChart')?.getContext('2d');
+                if (trendsCtx) {
+                    new Chart(trendsCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                            datasets: [
+                                {
+                                    label: 'Rechnungswesen & Controlling',
+                                    data: [28, 30, 35, 32, 57, 33],
+                                    borderColor: '#FF6384',
+                                    backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                                    tension: 0.4,
+                                    fill: false
+                                },
+                                {
+                                    label: 'Marketing & Vertrieb',
+                                    data: [36, 25, 20, 25, 7, 13],
+                                    borderColor: '#36A2EB',
+                                    backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                                    tension: 0.4,
+                                    fill: false
+                                },
+                                {
+                                    label: 'Personalwesen & Organisation',
+                                    data: [21, 20, 24, 10, 27, 17],
+                                    borderColor: '#FFCE56',
+                                    backgroundColor: 'rgba(255, 206, 86, 0.1)',
+                                    tension: 0.4,
+                                    fill: false
+                                },
+                                {
+                                    label: 'Strategisches Management',
+                                    data: [7, 13, 10, 10, 10, 27],
+                                    borderColor: '#4BC0C0',
+                                    backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                                    tension: 0.4,
+                                    fill: false
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 60,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                // Jahresvergleich Chart
+                const jahresvergleichCtx = document.getElementById('jahresvergleichChart')?.getContext('2d');
+                if (jahresvergleichCtx) {
+                    new Chart(jahresvergleichCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                            datasets: [{
+                                label: 'Total Punkte',
+                                data: [42, 90, 90, 90, 90, 90],
+                                backgroundColor: '#36A2EB',
+                                borderWidth: 2,
+                                borderColor: '#fff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                // Aufgaben Detail Chart
+                const aufgabenDetailCtx = document.getElementById('aufgabenDetailChart')?.getContext('2d');
+                if (aufgabenDetailCtx) {
+                    new Chart(aufgabenDetailCtx, {
+                        type: 'polarArea',
+                        data: {
+                            labels: ['Rechenaufgaben', 'Anwendungsaufgaben', 'Analysaufgaben', 'Theoretische Erklärungen', 'Grafische Darstellungen'],
+                            datasets: [{
+                                data: [202, 237, 50, 15, 25],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.8)',
+                                    'rgba(54, 162, 235, 0.8)',
+                                    'rgba(255, 206, 86, 0.8)',
+                                    'rgba(75, 192, 192, 0.8)',
+                                    'rgba(153, 102, 255, 0.8)'
+                                ],
+                                borderWidth: 3,
+                                borderColor: '#fff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    });
+                }
+                
+            } catch (error) {
+                console.error('Fehler beim Erstellen der Charts:', error);
+                // Fallback: Zeige Fehlermeldung in den Chart-Containern
+                document.querySelectorAll('.canvas-container').forEach(container => {
+                    if (!container.querySelector('canvas').chart) {
+                        container.innerHTML = '<div style="text-align: center; padding: 50px; color: #666;">📊 Chart wird geladen...</div>';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

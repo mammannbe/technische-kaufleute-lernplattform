@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avavant Finanzwirtschaft - Prüfungsanalyse 2019-2024</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .trend-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .trend-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .fachbegriffe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .fachbegriff-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #e74c3c;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .fachbegriff-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .fachbegriff-freq {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .prognose-section {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .prognose-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .prognose-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .prognose-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .wahrscheinlichkeit {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .sehr-wahrscheinlich { color: #e74c3c; }
+        .wahrscheinlich { color: #f39c12; }
+        .moeglich { color: #f1c40f; }
+        
+        canvas {
+            max-height: 400px !important;
+            height: 400px !important;
+        }
+        
+        .chart-container canvas {
+            max-height: 350px !important;
+            height: 350px !important;
+        }
+        
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 Avavant Finanzwirtschaft</h1>
+            <div class="subtitle">Systematische Prüfungsanalyse 2019-2024 | Prognose für 2025</div>
+        </div>
+        
+        <div class="content">
+            <!-- Grundstatistiken -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Analysierte Prüfungen</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">150</div>
+                    <div class="stat-label">Gesamte Aufgaben</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">67%</div>
+                    <div class="stat-label">Rechnungswesen & Controlling</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">34%</div>
+                    <div class="stat-label">Rechenaufgaben</div>
+                </div>
+            </div>
+            
+            <!-- Diagramme -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Fachgebiete-Verteilung (Durchschnitt)</div>
+                    <canvas id="fachgebieteChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Aufgabentyp-Verteilung</div>
+                    <canvas id="aufgabentypChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Schwierigkeitsgrad-Verteilung</div>
+                    <canvas id="schwierigkeitChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Zeitliche Entwicklung RWC vs. Rechenaufgaben</div>
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Wichtigste Fachbegriffe -->
+            <div class="trend-section">
+                <div class="trend-title">🎯 Kritische Fachbegriffe (erscheinen in allen Jahren)</div>
+                <div class="fachbegriffe-grid">
+                    <div class="fachbegriff-card">
+                        <div class="fachbegriff-name">Liquidität</div>
+                        <div class="fachbegriff-freq">6/6 Jahre (100%)</div>
+                    </div>
+                    <div class="fachbegriff-card">
+                        <div class="fachbegriff-name">Deckungsbeitrag</div>
+                        <div class="fachbegriff-freq">6/6 Jahre (100%)</div>
+                    </div>
+                    <div class="fachbegriff-card">
+                        <div class="fachbegriff-name">Eigenkapital</div>
+                        <div class="fachbegriff-freq">4/6 Jahre (67%)</div>
+                    </div>
+                    <div class="fachbegriff-card">
+                        <div class="fachbegriff-name">Payback</div>
+                        <div class="fachbegriff-freq">4/6 Jahre (67%)</div>
+                    </div>
+                    <div class="fachbegriff-card">
+                        <div class="fachbegriff-name">Investition</div>
+                        <div class="fachbegriff-freq">4/6 Jahre (67%)</div>
+                    </div>
+                    <div class="fachbegriff-card">
+                        <div class="fachbegriff-name">Break-even</div>
+                        <div class="fachbegriff-freq">3/6 Jahre (50%)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Prognose 2025 -->
+            <div class="prognose-section">
+                <div class="prognose-title">🔮 Prognose für Diplomprüfung 2025</div>
+                <div class="prognose-grid">
+                    <div class="prognose-card">
+                        <div class="wahrscheinlichkeit sehr-wahrscheinlich">Sehr wahrscheinlich (>80%)</div>
+                        <ul>
+                            <li><strong>Deckungsbeitragsrechnung</strong> - Kernthema jeder Prüfung</li>
+                            <li><strong>Liquiditätskennzahlen</strong> - Cash Ratio, Quick Ratio berechnen</li>
+                            <li><strong>Investitionsrechnung</strong> - Payback-Methode</li>
+                            <li><strong>Kalkulationsaufgaben</strong> - Zuschlagskalkulation</li>
+                            <li><strong>17 RWC-Aufgaben</strong> - konstante Dominanz</li>
+                        </ul>
+                    </div>
+                    <div class="prognose-card">
+                        <div class="wahrscheinlichkeit wahrscheinlich">Wahrscheinlich (60-80%)</div>
+                        <ul>
+                            <li><strong>Break-even-Analyse</strong> - Nutzschwelle berechnen</li>
+                            <li><strong>Bilanzanalyse</strong> - Eigenkapitalquote, Kennzahlen</li>
+                            <li><strong>Budgetierung</strong> - Planungsaufgaben</li>
+                            <li><strong>Mittelflussrechnung</strong> - Cashflow-Berechnungen</li>
+                            <li><strong>Ethik-Fragen</strong> - Lieferantenverhalten</li>
+                        </ul>
+                    </div>
+                    <div class="prognose-card">
+                        <div class="wahrscheinlichkeit moeglich">Möglich (40-60%)</div>
+                        <ul>
+                            <li><strong>Kostenstellenrechnung</strong> - BAB-Aufgaben</li>
+                            <li><strong>Mahnwesen</strong> - Reihenfolge-Aufgaben</li>
+                            <li><strong>MWSt-Berechnungen</strong> - Formale Rechnungen</li>
+                            <li><strong>Make-or-Buy</strong> - Strategische Entscheidungen</li>
+                            <li><strong>Finanzierungsformen</strong> - Vergleiche</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Fachgebiete Donut Chart
+        const ctx1 = document.getElementById('fachgebieteChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: ['Rechnungswesen & Controlling', 'Finanzierung & Investition', 'Produktion & Logistik', 'Wirtschaftsrecht', 'Strategisches Management'],
+                datasets: [{
+                    data: [16.8, 4.3, 1.8, 1.0, 1.0],
+                    backgroundColor: ['#3498db', '#e74c3c', '#f39c12', '#2ecc71', '#9b59b6'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Aufgabentyp Bar Chart
+        const ctx2 = document.getElementById('aufgabentypChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Rechenaufgabe', 'Single-Choice', 'Multiple-Choice', 'Theorie', 'Anwendung', 'Analyse'],
+                datasets: [{
+                    data: [8.5, 8.2, 3.5, 1.8, 1.3, 1.0],
+                    backgroundColor: ['#e74c3c', '#3498db', '#f39c12', '#2ecc71', '#9b59b6', '#1abc9c'],
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 10,
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Schwierigkeitsgrad Pie Chart
+        const ctx3 = document.getElementById('schwierigkeitChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: ['Mittel (55%)', 'Leicht (29%)', 'Schwer (16%)'],
+                datasets: [{
+                    data: [13.8, 7.2, 4.0],
+                    backgroundColor: ['#f39c12', '#2ecc71', '#e74c3c'],
+                    borderWidth: 3,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Trend Line Chart
+        const ctx4 = document.getElementById('trendChart').getContext('2d');
+        new Chart(ctx4, {
+            type: 'line',
+            data: {
+                labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'RWC Aufgaben',
+                    data: [16, 17, 16, 18, 17, 17],
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Rechenaufgaben',
+                    data: [8, 8, 9, 8, 10, 8],
+                    borderColor: '#e74c3c',
+                    backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 20,
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                elements: {
+                    point: {
+                        radius: 6,
+                        hoverRadius: 8
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
